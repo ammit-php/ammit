@@ -1,4 +1,4 @@
-<img src ="https://raw.githubusercontent.com/gmorel/ammit/master/weighing_of_the_heart.jpg" alt="Ammit" align="right"/>
+<img src ="https://raw.githubusercontent.com/imediafrance/ammit/master/weighing_of_the_heart.jpg" alt="Ammit" align="right"/>
 Ammit
 =====
 
