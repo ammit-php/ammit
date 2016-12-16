@@ -8,6 +8,9 @@
             "Imedia\\": "src/"
         }
     },
+    "config": {
+        "bin-dir": "bin"
+    },
     "require": {
         "php": ">=7.0",
         "beberlei/assert": "^2.4"
