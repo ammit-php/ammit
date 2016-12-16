@@ -1,0 +1,18 @@
+{
+    "name": "imediafrance/ammit",
+    "license": "MIT",
+    "type": "project",
+    "description": "[DDD] Stable framework agnostic Command resolver ",
+    "autoload": {
+        "psr-4": {
+            "Imedia\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "beberlei/assert": "^2.4"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^3.1"
+    }
+}
