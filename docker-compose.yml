@@ -1,0 +1,3 @@
+engine:
+    container_name: engine.dev.ammit
+    image: php:7

@@ -28,4 +28,11 @@ We wanted to anticipate [Immutable class](https://wiki.php.net/rfc/immutability)
 
 
 ##### How to use it 
+
 Use it with Symfony: http://symfony.com/doc/current/request/psr7.html
+
+
+#### Want to contribute ?
+
+Init docker container: `docker-compose up -d`
+Use container: `docker-compose run --rm engine php -v`
