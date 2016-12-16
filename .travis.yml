@@ -43,6 +43,9 @@ script:
     # PHPSpec - Unit Test
     - bin/phpspec run --format=dot
 
+    # Check if there is a security issue with the required packages.
+    - bin/security-checker security:check composer.lock
+
 after_failure:
     - ls -lah
 
