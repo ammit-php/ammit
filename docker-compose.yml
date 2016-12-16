@@ -3,6 +3,7 @@ engine:
     image: php:7
     volumes:
         - ".:/var/www:rw"
+    working_dir: "/var/www"
 
 composer:
     container_name: composer.dev.ammit
