@@ -1,0 +1,44 @@
+# CONTAINER-BASED (Boot Time 1-6s) - Ubuntu 12.04 LTS Server Edition 64 bit
+sudo: false
+
+language: php
+
+
+matrix:
+    include:
+        - php: 7.0
+    fast_finish: true
+
+
+## Cache composer bits
+cache:
+    directories:
+        - vendor
+        - bin
+        - $HOME/.composer/cache
+
+
+before_install:
+
+install:
+    # Disable XDebug
+    - phpenv config-rm xdebug.ini
+    - php --version
+
+    # APCu
+    - INI_FILE=~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+    - echo yes | pecl install -f apcu-5.1.5 && echo apc.enable_cli = 1 >> $INI_FILE
+
+
+before_script:
+    # Composer
+    - travis_retry composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
+
+
+script:
+    # PHPSpec - Integration Test
+    - bin/phpspec run --format=dot
+
+after_failure:
+    - ls -lah
+
