@@ -36,7 +36,11 @@ before_script:
 
 
 script:
-    # PHPSpec - Integration Test
+    # PHPCS
+    - wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+    - php phpcs.phar -p --extensions=php --standard=PSR2 --error-severity=1 --warning-severity=0 --exclude=Generic.Files.LineLength ./src
+
+    # PHPSpec - Unit Test
     - bin/phpspec run --format=dot
 
 after_failure:
