@@ -35,4 +35,5 @@ Use it with Symfony: http://symfony.com/doc/current/request/psr7.html
 #### Want to contribute ?
 
 Init docker container: `docker-compose up -d`
+Composer install: `docker-compose run --rm composer install`
 Use container: `docker-compose run --rm engine php -v`
