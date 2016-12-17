@@ -5,7 +5,7 @@
     "description": "[DDD] Stable framework agnostic Command resolver ",
     "autoload": {
         "psr-4": {
-            "Imedia\\": "src/"
+            "Imedia\\Ammit\\": "src/"
         }
     },
     "config": {
@@ -18,6 +18,8 @@
     },
     "require-dev": {
         "phpspec/phpspec": "^3.1",
-        "sensiolabs/security-checker": "^4.0"
+        "sensiolabs/security-checker": "^4.0",
+        "atoum/atoum": "~2.8",
+        "atoum/stubs": "~2.5"
     }
 }
