@@ -41,4 +41,4 @@ Use it with Symfony: http://symfony.com/doc/current/request/psr7.html
 
 Init docker container: `docker-compose up -d`
 Composer install: `docker-compose run --rm composer install`
-Use container: `docker-compose run --rm engine php -v`
+Use container: `docker/bin/php -v` (first do `chmod +x docker/bin/php`)
