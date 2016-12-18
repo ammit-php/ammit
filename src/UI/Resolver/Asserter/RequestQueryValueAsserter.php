@@ -27,11 +27,11 @@ class RequestQueryValueAsserter
      *
      * @return mixed Untouched value
      */
-    public function valueMustNotBeEmpty($value, string $propertyPath = self::PROPERTY_PATH_QUERY_STRING, string $exceptionMessage = null)
+    public function valueMustBeString($value, string $propertyPath = self::PROPERTY_PATH_QUERY_STRING, string $exceptionMessage = null)
     {
         $this->validationEngine->validateFieldValue(
             function () use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::notEmpty(
+                Assertion::string(
                     $value,
                     $exceptionMessage,
                     $propertyPath
