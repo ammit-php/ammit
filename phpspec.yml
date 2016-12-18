@@ -1,4 +1,0 @@
-suites:
-    main_suite:
-        namespace: Imedia
-        psr4_prefix: Imedia
