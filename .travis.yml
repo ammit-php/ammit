@@ -40,8 +40,8 @@ script:
     - wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
     - php phpcs.phar -p --extensions=php --standard=PSR2 --error-severity=1 --warning-severity=0 --exclude=Generic.Files.LineLength ./src
 
-    # PHPSpec - Unit Test
-    - bin/phpspec run --format=dot
+    # Atoum - Unit Test
+    - bin/atoum -ulr
 
     # Check if there is a security issue with the required packages.
     - bin/security-checker security:check composer.lock
