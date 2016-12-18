@@ -14,6 +14,8 @@ A [Command](http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/)
 - Provide a helper to easily **extract** scalar data from a PSR-7 HTTP Request (or a CLI input) in order to instantiate an immutable Command.
 - Simple **UI Validation** framework based on the stable & [dependency free](https://en.wikipedia.org/wiki/Dependency_hell) [beberlei/assert](https://github.com/beberlei/assert) assertion library.
 
+![Simple Spec](/docs/specification-simple.png)
+
 #### What the lib does not
 
 - Symfony [Form Component](https://symfony.com/doc/current/components/form.html) replacement
@@ -26,6 +28,9 @@ We were using Symfony [Form Component](https://symfony.com/doc/current/component
 But it was way too complex and [hacky](https://github.com/webdevilopers/php-ddd/issues/5).
 We wanted to anticipate [Immutable class](https://wiki.php.net/rfc/immutability).
 
+##### How it works
+
+![Complete Spec](/docs/specification-complete.png)
 
 ##### How to use it 
 
