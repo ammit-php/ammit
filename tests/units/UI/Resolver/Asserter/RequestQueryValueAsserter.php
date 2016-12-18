@@ -15,27 +15,39 @@ use Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter as SUT;
  */
 class RequestQueryValueAsserter extends atoum
 {
-    public function test_it_gets_value_even_if_null()
+    /**
+     * @dataProvider notStringDataProvider
+     */
+    public function test_it_gets_value_even_if_not_string_value_detected($value)
     {
         // Given
-        $expected = null;
         $propertyPath = 'firstName';
         $errorMessage = 'Custom Exception message';
 
-        $this->testInvalidValue($errorMessage, $propertyPath, $expected);
+        $this->testInvalidValue($errorMessage, $propertyPath, $value, $value);
     }
 
-    public function test_it_gets_value_even_if_emtpy_value_detected()
+    public static function createAllScalars(): array
     {
-        // Given
-        $expected = '';
-        $propertyPath = 'firstName';
-        $errorMessage = 'Custom Exception message';
-
-        $this->testInvalidValue($errorMessage, $propertyPath, $expected);
+        return [
+            'null' => ['value' => null],
+            'string' => ['value' => 'azerty'],
+            'array' => ['value' => []],
+            'int' => ['value' => 1],
+            'float' => ['value' => 1.9],
+            'bool' => ['value' => true],
+        ];
     }
 
-    private function testInvalidValue(string $errorMessage, string $propertyPath, $expectedValue)
+    protected function notStringDataProvider(): array
+    {
+        $values = $this->createAllScalars();
+        unset($values['string']);
+
+        return $values;
+    }
+
+    private function testInvalidValue(string $errorMessage, string $propertyPath, $value, $expectedValue)
     {
         $expectedNormalizedException = new UIValidationCollectionException(
             [
@@ -48,8 +60,8 @@ class RequestQueryValueAsserter extends atoum
         $sut = new SUT($uiValidationEngine);
 
         // When
-        $actual = $sut->valueMustNotBeEmpty(
-            $expectedValue,
+        $actual = $sut->valueMustBeString(
+            $value,
             $propertyPath,
             $errorMessage
         );

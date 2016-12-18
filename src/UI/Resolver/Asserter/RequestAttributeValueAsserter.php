@@ -29,7 +29,7 @@ class RequestAttributeValueAsserter
      * @param string $attributeKey
      *
      * @return mixed
-     * @throws CommandMappingException
+     * @throws CommandMappingException If any mapping validation failed
      */
     public function extractValueFromRequestAttribute(ServerRequestInterface $request, string $attributeKey)
     {
@@ -53,18 +53,17 @@ class RequestAttributeValueAsserter
     /**
      * Exceptions are caught in order to be processed later
      *
-     * @return mixed
-     * @throws CommandMappingException
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
      */
-    public function attributeMustNotBeEmpty(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function attributeMustBeString(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
-        $this->requestQueryValueAsserter->valueMustNotBeEmpty(
+
+        return $this->requestQueryValueAsserter->valueMustBeString(
             $value,
             $attributeKey,
             $exceptionMessage
         );
-
-        return $value;
     }
 }

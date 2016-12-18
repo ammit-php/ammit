@@ -73,20 +73,6 @@ class RequestAttributeValueAsserter extends atoum
         throw new \mageekguy\atoum\asserter\exception($this->variable(), 'CommandMappingException not thrown.');
     }
 
-    public function test_it_gets_value_from_psr7_request_even_if_null()
-    {
-        // Given
-        $expected = null;
-        $this->testInvalidValue($expected);
-    }
-
-    public function test_it_gets_value_from_psr7_request_even_if_empty()
-    {
-        // Given
-        $expected = '';
-        $this->testInvalidValue($expected);
-    }
-
     public function test_invalid_attribute()
     {
         // Given
@@ -120,37 +106,38 @@ class RequestAttributeValueAsserter extends atoum
         throw new \mageekguy\atoum\asserter\exception($this->variable(), 'CommandMappingException not thrown.');
     }
 
-    private function mockRequestQueryValueAsserter($value = null): \Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter
+    /**
+     * @dataProvider notStringDataProvider
+     */
+    public function test_it_gets_value_from_psr7_request_even_if_not_string($value)
     {
-        $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter();
-        $this->calling($mock)->valueMustNotBeEmpty = $value;
-
-        return $mock;
+        // Given
+        $this->testInvalidValue($value, $value);
     }
 
-    private function mockServerRequest(array $requestAttributes): ServerRequestInterface
+    protected function notStringDataProvider(): array
     {
-        $mock = new \mock\Psr\Http\Message\ServerRequestInterface();
-        $this->calling($mock)->getParsedBody = $requestAttributes;
+        $values = RequestQueryValueAsserter::createAllScalars();
+        unset($values['string']);
 
-        return $mock;
+        return $values;
     }
 
     /**
-     * @param $expected
+     * @param mixed $value
+     * @param mixed $expected
      */
-    private function testInvalidValue($expected)
+    private function testInvalidValue($value, $expected)
     {
         $requestQueryValueAsserterMock = $this->mockRequestQueryValueAsserter();
         $sut = new SUT(
             $requestQueryValueAsserterMock
         );
 
-        $requestMock = $this->mockServerRequest(['firstName' => $expected]);
+        $requestMock = $this->mockServerRequest(['firstName' => $value]);
 
         // When
-        $actual = $sut->attributeMustNotBeEmpty(
+        $actual = $sut->attributeMustBeString(
             $requestMock,
             'firstName',
             'Custom Exception message'
@@ -163,6 +150,23 @@ class RequestAttributeValueAsserter extends atoum
             ->mock($requestMock)
                 ->call('getParsedBody')->once()
             ->mock($requestQueryValueAsserterMock)
-                ->call('valueMustNotBeEmpty')->once();
+                ->call('valueMustBeString')->once();
+    }
+
+    private function mockRequestQueryValueAsserter($value = null): \Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter
+    {
+        $this->mockGenerator->orphanize('__construct');
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter();
+        $this->calling($mock)->valueMustBeString = function ($value) { return $value; };
+
+        return $mock;
+    }
+
+    private function mockServerRequest(array $requestAttributes): ServerRequestInterface
+    {
+        $mock = new \mock\Psr\Http\Message\ServerRequestInterface();
+        $this->calling($mock)->getParsedBody = $requestAttributes;
+
+        return $mock;
     }
 }
