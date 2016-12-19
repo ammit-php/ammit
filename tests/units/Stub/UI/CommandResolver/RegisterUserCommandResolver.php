@@ -5,12 +5,12 @@ namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver;
 
 use Imedia\Ammit\UI\Resolver\AbstractCommandResolver;
 use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter;
+use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
 use Psr\Http\Message\ServerRequestInterface;
 use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
 
 /**
- * @author Jeremy FERRER <j.ferrer@imediafrance.fr>
+ * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 class RegisterUserCommandResolver extends AbstractCommandResolver
 {
@@ -27,7 +27,7 @@ class RegisterUserCommandResolver extends AbstractCommandResolver
     /**
      * @inheritDoc
      */
-    protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RequestQueryValueAsserter $queryValueAsserter, ServerRequestInterface $request): array
+    protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RawValueAsserter $rawValueAsserter, ServerRequestInterface $request): array
     {
         $firstName = $attributeValueAsserter->attributeMustBeString(
             $request,

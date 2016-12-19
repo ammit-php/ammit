@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Imedia\Ammit\UI\Resolver;
 
 use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter;
+use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Helper easing Resolver implementation
+ * Helper easing Command Resolver (mapping + UI Validation) implementation
  *
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
@@ -22,27 +22,27 @@ abstract class AbstractCommandResolver
     /** @var RequestAttributeValueAsserter */
     private $attributeValueAsserter;
 
-    /** @var RequestQueryValueAsserter */
-    private $queryValueAsserter;
+    /** @var RawValueAsserter */
+    private $rawValueAsserter;
 
-    public function __construct(UIValidationEngine $validationEngine = null, RequestAttributeValueAsserter $attributeValueAsserter = null, RequestQueryValueAsserter $queryValueAsserter = null)
+    public function __construct(UIValidationEngine $validationEngine = null, RequestAttributeValueAsserter $attributeValueAsserter = null, RawValueAsserter $rawValueAsserter = null)
     {
         if (null === $validationEngine) {
             $validationEngine = UIValidationEngine::initialize();
         }
 
-        if (null === $queryValueAsserter) {
-            $queryValueAsserter = new RequestQueryValueAsserter($validationEngine);
+        if (null === $rawValueAsserter) {
+            $rawValueAsserter = new RawValueAsserter($validationEngine);
         }
 
         if (null === $attributeValueAsserter) {
             $attributeValueAsserter = new RequestAttributeValueAsserter(
-                $queryValueAsserter
+                $rawValueAsserter
             );
         }
 
         $this->validationEngine = $validationEngine;
-        $this->queryValueAsserter = $queryValueAsserter;
+        $this->rawValueAsserter = $rawValueAsserter;
         $this->attributeValueAsserter = $attributeValueAsserter;
     }
 
@@ -71,7 +71,7 @@ abstract class AbstractCommandResolver
     {
         $values = $this->validateThenMapAttributes(
             $this->attributeValueAsserter,
-            $this->queryValueAsserter,
+            $this->rawValueAsserter,
             $request
         );
 
@@ -84,10 +84,10 @@ abstract class AbstractCommandResolver
      * @api
      * Resolve implementation
      * @param RequestAttributeValueAsserter $attributeValueAsserter
-     * @param RequestQueryValueAsserter $queryValueAsserter
+     * @param RawValueAsserter $rawValueAsserter
      * @param ServerRequestInterface $request
      *
      * @return mixed[]
      */
-    abstract protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RequestQueryValueAsserter $queryValueAsserter, ServerRequestInterface $request): array;
+    abstract protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RawValueAsserter $rawValueAsserter, ServerRequestInterface $request): array;
 }

@@ -20,7 +20,7 @@ class RequestAttributeValueAsserter extends atoum
         $propertyPath = 'firstName';
 
         $sut = new SUT(
-            $this->mockRequestQueryValueAsserter()
+            $this->mockRawValueAsserter()
         );
 
         $requestMock = $this->mockServerRequest([$propertyPath => $expected]);
@@ -47,7 +47,7 @@ class RequestAttributeValueAsserter extends atoum
         $expected = $expected->normalize();
 
         $sut = new SUT(
-            $this->mockRequestQueryValueAsserter()
+            $this->mockRawValueAsserter()
         );
 
         $requestMock = $this->mockServerRequest(['firstName2' => 42]);
@@ -80,7 +80,7 @@ class RequestAttributeValueAsserter extends atoum
         $expected = $expected->normalize();
 
         $sut = new SUT(
-            $this->mockRequestQueryValueAsserter()
+            $this->mockRawValueAsserter()
         );
 
         $requestMock = $this->mockServerRequest(['firstName2' => 42]);
@@ -117,7 +117,7 @@ class RequestAttributeValueAsserter extends atoum
 
     protected function notStringDataProvider(): array
     {
-        $values = RequestQueryValueAsserter::createAllScalars();
+        $values = RawValueAsserter::createAllScalars();
         unset($values['string']);
 
         return $values;
@@ -129,9 +129,9 @@ class RequestAttributeValueAsserter extends atoum
      */
     private function testInvalidValue($value, $expected)
     {
-        $requestQueryValueAsserterMock = $this->mockRequestQueryValueAsserter();
+        $rawValueAsserterMock = $this->mockRawValueAsserter();
         $sut = new SUT(
-            $requestQueryValueAsserterMock
+            $rawValueAsserterMock
         );
 
         $requestMock = $this->mockServerRequest(['firstName' => $value]);
@@ -149,14 +149,14 @@ class RequestAttributeValueAsserter extends atoum
                 ->isEqualTo($expected)
             ->mock($requestMock)
                 ->call('getParsedBody')->once()
-            ->mock($requestQueryValueAsserterMock)
+            ->mock($rawValueAsserterMock)
                 ->call('valueMustBeString')->once();
     }
 
-    private function mockRequestQueryValueAsserter($value = null): \Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter
+    private function mockRawValueAsserter($value = null): \Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter();
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter();
         $this->calling($mock)->valueMustBeString = function ($value) { return $value; };
 
         return $mock;

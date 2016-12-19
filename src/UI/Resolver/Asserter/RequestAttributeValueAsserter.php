@@ -13,12 +13,12 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class RequestAttributeValueAsserter
 {
-    /** @var RequestQueryValueAsserter */
-    private $requestQueryValueAsserter;
+    /** @var RawValueAsserter */
+    private $rawValueAsserter;
 
-    public function __construct(RequestQueryValueAsserter $requestQueryValueAsserter)
+    public function __construct(RawValueAsserter $rawValueAsserter)
     {
-        $this->requestQueryValueAsserter = $requestQueryValueAsserter;
+        $this->rawValueAsserter = $rawValueAsserter;
     }
 
     /**
@@ -60,7 +60,7 @@ class RequestAttributeValueAsserter
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
-        return $this->requestQueryValueAsserter->valueMustBeString(
+        return $this->rawValueAsserter->valueMustBeString(
             $value,
             $attributeKey,
             $exceptionMessage

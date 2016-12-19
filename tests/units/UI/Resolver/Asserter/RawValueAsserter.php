@@ -8,12 +8,12 @@ use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use mageekguy\atoum;
 
-use Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter as SUT;
+use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter as SUT;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RequestQueryValueAsserter extends atoum
+class RawValueAsserter extends atoum
 {
     /**
      * @dataProvider notStringDataProvider
