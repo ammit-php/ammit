@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Units\Imedia\Ammit\UI\Resolver;
 
 use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter;
+use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use mageekguy\atoum;
 use Psr\Http\Message\ServerRequestInterface;
@@ -93,14 +93,14 @@ class AbstractCommandResolver extends atoum
         ;
     }
 
-    public function test_it_can_be_constructed_with_request_query_value_asserter()
+    public function test_it_can_be_constructed_with_raw_value_asserter()
     {
         // Given
-        $requestQueryValueAsserterMock = $this->mockRequestQueryValueAsserter();
+        $rawValueAsserterMock = $this->mockRawValueAsserter();
         $sut = new SUT(
             null,
             null,
-            $requestQueryValueAsserterMock
+            $rawValueAsserterMock
         );
         $requestMock = $this->mockServerRequest(
             [
@@ -117,7 +117,7 @@ class AbstractCommandResolver extends atoum
         $this
             ->object($actual)
                 ->isEqualTo(new RegisterUserCommand('Stephen', 'Hawking', 'stephen.hawking.me'))
-            ->mock($requestQueryValueAsserterMock)
+            ->mock($rawValueAsserterMock)
                     ->call('valueMustBeString')->thrice()
         ;
     }
@@ -204,10 +204,10 @@ class AbstractCommandResolver extends atoum
         return $mock;
     }
 
-    private function mockRequestQueryValueAsserter(): RequestQueryValueAsserter
+    private function mockRawValueAsserter(): RawValueAsserter
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RequestQueryValueAsserter();
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter();
         $this->calling($mock)->valueMustBeString = function ($value) { return $value; };
 
         return $mock;

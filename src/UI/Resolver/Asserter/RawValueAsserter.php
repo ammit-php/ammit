@@ -9,7 +9,7 @@ use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RequestQueryValueAsserter
+class RawValueAsserter
 {
     const PROPERTY_PATH_QUERY_STRING = 'queryString';
 
