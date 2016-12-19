@@ -66,4 +66,21 @@ class RequestAttributeValueAsserter
             $exceptionMessage
         );
     }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function attributeMustBeBoolean(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueAsserter->valueMustBeBoolean(
+            $value,
+            $attributeKey,
+            $exceptionMessage
+        );
+    }
 }

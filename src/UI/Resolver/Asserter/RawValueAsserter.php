@@ -21,16 +21,38 @@ class RawValueAsserter
 
     /**
      * Exceptions are caught in order to be processed later
-     * @param mixed $value
+     * @param mixed $value String ?
      *
      * @return mixed Untouched value
      */
-    public function valueMustBeString($value, string $propertyPath = 'raw', string $exceptionMessage = null)
+    public function valueMustBeString($value, string $propertyPath = null, string $exceptionMessage = null)
     {
         $this->validationEngine->validateFieldValue(
             function () use ($value, $propertyPath, $exceptionMessage) {
                 Assertion::string(
                     $value,
+                    $exceptionMessage,
+                    $propertyPath
+                );
+            }
+        );
+
+        return $value;
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     * @param mixed $value Boolean ?
+     *
+     * @return mixed Untouched value
+     */
+    public function valueMustBeBoolean($value, string $propertyPath = null, string $exceptionMessage = null)
+    {
+        $this->validationEngine->validateFieldValue(
+            function () use ($value, $propertyPath, $exceptionMessage) {
+                Assertion::inArray(
+                    $value,
+                    [true, false, 1, 0, '1', '0', 'true', 'false'],
                     $exceptionMessage,
                     $propertyPath
                 );

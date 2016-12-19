@@ -15,6 +15,18 @@ use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter as SUT;
  */
 class RawValueAsserter extends atoum
 {
+    public static function createAllScalars(): array
+    {
+        return [
+            'null' => ['value' => null],
+            'string' => ['value' => 'azerty'],
+            'array' => ['value' => []],
+            'int' => ['value' => 42],
+            'float' => ['value' => 13.9],
+            'boolean' => ['value' => true],
+        ];
+    }
+
     /**
      * @dataProvider notStringDataProvider
      */
@@ -24,19 +36,7 @@ class RawValueAsserter extends atoum
         $propertyPath = 'firstName';
         $errorMessage = 'Custom Exception message';
 
-        $this->testInvalidValue($errorMessage, $propertyPath, $value, $value);
-    }
-
-    public static function createAllScalars(): array
-    {
-        return [
-            'null' => ['value' => null],
-            'string' => ['value' => 'azerty'],
-            'array' => ['value' => []],
-            'int' => ['value' => 1],
-            'float' => ['value' => 1.9],
-            'bool' => ['value' => true],
-        ];
+        $this->testInvalidValue($errorMessage, $propertyPath, $value, $value, 'valueMustBeString');
     }
 
     protected function notStringDataProvider(): array
@@ -47,7 +47,27 @@ class RawValueAsserter extends atoum
         return $values;
     }
 
-    private function testInvalidValue(string $errorMessage, string $propertyPath, $value, $expectedValue)
+    /**
+     * @dataProvider notBooleanDataProvider
+     */
+    public function test_it_gets_value_even_if_not_boolean_value_detected($value)
+    {
+        // Given
+        $propertyPath = 'firstName';
+        $errorMessage = 'Custom Exception message';
+
+        $this->testInvalidValue($errorMessage, $propertyPath, $value, $value, 'valueMustBeBoolean');
+    }
+
+    protected function notBooleanDataProvider(): array
+    {
+        $values = $this->createAllScalars();
+        unset($values['boolean']);
+
+        return $values;
+    }
+
+    private function testInvalidValue(string $errorMessage, string $propertyPath, $value, $expectedValue, string $methodToTest)
     {
         $expectedNormalizedException = new UIValidationCollectionException(
             [
@@ -60,7 +80,7 @@ class RawValueAsserter extends atoum
         $sut = new SUT($uiValidationEngine);
 
         // When
-        $actual = $sut->valueMustBeString(
+        $actual = $sut->$methodToTest(
             $value,
             $propertyPath,
             $errorMessage
