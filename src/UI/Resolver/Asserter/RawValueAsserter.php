@@ -11,8 +11,6 @@ use Imedia\Ammit\UI\Resolver\UIValidationEngine;
  */
 class RawValueAsserter
 {
-    const PROPERTY_PATH_QUERY_STRING = 'queryString';
-
     /** @var UIValidationEngine */
     private $validationEngine;
 
@@ -27,7 +25,7 @@ class RawValueAsserter
      *
      * @return mixed Untouched value
      */
-    public function valueMustBeString($value, string $propertyPath = self::PROPERTY_PATH_QUERY_STRING, string $exceptionMessage = null)
+    public function valueMustBeString($value, string $propertyPath = 'raw', string $exceptionMessage = null)
     {
         $this->validationEngine->validateFieldValue(
             function () use ($value, $propertyPath, $exceptionMessage) {
