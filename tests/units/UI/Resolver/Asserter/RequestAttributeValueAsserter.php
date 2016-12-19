@@ -115,6 +115,23 @@ class RequestAttributeValueAsserter extends atoum
         $this->testInvalidValue($value, $value);
     }
 
+    protected function notBooleanDataProvider(): array
+    {
+        $values = RawValueAsserter::createAllScalars();
+        unset($values['boolean']);
+
+        return $values;
+    }
+
+    /**
+     * @dataProvider notBooleanDataProvider
+     */
+    public function test_it_gets_value_from_psr7_request_even_if_not_boolean($value)
+    {
+        // Given
+        $this->testInvalidValue($value, $value);
+    }
+
     protected function notStringDataProvider(): array
     {
         $values = RawValueAsserter::createAllScalars();
