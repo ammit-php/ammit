@@ -12,7 +12,7 @@ use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 class RawValueAsserter
 {
     /** @var UIValidationEngine */
-    private $validationEngine;
+    protected $validationEngine;
 
     public function __construct(UIValidationEngine $validationEngine)
     {
