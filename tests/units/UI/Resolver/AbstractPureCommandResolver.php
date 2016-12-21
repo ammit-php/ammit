@@ -14,7 +14,7 @@ use Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\RegisterUserCommandResolver
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class AbstractCommandResolver extends atoum
+class AbstractPureCommandResolver extends atoum
 {
     public function test_it_can_be_constructed_without_injection()
     {

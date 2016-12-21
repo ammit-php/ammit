@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver;
 
-use Imedia\Ammit\UI\Resolver\AbstractCommandResolver;
+use Imedia\Ammit\UI\Resolver\AbstractPureCommandResolver;
 use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
 use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,7 +13,7 @@ use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
  * Resolve a PSR-7 Request into a RegisterUserCommand (Data Transfer Object)
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RegisterUserCommandResolver extends AbstractCommandResolver
+class RegisterUserCommandResolver extends AbstractPureCommandResolver
 {
     /**
      * @inheritdoc

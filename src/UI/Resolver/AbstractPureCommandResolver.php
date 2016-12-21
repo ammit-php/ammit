@@ -14,7 +14,7 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-abstract class AbstractCommandResolver
+abstract class AbstractPureCommandResolver
 {
     /** @var UIValidationEngine */
     private $validationEngine;
