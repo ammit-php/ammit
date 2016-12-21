@@ -9,7 +9,7 @@ use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use mageekguy\atoum;
 use Psr\Http\Message\ServerRequestInterface;
 use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
-use Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\RegisterUserCommandResolver as SUT;
+use Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pure\RegisterUserCommandResolver as SUT;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>

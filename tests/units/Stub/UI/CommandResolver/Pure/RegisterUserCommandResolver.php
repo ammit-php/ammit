@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver;
+namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pure;
 
 use Imedia\Ammit\UI\Resolver\AbstractPureCommandResolver;
 use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
