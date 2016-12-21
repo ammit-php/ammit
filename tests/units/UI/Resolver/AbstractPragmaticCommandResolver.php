@@ -3,18 +3,19 @@ declare(strict_types=1);
 
 namespace Tests\Units\Imedia\Ammit\UI\Resolver;
 
-use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
+use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRawValueAsserter;
+use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRequestAttributeValueAsserter;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
+use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use mageekguy\atoum;
 use Psr\Http\Message\ServerRequestInterface;
 use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
-use Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pure\RegisterUserCommandResolver as SUT;
+use Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pragmatic\RegisterUserCommandResolver as SUT;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class AbstractPureCommandResolver extends atoum
+class AbstractPragmaticCommandResolver extends atoum
 {
     public function test_it_can_be_constructed_without_injection()
     {
@@ -22,7 +23,7 @@ class AbstractPureCommandResolver extends atoum
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
@@ -34,7 +35,7 @@ class AbstractPureCommandResolver extends atoum
 
         // Then
         $this->object($actual)
-            ->isEqualTo(new RegisterUserCommand('42', 'Stephen', 'Hawking', 'stephen.hawking.me'))
+            ->isEqualTo(new RegisterUserCommand('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Stephen', 'Hawking', 'stephen.hawking.me'))
         ;
     }
 
@@ -47,7 +48,7 @@ class AbstractPureCommandResolver extends atoum
         );
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
@@ -60,7 +61,7 @@ class AbstractPureCommandResolver extends atoum
         // Then
         $this
             ->object($actual)
-                ->isEqualTo(new RegisterUserCommand('42', 'Stephen', 'Hawking', 'stephen.hawking.me'))
+                ->isEqualTo(new RegisterUserCommand('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Stephen', 'Hawking', 'stephen.hawking.me'))
             ->mock($validationEngineMock)
                     ->call('validateFieldValue')->exactly(4)
                     ->call('guardAgainstAnyUIValidationException')->once()
@@ -77,7 +78,7 @@ class AbstractPureCommandResolver extends atoum
         );
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
@@ -90,9 +91,10 @@ class AbstractPureCommandResolver extends atoum
         // Then
         $this
             ->object($actual)
-                ->isEqualTo(new RegisterUserCommand('azerty', 'azerty', 'azerty', 'azerty'))
+                ->isEqualTo(new RegisterUserCommand('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'azerty', 'azerty', 'azerty'))
             ->mock($requestAttributeValueAsserteMock)
-                    ->call('attributeMustBeString')->exactly(4)
+                ->call('attributeMustBeString')->thrice()
+                ->call('attributeMustBeUuid')->once()
         ;
     }
 
@@ -107,7 +109,7 @@ class AbstractPureCommandResolver extends atoum
         );
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
@@ -120,9 +122,10 @@ class AbstractPureCommandResolver extends atoum
         // Then
         $this
             ->object($actual)
-                ->isEqualTo(new RegisterUserCommand('42', 'Stephen', 'Hawking', 'stephen.hawking.me'))
+                ->isEqualTo(new RegisterUserCommand('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Stephen', 'Hawking', 'stephen.hawking.me'))
             ->mock($rawValueAsserterMock)
-                    ->call('valueMustBeString')->exactly(4)
+                    ->call('valueMustBeString')->thrice()
+                    ->call('valueMustBeUuid')->once()
         ;
     }
 
@@ -132,7 +135,7 @@ class AbstractPureCommandResolver extends atoum
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
@@ -144,7 +147,7 @@ class AbstractPureCommandResolver extends atoum
 
         // Then
         $this->object($actual)
-            ->isEqualTo(new RegisterUserCommand('42', 'Stephen', 'Hawking', 'stephen.hawking.me'))
+            ->isEqualTo(new RegisterUserCommand('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Stephen', 'Hawking', 'stephen.hawking.me'))
         ;
     }
 
@@ -157,7 +160,7 @@ class AbstractPureCommandResolver extends atoum
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName2' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
@@ -175,7 +178,51 @@ class AbstractPureCommandResolver extends atoum
                 ->array($actual)
                     ->isEqualTo($expected)
                 ->mock($requestMock)
-                    ->call('getParsedBody')->twice()
+                    ->call('getParsedBody')->twice() // Then throw exception
+            ;
+
+            return;
+        }
+
+        $this->throwException();
+    }
+
+    public function test_it_can_intercept_a_ui_validation_exception()
+    {
+        // Given
+        $expected = [
+            'errors' => [
+                [
+                    'status' => 406,
+                    'source' => ['pointer' => '/data/attributes/id'],
+                    'title' => 'Invalid Attribute',
+                    'detail' => 'Value "42" is not a valid UUID.',
+                ]
+            ]
+        ];
+
+        $sut = new SUT();
+        $requestMock = $this->mockServerRequest(
+            [
+                'id' => '42',
+                'firstName' => 'Stephen',
+                'lastName' => 'Hawking',
+                'email' => 'stephen.hawking.me',
+            ]
+        );
+
+        // When
+        try {
+            $sut->resolve($requestMock);
+        } catch (UIValidationCollectionException $e) {
+            $actual = $e->normalize();
+
+            // Then
+            $this
+                ->array($actual)
+                    ->isEqualTo($expected)
+                ->mock($requestMock)
+                    ->call('getParsedBody')->exactly(4)
             ;
 
             return;
@@ -201,20 +248,22 @@ class AbstractPureCommandResolver extends atoum
         return $mock;
     }
 
-    private function mockRequestAttributeValueAsserter(): RequestAttributeValueAsserter
+    private function mockRequestAttributeValueAsserter(): PragmaticRequestAttributeValueAsserter
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter();
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\PragmaticRequestAttributeValueAsserter();
         $this->calling($mock)->attributeMustBeString = 'azerty';
+        $this->calling($mock)->attributeMustBeUuid = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
 
         return $mock;
     }
 
-    private function mockRawValueAsserter(): RawValueAsserter
+    private function mockRawValueAsserter(): PragmaticRawValueAsserter
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter();
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\PragmaticRawValueAsserter();
         $this->calling($mock)->valueMustBeString = function ($value) { return $value; };
+        $this->calling($mock)->valueMustBeUuid = function ($value) { return $value; };
 
         return $mock;
     }

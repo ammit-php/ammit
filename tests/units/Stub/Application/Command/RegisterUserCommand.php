@@ -30,11 +30,20 @@ final class RegisterUserCommand
     /** @var string */
     private $email;
 
-    public function __construct(string $firstName, string $lastName, string $email)
+    /** @var string */
+    private $id;
+
+    public function __construct(string $id, string $firstName, string $lastName, string $email)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
+        $this->id = $id;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     public function getFirstName(): string

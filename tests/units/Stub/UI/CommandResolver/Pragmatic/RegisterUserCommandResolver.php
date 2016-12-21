@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pure;
+namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pragmatic;
 
-use Imedia\Ammit\UI\Resolver\AbstractPureCommandResolver;
+use Imedia\Ammit\UI\Resolver\AbstractPragmaticCommandResolver;
+use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRawValueAsserter;
+use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRequestAttributeValueAsserter;
 use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
 use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,7 +15,7 @@ use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
  * Resolve a PSR-7 Request into a RegisterUserCommand (Data Transfer Object)
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RegisterUserCommandResolver extends AbstractPureCommandResolver
+class RegisterUserCommandResolver extends AbstractPragmaticCommandResolver
 {
     /**
      * @inheritdoc
@@ -27,10 +29,12 @@ class RegisterUserCommandResolver extends AbstractPureCommandResolver
 
     /**
      * @inheritDoc
+     * @param PragmaticRequestAttributeValueAsserter $attributeValueAsserter
+     * @param PragmaticRawValueAsserter $rawValueAsserter
      */
     protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RawValueAsserter $rawValueAsserter, ServerRequestInterface $request): array
     {
-        $id = $attributeValueAsserter->attributeMustBeString(
+        $id = $attributeValueAsserter->attributeMustBeUuid(
             $request,
             'id'
         );

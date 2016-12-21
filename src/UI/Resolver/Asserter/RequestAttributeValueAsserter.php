@@ -14,7 +14,7 @@ use Psr\Http\Message\ServerRequestInterface;
 class RequestAttributeValueAsserter
 {
     /** @var RawValueAsserter */
-    private $rawValueAsserter;
+    protected $rawValueAsserter;
 
     public function __construct(RawValueAsserter $rawValueAsserter)
     {
