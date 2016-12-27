@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\UI\Resolver\Asserter;
+namespace Tests\Units\Imedia\Ammit\UI\Resolver\Validator;
 
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use mageekguy\atoum;
-use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter as SUT;
+use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator as SUT;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RequestAttributeValueAsserter extends atoum
+class RequestAttributeValueValidator extends atoum
 {
     public function test_it_gets_value_from_psr7_request()
     {
@@ -20,7 +20,7 @@ class RequestAttributeValueAsserter extends atoum
         $propertyPath = 'firstName';
 
         $sut = new SUT(
-            $this->mockRawValueAsserter()
+            $this->mockRawValueValidator()
         );
 
         $requestMock = $this->mockServerRequest([$propertyPath => $expected]);
@@ -47,7 +47,7 @@ class RequestAttributeValueAsserter extends atoum
         $expected = $expected->normalize();
 
         $sut = new SUT(
-            $this->mockRawValueAsserter()
+            $this->mockRawValueValidator()
         );
 
         $requestMock = $this->mockServerRequest(['firstName2' => 42]);
@@ -80,7 +80,7 @@ class RequestAttributeValueAsserter extends atoum
         $expected = $expected->normalize();
 
         $sut = new SUT(
-            $this->mockRawValueAsserter()
+            $this->mockRawValueValidator()
         );
 
         $requestMock = $this->mockServerRequest(['firstName2' => 42]);
@@ -117,7 +117,7 @@ class RequestAttributeValueAsserter extends atoum
 
     protected function notBooleanDataProvider(): array
     {
-        $values = RawValueAsserter::createAllScalars();
+        $values = RawValueValidator::createAllScalars();
         unset($values['boolean']);
 
         return $values;
@@ -134,7 +134,7 @@ class RequestAttributeValueAsserter extends atoum
 
     protected function notStringDataProvider(): array
     {
-        $values = RawValueAsserter::createAllScalars();
+        $values = RawValueValidator::createAllScalars();
         unset($values['string']);
 
         return $values;
@@ -146,9 +146,9 @@ class RequestAttributeValueAsserter extends atoum
      */
     private function testInvalidValue($value, $expected)
     {
-        $rawValueAsserterMock = $this->mockRawValueAsserter();
+        $rawValueValidatorMock = $this->mockRawValueValidator();
         $sut = new SUT(
-            $rawValueAsserterMock
+            $rawValueValidatorMock
         );
 
         $requestMock = $this->mockServerRequest(['firstName' => $value]);
@@ -166,14 +166,14 @@ class RequestAttributeValueAsserter extends atoum
                 ->isEqualTo($expected)
             ->mock($requestMock)
                 ->call('getParsedBody')->once()
-            ->mock($rawValueAsserterMock)
+            ->mock($rawValueValidatorMock)
                 ->call('mustBeString')->once();
     }
 
-    private function mockRawValueAsserter($value = null): \Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter
+    private function mockRawValueValidator($value = null): \Imedia\Ammit\UI\Resolver\Validator\RawValueValidator
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter();
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\RawValueValidator();
         $this->calling($mock)->mustBeString = function ($value) { return $value; };
 
         return $mock;

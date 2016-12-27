@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Units\Imedia\Ammit\UI\Resolver;
 
-use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
+use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator;
+use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use mageekguy\atoum;
 use Psr\Http\Message\ServerRequestInterface;
@@ -67,10 +67,10 @@ class AbstractPureCommandResolver extends atoum
         ;
     }
 
-    public function test_it_can_be_constructed_with_request_attribute_value_asserter()
+    public function test_it_can_be_constructed_with_request_attribute_value_validator()
     {
         // Given
-        $requestAttributeValueAsserteMock = $this->mockRequestAttributeValueAsserter();
+        $requestAttributeValueAsserteMock = $this->mockRequestAttributeValueValidator();
         $sut = new SUT(
             null,
             $requestAttributeValueAsserteMock
@@ -96,14 +96,14 @@ class AbstractPureCommandResolver extends atoum
         ;
     }
 
-    public function test_it_can_be_constructed_with_raw_value_asserter()
+    public function test_it_can_be_constructed_with_raw_value_validator()
     {
         // Given
-        $rawValueAsserterMock = $this->mockRawValueAsserter();
+        $rawValueValidatorMock = $this->mockRawValueValidator();
         $sut = new SUT(
             null,
             null,
-            $rawValueAsserterMock
+            $rawValueValidatorMock
         );
         $requestMock = $this->mockServerRequest(
             [
@@ -121,7 +121,7 @@ class AbstractPureCommandResolver extends atoum
         $this
             ->object($actual)
                 ->isEqualTo(new RegisterUserCommand('42', 'Stephen', 'Hawking', 'stephen.hawking.me'))
-            ->mock($rawValueAsserterMock)
+            ->mock($rawValueValidatorMock)
                     ->call('mustBeString')->exactly(4)
         ;
     }
@@ -201,19 +201,19 @@ class AbstractPureCommandResolver extends atoum
         return $mock;
     }
 
-    private function mockRequestAttributeValueAsserter(): RequestAttributeValueAsserter
+    private function mockRequestAttributeValueValidator(): RequestAttributeValueValidator
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter();
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator();
         $this->calling($mock)->mustBeString = 'azerty';
 
         return $mock;
     }
 
-    private function mockRawValueAsserter(): RawValueAsserter
+    private function mockRawValueValidator(): RawValueValidator
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter();
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\RawValueValidator();
         $this->calling($mock)->mustBeString = function ($value) { return $value; };
 
         return $mock;

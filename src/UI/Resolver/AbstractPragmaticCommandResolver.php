@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Imedia\Ammit\UI\Resolver;
 
-use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRawValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
+use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
+use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
+use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator;
+use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,31 +25,31 @@ abstract class AbstractPragmaticCommandResolver
     /** @var UIValidationEngine */
     private $validationEngine;
 
-    /** @var PragmaticRequestAttributeValueAsserter */
-    private $attributeValueAsserter;
+    /** @var PragmaticRequestAttributeValueValidator */
+    private $attributeValueValidator;
 
-    /** @var PragmaticRawValueAsserter */
-    private $rawValueAsserter;
+    /** @var PragmaticRawValueValidator */
+    private $rawValueValidator;
 
-    public function __construct(UIValidationEngine $validationEngine = null, PragmaticRequestAttributeValueAsserter $attributeValueAsserter = null, PragmaticRawValueAsserter $rawValueAsserter = null)
+    public function __construct(UIValidationEngine $validationEngine = null, PragmaticRequestAttributeValueValidator $attributeValueValidator = null, PragmaticRawValueValidator $rawValueValidator = null)
     {
         if (null === $validationEngine) {
             $validationEngine = UIValidationEngine::initialize();
         }
 
-        if (null === $rawValueAsserter) {
-            $rawValueAsserter = new PragmaticRawValueAsserter($validationEngine);
+        if (null === $rawValueValidator) {
+            $rawValueValidator = new PragmaticRawValueValidator($validationEngine);
         }
 
-        if (null === $attributeValueAsserter) {
-            $attributeValueAsserter = new PragmaticRequestAttributeValueAsserter(
-                $rawValueAsserter
+        if (null === $attributeValueValidator) {
+            $attributeValueValidator = new PragmaticRequestAttributeValueValidator(
+                $rawValueValidator
             );
         }
 
         $this->validationEngine = $validationEngine;
-        $this->rawValueAsserter = $rawValueAsserter;
-        $this->attributeValueAsserter = $attributeValueAsserter;
+        $this->rawValueValidator = $rawValueValidator;
+        $this->attributeValueValidator = $attributeValueValidator;
     }
 
     /**
@@ -76,8 +76,8 @@ abstract class AbstractPragmaticCommandResolver
     protected function resolveRequestAsArray(ServerRequestInterface $request): array
     {
         $values = $this->validateThenMapAttributes(
-            $this->attributeValueAsserter,
-            $this->rawValueAsserter,
+            $this->attributeValueValidator,
+            $this->rawValueValidator,
             $request
         );
 
@@ -89,11 +89,11 @@ abstract class AbstractPragmaticCommandResolver
     /**
      * @api
      * Resolve implementation
-     * @param RequestAttributeValueAsserter $attributeValueAsserter
-     * @param RawValueAsserter $rawValueAsserter
+     * @param RequestAttributeValueValidator $attributeValueValidator
+     * @param RawValueValidator $rawValueValidator
      * @param ServerRequestInterface $request
      *
      * @return mixed[]
      */
-    abstract protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RawValueAsserter $rawValueAsserter, ServerRequestInterface $request): array;
+    abstract protected function validateThenMapAttributes(RequestAttributeValueValidator $attributeValueValidator, RawValueValidator $rawValueValidator, ServerRequestInterface $request): array;
 }

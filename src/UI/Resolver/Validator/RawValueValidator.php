@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Imedia\Ammit\UI\Resolver\Asserter;
+namespace Imedia\Ammit\UI\Resolver\Validator;
 
 use Assert\Assertion;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
@@ -9,7 +9,7 @@ use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RawValueAsserter
+class RawValueValidator
 {
     /** @var UIValidationEngine */
     protected $validationEngine;

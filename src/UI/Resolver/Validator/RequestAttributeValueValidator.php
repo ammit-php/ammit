@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Imedia\Ammit\UI\Resolver\Asserter;
+namespace Imedia\Ammit\UI\Resolver\Validator;
 
 use Assert\Assertion;
 use Assert\AssertionFailedException;
@@ -11,14 +11,14 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RequestAttributeValueAsserter
+class RequestAttributeValueValidator
 {
-    /** @var RawValueAsserter */
-    protected $rawValueAsserter;
+    /** @var RawValueValidator */
+    protected $rawValueValidator;
 
-    public function __construct(RawValueAsserter $rawValueAsserter)
+    public function __construct(RawValueValidator $rawValueValidator)
     {
-        $this->rawValueAsserter = $rawValueAsserter;
+        $this->rawValueValidator = $rawValueValidator;
     }
 
     /**
@@ -60,7 +60,7 @@ class RequestAttributeValueAsserter
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
-        return $this->rawValueAsserter->mustBeString(
+        return $this->rawValueValidator->mustBeString(
             $value,
             $attributeKey,
             $exceptionMessage
@@ -77,7 +77,7 @@ class RequestAttributeValueAsserter
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
-        return $this->rawValueAsserter->mustBeBoolean(
+        return $this->rawValueValidator->mustBeBoolean(
             $value,
             $attributeKey,
             $exceptionMessage

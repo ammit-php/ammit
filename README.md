@@ -73,24 +73,24 @@ class RegisterUserCommandResolver extends AbstractPureCommandResolver
     /**
      * @inheritDoc
      */
-    protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RawValueAsserter $rawValueAsserter, ServerRequestInterface $request): array
+    protected function validateThenMapAttributes(RequestAttributeValueValidator $attributeValueValidator, RawValueValidator $rawValueValidator, ServerRequestInterface $request): array
     {
-        $id = $attributeValueAsserter->attributeMustBeString(
+        $id = $attributeValueValidator->attributeMustBeString(
             $request,
             'id'
         );
 
-        $firstName = $attributeValueAsserter->attributeMustBeString(
+        $firstName = $attributeValueValidator->attributeMustBeString(
             $request,
             'firstName'
         );
 
-        $lastName = $attributeValueAsserter->attributeMustBeString(
+        $lastName = $attributeValueValidator->attributeMustBeString(
             $request,
             'lastName'
         );
 
-        $email = $attributeValueAsserter->attributeMustBeString(
+        $email = $attributeValueValidator->attributeMustBeString(
             $request,
             'email'
         );
@@ -142,7 +142,7 @@ With **Ammit** you would use our `AbstractPragmaticCommandhenResolver` (**Pragma
 It will allow you to use more complex validation like `uuid` validation for example:
 
 ```php
-$email = $attributeValueAsserter->attributeMustBeUuid(
+$email = $attributeValueValidator->attributeMustBeUuid(
     $request,
     'id'
 );
