@@ -13,6 +13,10 @@ Consequently it shall be **immutable**.
 
 <img src="/docs/RegisterUserCommand.png" align="left" vspace="20" />
 
+  - *RegisterUserCommand*
+  - *DisableUserCommand*
+  - *BookCargoCommand*
+
 
 #### What the lib does ?
 
@@ -152,6 +156,8 @@ A validation is missing. You can still inject your own based on [beberlei/assert
 
 
 #### Want to contribute ?
+
+Read [UBIQUITOUS_LANGUAGE_DICTIONARY.md](UBIQUITOUS_LANGUAGE_DICTIONARY.md)
 
 Init docker container: `docker-compose up -d`
 
