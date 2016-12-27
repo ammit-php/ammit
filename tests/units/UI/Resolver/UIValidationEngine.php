@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Units\Imedia\Ammit\UI\Resolver;
 
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
+use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 use mageekguy\atoum;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine as SUT;
@@ -36,15 +36,15 @@ class UIValidationEngine extends atoum
 
         $propertyPath = 'firstName';
         $sut->validateFieldValue(
+            $this->mockUIValidator(),
             ClosureFactory::createInvalidClosure($propertyPath)
         );
 
-        $expected = new UIValidationCollectionException(
-            [
-                new UIValidationException('Message', 'firstName')
+        $expected = [
+            'errors' => [
+                ['azerty']
             ]
-        );
-        $expected = $expected->normalize();
+        ];
 
         try {
             $sut->guardAgainstAnyUIValidationException();
@@ -66,15 +66,15 @@ class UIValidationEngine extends atoum
 
         $propertyPath = 'firstName';
         $sut->validateFieldValue(
+            $this->mockUIValidator(),
             ClosureFactory::createInvalidClosure($propertyPath)
         );
 
-        $expected = new UIValidationCollectionException(
-            [
-                new UIValidationException('Message', 'firstName')
+        $expected = [
+            'errors' => [
+                ['azerty']
             ]
-        );
-        $expected = $expected->normalize();
+        ];
 
         try {
             $sut->__destruct();
@@ -95,5 +95,18 @@ class UIValidationEngine extends atoum
             $this->variable(),
             $message
         );
+    }
+
+    private function mockUIValidator(): UIValidatorInterface
+    {
+        $this->mockGenerator->orphanize('__construct');
+        $mockUIValidationException = new \mock\Imedia\Ammit\UI\Resolver\Exception\UIValidationException();
+        $this->calling($mockUIValidationException)->normalize = ['azerty'];
+
+        $this->mockGenerator->orphanize('__construct');
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface();
+        $this->calling($mock)->createUIValidationException = $mockUIValidationException;
+
+        return $mock;
     }
 }

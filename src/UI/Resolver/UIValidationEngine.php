@@ -6,6 +6,7 @@ namespace Imedia\Ammit\UI\Resolver;
 use Assert\AssertionFailedException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
+use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
@@ -45,15 +46,17 @@ class UIValidationEngine
      * Validate if request field value is legit to be given to a Command
      * Catch UIValidationException in order to be able to process them later
      *
+     * @param UIValidatorInterface $UIValidator
      * @param \Closure $validationFunction
      * @throws UIValidationException
      */
-    public function validateFieldValue(\Closure $validationFunction)
+    public function validateFieldValue(UIValidatorInterface $UIValidator, \Closure $validationFunction)
     {
         try {
             $validationFunction->call($this);
         } catch (AssertionFailedException $exception) {
             $this->addUIValidationException(
+                $UIValidator,
                 $exception->getMessage(),
                 $exception->getPropertyPath()
             );
@@ -74,9 +77,9 @@ class UIValidationEngine
         $this->resetCommandResolverCollectionExceptions();
     }
 
-    private function addUIValidationException(string $message, string $propertyPath)
+    private function addUIValidationException(UIValidatorInterface $uiValidator, string $message, string $propertyPath)
     {
-        $this->interceptedUIValidationExceptions[] = new UIValidationException(
+        $this->interceptedUIValidationExceptions[] = $uiValidator->createUIValidationException(
             $message,
             $propertyPath
         );

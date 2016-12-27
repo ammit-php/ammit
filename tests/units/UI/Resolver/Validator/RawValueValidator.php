@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Tests\Units\Imedia\Ammit\UI\Resolver\Validator;
 
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
+use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 use mageekguy\atoum;
 
 use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator as SUT;
@@ -17,26 +17,67 @@ class RawValueValidator extends atoum
 {
     public static function createAllScalars(): array
     {
+        $propertyPath = 'firstName';
+        $errorMessage = 'Custom Exception message';
+        $expectedNormalizedException = [
+            'status' => 406,
+            'source' => ['parameter' => $propertyPath],
+            'title' => 'Invalid Parameter',
+            'detail' => $errorMessage,
+        ];
+
         return [
-            'null' => ['value' => null],
-            'string' => ['value' => 'azerty'],
-            'array' => ['value' => []],
-            'int' => ['value' => 42],
-            'float' => ['value' => 13.9],
-            'boolean' => ['value' => true],
+            'null' => [
+                'propertyPath' => $propertyPath,
+                'errorMessage' => $errorMessage,
+                'value' => null,
+                'expectedNormalizedException' => $expectedNormalizedException
+            ],
+            'string' => [
+                'propertyPath' => $propertyPath,
+                'errorMessage' => $errorMessage,
+                'value' => 'azerty',
+                'expectedNormalizedException' => $expectedNormalizedException
+            ],
+            'array' => [
+                'propertyPath' => $propertyPath,
+                'errorMessage' => $errorMessage,
+                'value' => [],
+                'expectedNormalizedException' => $expectedNormalizedException
+            ],
+            'int' => [
+                'propertyPath' => $propertyPath,
+                'errorMessage' => $errorMessage,
+                'value' => 42,
+                'expectedNormalizedException' => $expectedNormalizedException
+            ],
+            'float' => [
+                'propertyPath' => $propertyPath,
+                'errorMessage' => $errorMessage,
+                'value' => 13.9,
+                'expectedNormalizedException' => $expectedNormalizedException
+            ],
+            'boolean' => [
+                'propertyPath' => $propertyPath,
+                'errorMessage' => $errorMessage,
+                'value' => true,
+                'expectedNormalizedException' => $expectedNormalizedException
+            ],
         ];
     }
 
     /**
      * @dataProvider notStringDataProvider
      */
-    public function test_it_gets_value_even_if_not_string_value_detected($value)
+    public function test_it_gets_value_even_if_not_string_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
     {
-        // Given
-        $propertyPath = 'firstName';
-        $errorMessage = 'Custom Exception message';
-
-        $this->testInvalidValue($errorMessage, $propertyPath, $value, $value, 'valueMustBeString');
+        $this->testInvalidValue(
+            $errorMessage,
+            $propertyPath,
+            $value,
+            $expectedNormalizedException,
+            'mustBeString'
+        );
     }
 
     protected function notStringDataProvider(): array
@@ -50,13 +91,15 @@ class RawValueValidator extends atoum
     /**
      * @dataProvider notBooleanDataProvider
      */
-    public function test_it_gets_value_even_if_not_boolean_value_detected($value)
+    public function test_it_gets_value_even_if_not_boolean_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
     {
-        // Given
-        $propertyPath = 'firstName';
-        $errorMessage = 'Custom Exception message';
-
-        $this->testInvalidValue($errorMessage, $propertyPath, $value, $value, 'valueMustBeBoolean');
+        $this->testInvalidValue(
+            $errorMessage,
+            $propertyPath,
+            $value,
+            $expectedNormalizedException,
+            'mustBeBoolean'
+        );
     }
 
     protected function notBooleanDataProvider(): array
@@ -67,14 +110,13 @@ class RawValueValidator extends atoum
         return $values;
     }
 
-    private function testInvalidValue(string $errorMessage, string $propertyPath, $value, $expectedValue, string $methodToTest)
+    private function testInvalidValue(string $errorMessage, string $propertyPath, $value, $expectedNormalizedException, string $methodToTest, UIValidatorInterface $parentValidation = null)
     {
-        $expectedNormalizedException = new UIValidationCollectionException(
-            [
-                new UIValidationException($errorMessage, $propertyPath)
+        $expectedNormalizedExceptions = [
+            'errors' => [
+                $expectedNormalizedException
             ]
-        );
-        $expectedNormalizedException = $expectedNormalizedException->normalize();
+        ];
 
         $uiValidationEngine = UIValidationEngine::initialize();
         $sut = new SUT($uiValidationEngine);
@@ -83,20 +125,21 @@ class RawValueValidator extends atoum
         $actual = $sut->$methodToTest(
             $value,
             $propertyPath,
+            $parentValidation,
             $errorMessage
         );
 
         // Then
         $this
             ->variable($actual)
-            ->isEqualTo($expectedValue);
+            ->isEqualTo($value);
 
         try {
             $uiValidationEngine->guardAgainstAnyUIValidationException();
         } catch (UIValidationCollectionException $e) {
             $actual = $e->normalize();
             $this->array($actual)
-                ->isEqualTo($expectedNormalizedException);
+                ->isEqualTo($expectedNormalizedExceptions);
 
             return;
         }

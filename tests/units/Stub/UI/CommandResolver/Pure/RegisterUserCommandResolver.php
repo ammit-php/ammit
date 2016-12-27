@@ -28,7 +28,7 @@ class RegisterUserCommandResolver extends AbstractPureCommandResolver
      */
     protected function validateThenMapAttributes(ServerRequestInterface $request): array
     {
-        $id = $this->attributeValueValidator->mustBeString(
+        $id = $this->queryStringValueValidator->mustBeString(
             $request,
             'id'
         );
