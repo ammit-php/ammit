@@ -17,13 +17,13 @@ use Psr\Http\Message\ServerRequestInterface;
 abstract class AbstractPureCommandResolver
 {
     /** @var UIValidationEngine */
-    private $validationEngine;
+    protected $validationEngine;
 
     /** @var RequestAttributeValueValidator */
-    private $attributeValueValidator;
+    protected $attributeValueValidator;
 
     /** @var RawValueValidator */
-    private $rawValueValidator;
+    protected $rawValueValidator;
 
     public function __construct(UIValidationEngine $validationEngine = null, RequestAttributeValueValidator $attributeValueValidator = null, RawValueValidator $rawValueValidator = null)
     {
@@ -70,8 +70,6 @@ abstract class AbstractPureCommandResolver
     protected function resolveRequestAsArray(ServerRequestInterface $request): array
     {
         $values = $this->validateThenMapAttributes(
-            $this->attributeValueValidator,
-            $this->rawValueValidator,
             $request
         );
 
@@ -83,11 +81,9 @@ abstract class AbstractPureCommandResolver
     /**
      * @api
      * Resolve implementation
-     * @param RequestAttributeValueValidator $attributeValueValidator
-     * @param RawValueValidator $rawValueValidator
-     * @param ServerRequestInterface $request
+     * @param ServerRequestInterface $request PSR-7 Request
      *
      * @return mixed[]
      */
-    abstract protected function validateThenMapAttributes(RequestAttributeValueValidator $attributeValueValidator, RawValueValidator $rawValueValidator, ServerRequestInterface $request): array;
+    abstract protected function validateThenMapAttributes(ServerRequestInterface $request): array;
 }
