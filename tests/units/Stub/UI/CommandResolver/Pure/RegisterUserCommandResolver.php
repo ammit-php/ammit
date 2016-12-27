@@ -30,22 +30,22 @@ class RegisterUserCommandResolver extends AbstractPureCommandResolver
      */
     protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RawValueAsserter $rawValueAsserter, ServerRequestInterface $request): array
     {
-        $id = $attributeValueAsserter->attributeMustBeString(
+        $id = $attributeValueAsserter->mustBeString(
             $request,
             'id'
         );
 
-        $firstName = $attributeValueAsserter->attributeMustBeString(
+        $firstName = $attributeValueAsserter->mustBeString(
             $request,
             'firstName'
         );
 
-        $lastName = $attributeValueAsserter->attributeMustBeString(
+        $lastName = $attributeValueAsserter->mustBeString(
             $request,
             'lastName'
         );
 
-        $email = $attributeValueAsserter->attributeMustBeString(
+        $email = $attributeValueAsserter->mustBeString(
             $request,
             'email'
         );

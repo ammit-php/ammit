@@ -154,7 +154,7 @@ class RequestAttributeValueAsserter extends atoum
         $requestMock = $this->mockServerRequest(['firstName' => $value]);
 
         // When
-        $actual = $sut->attributeMustBeString(
+        $actual = $sut->mustBeString(
             $requestMock,
             'firstName',
             'Custom Exception message'
@@ -167,14 +167,14 @@ class RequestAttributeValueAsserter extends atoum
             ->mock($requestMock)
                 ->call('getParsedBody')->once()
             ->mock($rawValueAsserterMock)
-                ->call('valueMustBeString')->once();
+                ->call('mustBeString')->once();
     }
 
     private function mockRawValueAsserter($value = null): \Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter
     {
         $this->mockGenerator->orphanize('__construct');
         $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter();
-        $this->calling($mock)->valueMustBeString = function ($value) { return $value; };
+        $this->calling($mock)->mustBeString = function ($value) { return $value; };
 
         return $mock;
     }

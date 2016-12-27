@@ -20,7 +20,7 @@ class PragmaticRawValueAsserter extends RawValueAsserter
      *
      * @return mixed Untouched value
      */
-    public function valueMustBeUuid($value, string $propertyPath = null, string $exceptionMessage = null)
+    public function mustBeUuid($value, string $propertyPath = null, string $exceptionMessage = null)
     {
         $this->validationEngine->validateFieldValue(
             function () use ($value, $propertyPath, $exceptionMessage) {

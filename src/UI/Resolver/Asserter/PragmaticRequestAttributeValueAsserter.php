@@ -29,11 +29,11 @@ class PragmaticRequestAttributeValueAsserter extends RequestAttributeValueAssert
      * @throws CommandMappingException If any mapping validation failed
      * @return mixed Untouched value
      */
-    public function attributeMustBeUuid(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeUuid(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
-        return $this->rawValueAsserter->valueMustBeUuid(
+        return $this->rawValueAsserter->mustBeUuid(
             $value,
             $attributeKey,
             $exceptionMessage

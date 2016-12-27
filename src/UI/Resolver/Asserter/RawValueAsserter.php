@@ -25,7 +25,7 @@ class RawValueAsserter
      *
      * @return mixed Untouched value
      */
-    public function valueMustBeString($value, string $propertyPath = null, string $exceptionMessage = null)
+    public function mustBeString($value, string $propertyPath = null, string $exceptionMessage = null)
     {
         $this->validationEngine->validateFieldValue(
             function () use ($value, $propertyPath, $exceptionMessage) {
@@ -46,7 +46,7 @@ class RawValueAsserter
      *
      * @return mixed Untouched value
      */
-    public function valueMustBeBoolean($value, string $propertyPath = null, string $exceptionMessage = null)
+    public function mustBeBoolean($value, string $propertyPath = null, string $exceptionMessage = null)
     {
         $this->validationEngine->validateFieldValue(
             function () use ($value, $propertyPath, $exceptionMessage) {

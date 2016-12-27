@@ -56,11 +56,11 @@ class RequestAttributeValueAsserter
      * @throws CommandMappingException If any mapping validation failed
      * @return mixed Untouched value
      */
-    public function attributeMustBeString(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeString(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
-        return $this->rawValueAsserter->valueMustBeString(
+        return $this->rawValueAsserter->mustBeString(
             $value,
             $attributeKey,
             $exceptionMessage
@@ -73,11 +73,11 @@ class RequestAttributeValueAsserter
      * @throws CommandMappingException If any mapping validation failed
      * @return mixed Untouched value
      */
-    public function attributeMustBeBoolean(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeBoolean(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
-        return $this->rawValueAsserter->valueMustBeBoolean(
+        return $this->rawValueAsserter->mustBeBoolean(
             $value,
             $attributeKey,
             $exceptionMessage
