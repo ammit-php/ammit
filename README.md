@@ -7,7 +7,7 @@
 
 [DDD] A light, stable and framework agnostic Command resolver library
 
-A [Command](http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/) is a simple [DTO](http://martinfowler.com/eaaCatalog/dataTransferObject.html) reflecting user **intention**. 
+A [Command](http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/) is a simple well named [DTO](http://martinfowler.com/eaaCatalog/dataTransferObject.html) reflecting user **intention**. 
 
 Consequently it shall be **immutable**.
 
