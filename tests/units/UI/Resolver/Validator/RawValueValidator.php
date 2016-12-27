@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\UI\Resolver\Asserter;
+namespace Tests\Units\Imedia\Ammit\UI\Resolver\Validator;
 
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use mageekguy\atoum;
 
-use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter as SUT;
+use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator as SUT;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RawValueAsserter extends atoum
+class RawValueValidator extends atoum
 {
     public static function createAllScalars(): array
     {

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Units\Imedia\Ammit\UI\Resolver;
 
-use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRawValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRequestAttributeValueAsserter;
+use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
+use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use mageekguy\atoum;
@@ -68,10 +68,10 @@ class AbstractPragmaticCommandResolver extends atoum
         ;
     }
 
-    public function test_it_can_be_constructed_with_request_attribute_value_asserter()
+    public function test_it_can_be_constructed_with_request_attribute_value_validator()
     {
         // Given
-        $requestAttributeValueAsserteMock = $this->mockRequestAttributeValueAsserter();
+        $requestAttributeValueAsserteMock = $this->mockRequestAttributeValueValidator();
         $sut = new SUT(
             null,
             $requestAttributeValueAsserteMock
@@ -98,14 +98,14 @@ class AbstractPragmaticCommandResolver extends atoum
         ;
     }
 
-    public function test_it_can_be_constructed_with_raw_value_asserter()
+    public function test_it_can_be_constructed_with_raw_value_validator()
     {
         // Given
-        $rawValueAsserterMock = $this->mockRawValueAsserter();
+        $rawValueValidatorMock = $this->mockRawValueValidator();
         $sut = new SUT(
             null,
             null,
-            $rawValueAsserterMock
+            $rawValueValidatorMock
         );
         $requestMock = $this->mockServerRequest(
             [
@@ -123,7 +123,7 @@ class AbstractPragmaticCommandResolver extends atoum
         $this
             ->object($actual)
                 ->isEqualTo(new RegisterUserCommand('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Stephen', 'Hawking', 'stephen.hawking.me'))
-            ->mock($rawValueAsserterMock)
+            ->mock($rawValueValidatorMock)
                     ->call('mustBeString')->thrice()
                     ->call('mustBeUuid')->once()
         ;
@@ -248,20 +248,20 @@ class AbstractPragmaticCommandResolver extends atoum
         return $mock;
     }
 
-    private function mockRequestAttributeValueAsserter(): PragmaticRequestAttributeValueAsserter
+    private function mockRequestAttributeValueValidator(): PragmaticRequestAttributeValueValidator
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\PragmaticRequestAttributeValueAsserter();
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator();
         $this->calling($mock)->mustBeString = 'azerty';
         $this->calling($mock)->mustBeUuid = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
 
         return $mock;
     }
 
-    private function mockRawValueAsserter(): PragmaticRawValueAsserter
+    private function mockRawValueValidator(): PragmaticRawValueValidator
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\PragmaticRawValueAsserter();
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator();
         $this->calling($mock)->mustBeString = function ($value) { return $value; };
         $this->calling($mock)->mustBeUuid = function ($value) { return $value; };
 

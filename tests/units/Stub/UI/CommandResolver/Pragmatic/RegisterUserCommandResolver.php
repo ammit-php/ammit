@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pragmatic;
 
 use Imedia\Ammit\UI\Resolver\AbstractPragmaticCommandResolver;
-use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRawValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\PragmaticRequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
+use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
+use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
+use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator;
+use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator;
 use Psr\Http\Message\ServerRequestInterface;
 use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
 
@@ -29,27 +29,27 @@ class RegisterUserCommandResolver extends AbstractPragmaticCommandResolver
 
     /**
      * @inheritDoc
-     * @param PragmaticRequestAttributeValueAsserter $attributeValueAsserter
-     * @param PragmaticRawValueAsserter $rawValueAsserter
+     * @param PragmaticRequestAttributeValueValidator $attributeValueValidator
+     * @param PragmaticRawValueValidator $rawValueValidator
      */
-    protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RawValueAsserter $rawValueAsserter, ServerRequestInterface $request): array
+    protected function validateThenMapAttributes(RequestAttributeValueValidator $attributeValueValidator, RawValueValidator $rawValueValidator, ServerRequestInterface $request): array
     {
-        $id = $attributeValueAsserter->mustBeUuid(
+        $id = $attributeValueValidator->mustBeUuid(
             $request,
             'id'
         );
 
-        $firstName = $attributeValueAsserter->mustBeString(
+        $firstName = $attributeValueValidator->mustBeString(
             $request,
             'firstName'
         );
 
-        $lastName = $attributeValueAsserter->mustBeString(
+        $lastName = $attributeValueValidator->mustBeString(
             $request,
             'lastName'
         );
 
-        $email = $attributeValueAsserter->mustBeString(
+        $email = $attributeValueValidator->mustBeString(
             $request,
             'email'
         );

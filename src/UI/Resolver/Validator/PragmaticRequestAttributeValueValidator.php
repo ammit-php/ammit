@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Imedia\Ammit\UI\Resolver\Asserter;
+namespace Imedia\Ammit\UI\Resolver\Validator;
 
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,14 +13,14 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class PragmaticRequestAttributeValueAsserter extends RequestAttributeValueAsserter
+class PragmaticRequestAttributeValueValidator extends RequestAttributeValueValidator
 {
-    /** @var RawValueAsserter */
-    protected $rawValueAsserter;
+    /** @var RawValueValidator */
+    protected $rawValueValidator;
 
-    public function __construct(PragmaticRawValueAsserter $rawValueAsserter)
+    public function __construct(PragmaticRawValueValidator $rawValueValidator)
     {
-        $this->rawValueAsserter = $rawValueAsserter;
+        $this->rawValueValidator = $rawValueValidator;
     }
 
     /**
@@ -33,7 +33,7 @@ class PragmaticRequestAttributeValueAsserter extends RequestAttributeValueAssert
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
-        return $this->rawValueAsserter->mustBeUuid(
+        return $this->rawValueValidator->mustBeUuid(
             $value,
             $attributeKey,
             $exceptionMessage

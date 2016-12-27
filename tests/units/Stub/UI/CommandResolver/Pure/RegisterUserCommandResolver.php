@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pure;
 
 use Imedia\Ammit\UI\Resolver\AbstractPureCommandResolver;
-use Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter;
-use Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter;
+use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator;
+use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator;
 use Psr\Http\Message\ServerRequestInterface;
 use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
 
@@ -28,24 +28,24 @@ class RegisterUserCommandResolver extends AbstractPureCommandResolver
     /**
      * @inheritDoc
      */
-    protected function validateThenMapAttributes(RequestAttributeValueAsserter $attributeValueAsserter, RawValueAsserter $rawValueAsserter, ServerRequestInterface $request): array
+    protected function validateThenMapAttributes(RequestAttributeValueValidator $attributeValueValidator, RawValueValidator $rawValueValidator, ServerRequestInterface $request): array
     {
-        $id = $attributeValueAsserter->mustBeString(
+        $id = $attributeValueValidator->mustBeString(
             $request,
             'id'
         );
 
-        $firstName = $attributeValueAsserter->mustBeString(
+        $firstName = $attributeValueValidator->mustBeString(
             $request,
             'firstName'
         );
 
-        $lastName = $attributeValueAsserter->mustBeString(
+        $lastName = $attributeValueValidator->mustBeString(
             $request,
             'lastName'
         );
 
-        $email = $attributeValueAsserter->mustBeString(
+        $email = $attributeValueValidator->mustBeString(
             $request,
             'email'
         );

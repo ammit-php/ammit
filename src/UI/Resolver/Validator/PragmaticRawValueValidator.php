@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Imedia\Ammit\UI\Resolver\Asserter;
+namespace Imedia\Ammit\UI\Resolver\Validator;
 
 use Assert\Assertion;
 
@@ -12,7 +12,7 @@ use Assert\Assertion;
  *
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class PragmaticRawValueAsserter extends RawValueAsserter
+class PragmaticRawValueValidator extends RawValueValidator
 {
     /**
      * Exceptions are caught in order to be processed later
