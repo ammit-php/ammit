@@ -5,8 +5,6 @@ namespace Imedia\Ammit\UI\Resolver;
 
 use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
 use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
-use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator;
-use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Psr\Http\Message\ServerRequestInterface;
@@ -23,13 +21,13 @@ use Psr\Http\Message\ServerRequestInterface;
 abstract class AbstractPragmaticCommandResolver
 {
     /** @var UIValidationEngine */
-    private $validationEngine;
+    protected $validationEngine;
 
     /** @var PragmaticRequestAttributeValueValidator */
-    private $attributeValueValidator;
+    protected $attributeValueValidator;
 
     /** @var PragmaticRawValueValidator */
-    private $rawValueValidator;
+    protected $rawValueValidator;
 
     public function __construct(UIValidationEngine $validationEngine = null, PragmaticRequestAttributeValueValidator $attributeValueValidator = null, PragmaticRawValueValidator $rawValueValidator = null)
     {
@@ -76,8 +74,6 @@ abstract class AbstractPragmaticCommandResolver
     protected function resolveRequestAsArray(ServerRequestInterface $request): array
     {
         $values = $this->validateThenMapAttributes(
-            $this->attributeValueValidator,
-            $this->rawValueValidator,
             $request
         );
 
@@ -89,11 +85,9 @@ abstract class AbstractPragmaticCommandResolver
     /**
      * @api
      * Resolve implementation
-     * @param RequestAttributeValueValidator $attributeValueValidator
-     * @param RawValueValidator $rawValueValidator
-     * @param ServerRequestInterface $request
+     * @param ServerRequestInterface $request PSR-7 Request
      *
      * @return mixed[]
      */
-    abstract protected function validateThenMapAttributes(RequestAttributeValueValidator $attributeValueValidator, RawValueValidator $rawValueValidator, ServerRequestInterface $request): array;
+    abstract protected function validateThenMapAttributes(ServerRequestInterface $request): array;
 }
