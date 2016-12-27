@@ -12,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RequestAttributeValueValidator implements UIValidatorInterface
+class RequestQueryStringValueValidator implements UIValidatorInterface
 {
     /** @var RawValueValidator */
     protected $rawValueValidator;
@@ -23,27 +23,27 @@ class RequestAttributeValueValidator implements UIValidatorInterface
     }
 
     /**
-     * Validate if request attribute $_POST field can be mapped to a Command
+     * Validate if request query string $_GET field can be mapped to a Command
      * Throw CommandMappingException directly if any mapping issue
      * @param ServerRequestInterface $request
-     * @param string $attributeKey
+     * @param string $queryStringKey
      *
      * @return mixed
      * @throws CommandMappingException If any mapping validation failed
      */
-    public function extractValueFromRequestAttribute(ServerRequestInterface $request, string $attributeKey)
+    public function extractValueFromRequestQueryString(ServerRequestInterface $request, string $queryStringKey)
     {
         try {
-            $attributes = $request->getParsedBody();
+            $queryParams = $request->getQueryParams();
 
-            Assertion::isArray($attributes);
-            Assertion::keyExists($attributes, $attributeKey);
+            Assertion::isArray($queryParams);
+            Assertion::keyExists($queryParams, $queryStringKey);
 
-            $value = $attributes[$attributeKey];
+            $value = $queryParams[$queryStringKey];
 
             return $value;
         } catch (AssertionFailedException $exception) {
-            throw CommandMappingException::fromAttribute(
+            throw CommandMappingException::fromParameter(
                 $exception->getMessage(),
                 $exception->getPropertyPath()
             );
@@ -56,13 +56,13 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * @throws CommandMappingException If any mapping validation failed
      * @return mixed Untouched value
      */
-    public function mustBeString(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeString(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
     {
-        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
 
         return $this->rawValueValidator->mustBeString(
             $value,
-            $attributeKey,
+            $queryStringKey,
             $this,
             $exceptionMessage
         );
@@ -74,13 +74,13 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * @throws CommandMappingException If any mapping validation failed
      * @return mixed Untouched value
      */
-    public function mustBeBoolean(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeBoolean(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
     {
-        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
 
         return $this->rawValueValidator->mustBeBoolean(
             $value,
-            $attributeKey,
+            $queryStringKey,
             $this,
             $exceptionMessage
         );
@@ -91,6 +91,6 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      */
     public function createUIValidationException(string $message, string $propertyPath = null): UIValidationException
     {
-        return UIValidationException::fromAttribute($message, $propertyPath);
+        return UIValidationException::fromParameter($message, $propertyPath);
     }
 }

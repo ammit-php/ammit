@@ -16,6 +16,7 @@ class CommandMappingException extends atoum
         // Given
         $message = 'Custom message';
         $propertyPath = 'firstName';
+        $source = 'pointer';
 
         $expected = [
             'status' => 406,
@@ -28,7 +29,7 @@ class CommandMappingException extends atoum
 
 
         // When
-        $sut = new SUT($message, $propertyPath);
+        $sut = new SUT($message, $propertyPath, $source);
 
         // Then
         $this
@@ -46,11 +47,12 @@ class CommandMappingException extends atoum
         // Given
         $message = 'Custom message';
         $propertyPath = null;
+        $source = 'pointer';
 
         $expected = [
             'status' => 406,
             'source' => [
-                'pointer' => "/data/attributes/root"
+                'pointer' => "/data/attributes/"
             ],
             'title' => 'Invalid Attribute',
             'detail' => $message,
@@ -58,12 +60,12 @@ class CommandMappingException extends atoum
 
 
         // When
-        $sut = new SUT($message, $propertyPath);
+        $sut = new SUT($message, $propertyPath, $source);
 
         // Then
         $this
             ->phpString($sut->getPropertyPath())
-                ->isEqualTo('root')
+                ->isEqualTo('')
             ->phpString($sut->getMessage())
                 ->isEqualTo($message)
             ->array($sut->normalize())

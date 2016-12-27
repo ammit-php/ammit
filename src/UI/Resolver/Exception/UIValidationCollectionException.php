@@ -47,6 +47,11 @@ class UIValidationCollectionException extends AbstractNormalizableCommandResolve
      *       "detail": "Editing secret powers is not authorized on Sundays."
      *     },
      *     {
+     *      "source": { "parameter": "include" },
+     *      "title":  "Invalid Query Parameter",
+     *      "detail": "The resource does not have an `auther` relationship path."
+     *     },
+     *     {
      *       "status": "422",
      *       "source": { "pointer": "/data/attributes/volume" },
      *       "detail": "Volume does not, in fact, go to 11."

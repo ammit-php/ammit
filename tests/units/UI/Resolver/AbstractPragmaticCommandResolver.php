@@ -7,6 +7,7 @@ use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
 use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestQueryStringValueValidator;
 use mageekguy\atoum;
 use Psr\Http\Message\ServerRequestInterface;
 use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
@@ -23,10 +24,12 @@ class AbstractPragmaticCommandResolver extends atoum
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
             ]
         );
 
@@ -48,10 +51,12 @@ class AbstractPragmaticCommandResolver extends atoum
         );
         $requestMock = $this->mockServerRequest(
             [
-                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
             ]
         );
 
@@ -71,17 +76,21 @@ class AbstractPragmaticCommandResolver extends atoum
     public function test_it_can_be_constructed_with_request_attribute_value_validator()
     {
         // Given
-        $requestAttributeValueAsserteMock = $this->mockRequestAttributeValueValidator();
+        $requestAttributeValueValidatorMock = $this->mockRequestAttributeValueValidator();
         $sut = new SUT(
             null,
-            $requestAttributeValueAsserteMock
+            null,
+            $requestAttributeValueValidatorMock,
+            null
         );
         $requestMock = $this->mockServerRequest(
             [
-                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
             ]
         );
 
@@ -92,8 +101,40 @@ class AbstractPragmaticCommandResolver extends atoum
         $this
             ->object($actual)
                 ->isEqualTo(new RegisterUserCommand('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'azerty', 'azerty', 'azerty'))
-            ->mock($requestAttributeValueAsserteMock)
+            ->mock($requestAttributeValueValidatorMock)
                 ->call('mustBeString')->thrice()
+        ;
+    }
+
+    public function test_it_can_be_constructed_with_request_query_string_value_validator()
+    {
+        // Given
+        $requestQueryStringValueValidatorMock = $this->mockRequestQueryStringValueValidator();
+        $sut = new SUT(
+            null,
+            null,
+            null,
+            $requestQueryStringValueValidatorMock
+        );
+        $requestMock = $this->mockServerRequest(
+            [
+                'firstName' => 'Stephen',
+                'lastName' => 'Hawking',
+                'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+            ]
+        );
+
+        // When
+        $actual = $sut->resolve($requestMock);
+
+        // Then
+        $this
+            ->object($actual)
+                ->isEqualTo(new RegisterUserCommand('azerty', 'Stephen', 'Hawking', 'stephen.hawking.me'))
+            ->mock($requestQueryStringValueValidatorMock)
                 ->call('mustBeUuid')->once()
         ;
     }
@@ -104,15 +145,18 @@ class AbstractPragmaticCommandResolver extends atoum
         $rawValueValidatorMock = $this->mockRawValueValidator();
         $sut = new SUT(
             null,
+            $rawValueValidatorMock,
             null,
-            $rawValueValidatorMock
+            null
         );
         $requestMock = $this->mockServerRequest(
             [
-                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
             ]
         );
 
@@ -135,10 +179,13 @@ class AbstractPragmaticCommandResolver extends atoum
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ]
+            ,
+            [
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
             ]
         );
 
@@ -154,16 +201,24 @@ class AbstractPragmaticCommandResolver extends atoum
     public function test_it_can_intercept_a_command_mapping_exception()
     {
         // Given
-        $expected = new CommandMappingException('Array does not contain an element with key "firstName"', 'root');
-        $expected = $expected->normalize();
+        $expected = [
+            'status' => 406,
+            'source' => [
+                'pointer' => '/data/attributes/'
+            ],
+            'title' => 'Invalid Attribute',
+            'detail' => 'Array does not contain an element with key "firstName"'
+        ];
 
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
                 'firstName2' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
             ]
         );
 
@@ -178,7 +233,7 @@ class AbstractPragmaticCommandResolver extends atoum
                 ->array($actual)
                     ->isEqualTo($expected)
                 ->mock($requestMock)
-                    ->call('getParsedBody')->twice() // Then throw exception
+                    ->call('getParsedBody')->once() // Then throw exception
             ;
 
             return;
@@ -194,8 +249,8 @@ class AbstractPragmaticCommandResolver extends atoum
             'errors' => [
                 [
                     'status' => 406,
-                    'source' => ['pointer' => '/data/attributes/id'],
-                    'title' => 'Invalid Attribute',
+                    'source' => ['parameter' => 'id'],
+                    'title' => 'Invalid Query Parameter',
                     'detail' => 'Value "42" is not a valid UUID.',
                 ]
             ]
@@ -204,10 +259,12 @@ class AbstractPragmaticCommandResolver extends atoum
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => '42',
             ]
         );
 
@@ -222,7 +279,8 @@ class AbstractPragmaticCommandResolver extends atoum
                 ->array($actual)
                     ->isEqualTo($expected)
                 ->mock($requestMock)
-                    ->call('getParsedBody')->exactly(4)
+                    ->call('getParsedBody')->exactly(3)
+                    ->call('getQueryParams')->exactly(1)
             ;
 
             return;
@@ -231,10 +289,11 @@ class AbstractPragmaticCommandResolver extends atoum
         $this->throwException();
     }
 
-    private function mockServerRequest(array $requestAttributes): ServerRequestInterface
+    private function mockServerRequest(array $requestAttributes, array $requestQueryParams): ServerRequestInterface
     {
         $mock = new \mock\Psr\Http\Message\ServerRequestInterface();
         $this->calling($mock)->getParsedBody = $requestAttributes;
+        $this->calling($mock)->getQueryParams = $requestQueryParams;
 
         return $mock;
     }
@@ -252,8 +311,20 @@ class AbstractPragmaticCommandResolver extends atoum
     {
         $this->mockGenerator->orphanize('__construct');
         $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator();
-        $this->calling($mock)->mustBeString = 'azerty';
-        $this->calling($mock)->mustBeUuid = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
+        $this->calling($mock)->mustBeString =  'azerty';
+        $this->calling($mock)->mustBeUuid =  'azerty';
+        $this->calling($mock)->createUIValidationException =  'Prefix';
+
+        return $mock;
+    }
+
+    private function mockRequestQueryStringValueValidator(): PragmaticRequestQueryStringValueValidator
+    {
+        $this->mockGenerator->orphanize('__construct');
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestQueryStringValueValidator();
+        $this->calling($mock)->mustBeString =  'azerty';
+        $this->calling($mock)->mustBeUuid =  'azerty';
+        $this->calling($mock)->createUIValidationException =  'Prefix';
 
         return $mock;
     }

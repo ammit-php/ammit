@@ -6,6 +6,7 @@ namespace Tests\Units\Imedia\Ammit\UI\Resolver;
 use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator;
 use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
+use Imedia\Ammit\UI\Resolver\Validator\RequestQueryStringValueValidator;
 use mageekguy\atoum;
 use Psr\Http\Message\ServerRequestInterface;
 use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
@@ -22,10 +23,12 @@ class AbstractPureCommandResolver extends atoum
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => '42',
             ]
         );
 
@@ -47,10 +50,12 @@ class AbstractPureCommandResolver extends atoum
         );
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => '42',
             ]
         );
 
@@ -70,17 +75,21 @@ class AbstractPureCommandResolver extends atoum
     public function test_it_can_be_constructed_with_request_attribute_value_validator()
     {
         // Given
-        $requestAttributeValueAsserteMock = $this->mockRequestAttributeValueValidator();
+        $requestAttributeValueValidatorMock = $this->mockRequestAttributeValueValidator();
         $sut = new SUT(
             null,
-            $requestAttributeValueAsserteMock
+            null,
+            $requestAttributeValueValidatorMock,
+            null
         );
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => '42',
             ]
         );
 
@@ -90,9 +99,42 @@ class AbstractPureCommandResolver extends atoum
         // Then
         $this
             ->object($actual)
-                ->isEqualTo(new RegisterUserCommand('azerty', 'azerty', 'azerty', 'azerty'))
-            ->mock($requestAttributeValueAsserteMock)
-                    ->call('mustBeString')->exactly(4)
+                ->isEqualTo(new RegisterUserCommand('42', 'azerty', 'azerty', 'azerty'))
+            ->mock($requestAttributeValueValidatorMock)
+                    ->call('mustBeString')->exactly(3)
+        ;
+    }
+
+    public function test_it_can_be_constructed_with_request_query_string_value_validator()
+    {
+        // Given
+        $requestQueryStringValueValidatorMock = $this->mockRequestQueryStringValueValidator();
+        $sut = new SUT(
+            null,
+            null,
+            null,
+            $requestQueryStringValueValidatorMock
+        );
+        $requestMock = $this->mockServerRequest(
+            [
+                'firstName' => 'Stephen',
+                'lastName' => 'Hawking',
+                'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => '42',
+            ]
+        );
+
+        // When
+        $actual = $sut->resolve($requestMock);
+
+        // Then
+        $this
+            ->object($actual)
+                ->isEqualTo(new RegisterUserCommand('azerty', 'Stephen', 'Hawking', 'stephen.hawking.me'))
+            ->mock($requestQueryStringValueValidatorMock)
+                    ->call('mustBeString')->exactly(1)
         ;
     }
 
@@ -102,15 +144,18 @@ class AbstractPureCommandResolver extends atoum
         $rawValueValidatorMock = $this->mockRawValueValidator();
         $sut = new SUT(
             null,
+            $rawValueValidatorMock,
             null,
-            $rawValueValidatorMock
+            null
         );
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => '42',
             ]
         );
 
@@ -132,10 +177,12 @@ class AbstractPureCommandResolver extends atoum
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
                 'firstName' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => '42',
             ]
         );
 
@@ -151,16 +198,24 @@ class AbstractPureCommandResolver extends atoum
     public function test_it_can_intercept_a_command_mapping_exception()
     {
         // Given
-        $expected = new CommandMappingException('Array does not contain an element with key "firstName"', 'root');
-        $expected = $expected->normalize();
+        $expected = [
+            'status' => 406,
+            'source' => [
+                'pointer' => '/data/attributes/'
+            ],
+            'title' => 'Invalid Attribute',
+            'detail' => 'Array does not contain an element with key "firstName"'
+        ];
 
         $sut = new SUT();
         $requestMock = $this->mockServerRequest(
             [
-                'id' => '42',
                 'firstName2' => 'Stephen',
                 'lastName' => 'Hawking',
                 'email' => 'stephen.hawking.me',
+            ],
+            [
+                'id' => '42',
             ]
         );
 
@@ -175,7 +230,7 @@ class AbstractPureCommandResolver extends atoum
                 ->array($actual)
                     ->isEqualTo($expected)
                 ->mock($requestMock)
-                    ->call('getParsedBody')->twice()
+                    ->call('getParsedBody')->once()
             ;
 
             return;
@@ -184,10 +239,11 @@ class AbstractPureCommandResolver extends atoum
         $this->throwException();
     }
 
-    private function mockServerRequest(array $requestAttributes): ServerRequestInterface
+    private function mockServerRequest(array $requestAttributes, array $requestQueryParams): ServerRequestInterface
     {
         $mock = new \mock\Psr\Http\Message\ServerRequestInterface();
         $this->calling($mock)->getParsedBody = $requestAttributes;
+        $this->calling($mock)->getQueryParams = $requestQueryParams;
 
         return $mock;
     }
@@ -206,6 +262,17 @@ class AbstractPureCommandResolver extends atoum
         $this->mockGenerator->orphanize('__construct');
         $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator();
         $this->calling($mock)->mustBeString = 'azerty';
+        $this->calling($mock)->createUIValidationException =  'Prefix';
+
+        return $mock;
+    }
+
+    private function mockRequestQueryStringValueValidator(): RequestQueryStringValueValidator
+    {
+        $this->mockGenerator->orphanize('__construct');
+        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\RequestQueryStringValueValidator();
+        $this->calling($mock)->mustBeString = 'azerty';
+        $this->calling($mock)->createUIValidationException =  'Prefix';
 
         return $mock;
     }

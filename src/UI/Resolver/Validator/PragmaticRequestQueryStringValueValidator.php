@@ -13,7 +13,7 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class PragmaticRequestAttributeValueValidator extends RequestAttributeValueValidator
+class PragmaticRequestQueryStringValueValidator extends RequestQueryStringValueValidator
 {
     /** @var RawValueValidator */
     protected $rawValueValidator;
@@ -30,13 +30,13 @@ class PragmaticRequestAttributeValueValidator extends RequestAttributeValueValid
      * @throws CommandMappingException If any mapping validation failed
      * @return mixed Untouched value
      */
-    public function mustBeUuid(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeUuid(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
     {
-        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
 
         return $this->rawValueValidator->mustBeUuid(
             $value,
-            $attributeKey,
+            $queryStringKey,
             $this,
             $exceptionMessage
         );

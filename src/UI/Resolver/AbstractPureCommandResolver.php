@@ -7,6 +7,7 @@ use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator;
 use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use Imedia\Ammit\UI\Resolver\Validator\RequestQueryStringValueValidator;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -19,13 +20,16 @@ abstract class AbstractPureCommandResolver
     /** @var UIValidationEngine */
     protected $validationEngine;
 
-    /** @var RequestAttributeValueValidator */
-    protected $attributeValueValidator;
-
     /** @var RawValueValidator */
     protected $rawValueValidator;
 
-    public function __construct(UIValidationEngine $validationEngine = null, RequestAttributeValueValidator $attributeValueValidator = null, RawValueValidator $rawValueValidator = null)
+    /** @var RequestAttributeValueValidator */
+    protected $attributeValueValidator;
+
+    /** @var RequestQueryStringValueValidator */
+    protected $queryStringValueValidator;
+
+    public function __construct(UIValidationEngine $validationEngine = null, RawValueValidator $rawValueValidator = null, RequestAttributeValueValidator $attributeValueValidator = null, RequestQueryStringValueValidator $queryStringValueValidator = null)
     {
         if (null === $validationEngine) {
             $validationEngine = UIValidationEngine::initialize();
@@ -41,9 +45,16 @@ abstract class AbstractPureCommandResolver
             );
         }
 
+        if (null === $queryStringValueValidator) {
+            $queryStringValueValidator = new RequestQueryStringValueValidator(
+                $rawValueValidator
+            );
+        }
+
         $this->validationEngine = $validationEngine;
         $this->rawValueValidator = $rawValueValidator;
         $this->attributeValueValidator = $attributeValueValidator;
+        $this->queryStringValueValidator = $queryStringValueValidator;
     }
 
     /**

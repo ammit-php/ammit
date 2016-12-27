@@ -5,13 +5,13 @@ namespace Tests\Units\Imedia\Ammit\UI\Resolver\Validator;
 
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use mageekguy\atoum;
-use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator as SUT;
+use Imedia\Ammit\UI\Resolver\Validator\RequestQueryStringValueValidator as SUT;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class RequestAttributeValueValidator extends atoum
+class RequestQueryStringValueValidator extends atoum
 {
     public function test_it_gets_value_from_psr7_request()
     {
@@ -26,7 +26,7 @@ class RequestAttributeValueValidator extends atoum
         $requestMock = $this->mockServerRequest([$propertyPath => $expected]);
 
         // When
-        $actual = $sut->extractValueFromRequestAttribute(
+        $actual = $sut->extractValueFromRequestQueryString(
             $requestMock,
             $propertyPath
         );
@@ -36,54 +36,17 @@ class RequestAttributeValueValidator extends atoum
             ->variable($actual)
                 ->isEqualTo($expected)
             ->mock($requestMock)
-                ->call('getParsedBody')->once()
+                ->call('getQueryParams')->once()
         ;
     }
 
-    public function test_it_throws_exception_when_psr7_request_attribute_is_absent()
+    public function test_it_throws_exception_when_psr7_request_query_string_is_absent()
     {
         // Given
         $expected = [
             'status' => 406,
-            'source' => ['pointer' => '/data/attributes/'],
-            'title' => 'Invalid Attribute',
-            'detail' => 'Array does not contain an element with key "firstName"',
-        ];
-
-        $sut = new SUT(
-            $this->mockRawValueValidator()
-        );
-
-        $requestMock = $this->mockServerRequest([]);
-
-        // Then
-        try {
-            $sut->extractValueFromRequestAttribute(
-                $requestMock,
-                'firstName'
-            );
-        } catch (CommandMappingException $e) {
-            $actual = $e->normalize();
-            $this
-                ->array($actual)
-                    ->isEqualTo($expected)
-                ->mock($requestMock)
-                    ->call('getParsedBody')->once()
-            ;
-
-            return;
-        }
-
-        throw new \mageekguy\atoum\asserter\exception($this->variable(), 'CommandMappingException not thrown.');
-    }
-
-    public function test_invalid_attribute()
-    {
-        // Given
-        $expected = [
-            'status' => 406,
-            'source' => ['pointer' => '/data/attributes/'],
-            'title' => 'Invalid Attribute',
+            'source' => ['parameter' => ''],
+            'title' => 'Invalid Query Parameter',
             'detail' => 'Array does not contain an element with key "firstName"',
         ];
 
@@ -95,7 +58,7 @@ class RequestAttributeValueValidator extends atoum
 
         // Then
         try {
-            $sut->extractValueFromRequestAttribute(
+            $sut->extractValueFromRequestQueryString(
                 $requestMock,
                 'firstName'
             );
@@ -105,7 +68,44 @@ class RequestAttributeValueValidator extends atoum
                 ->array($actual)
                     ->isEqualTo($expected)
                 ->mock($requestMock)
-                    ->call('getParsedBody')->once()
+                    ->call('getQueryParams')->once()
+            ;
+
+            return;
+        }
+
+        throw new \mageekguy\atoum\asserter\exception($this->variable(), 'CommandMappingException not thrown.');
+    }
+
+    public function test_invalid_query_string()
+    {
+        // Given
+        $expected = [
+            'status' => 406,
+            'source' => ['parameter' => ''],
+            'title' => 'Invalid Query Parameter',
+            'detail' => 'Array does not contain an element with key "firstName"',
+        ];
+
+        $sut = new SUT(
+            $this->mockRawValueValidator()
+        );
+
+        $requestMock = $this->mockServerRequest([]);
+
+        // Then
+        try {
+            $sut->extractValueFromRequestQueryString(
+                $requestMock,
+                'firstName'
+            );
+        } catch (CommandMappingException $e) {
+            $actual = $e->normalize();
+            $this
+                ->array($actual)
+                    ->isEqualTo($expected)
+                ->mock($requestMock)
+                    ->call('getQueryParams')->once()
             ;
 
             return;
@@ -120,7 +120,7 @@ class RequestAttributeValueValidator extends atoum
     public function test_it_gets_value_from_psr7_request_even_if_not_string($propertyPath, $errorMessage, $value, array $expected)
     {
         // Given
-        $this->testInvalidValue($value, $value);
+        $this->testInvalidValue($value);
     }
 
     /**
@@ -129,7 +129,7 @@ class RequestAttributeValueValidator extends atoum
     public function test_it_gets_value_from_psr7_request_even_if_not_boolean($propertyPath, $errorMessage, $value, array $expected)
     {
         // Given
-        $this->testInvalidValue($value, $value);
+        $this->testInvalidValue($value);
     }
 
     protected function notBooleanDataProvider(): array
@@ -150,9 +150,8 @@ class RequestAttributeValueValidator extends atoum
 
     /**
      * @param mixed $value
-     * @param mixed $expected
      */
-    private function testInvalidValue($value, $expected)
+    private function testInvalidValue($value)
     {
         $rawValueValidatorMock = $this->mockRawValueValidator();
         $sut = new SUT(
@@ -171,9 +170,9 @@ class RequestAttributeValueValidator extends atoum
         // Then
         $this
             ->variable($actual)
-                ->isEqualTo($expected)
+                ->isEqualTo($value)
             ->mock($requestMock)
-                ->call('getParsedBody')->once()
+                ->call('getQueryParams')->once()
             ->mock($rawValueValidatorMock)
                 ->call('mustBeString')->once();
     }
@@ -187,10 +186,10 @@ class RequestAttributeValueValidator extends atoum
         return $mock;
     }
 
-    private function mockServerRequest(array $requestAttributes): ServerRequestInterface
+    private function mockServerRequest(array $queryStringAttributes): ServerRequestInterface
     {
         $mock = new \mock\Psr\Http\Message\ServerRequestInterface();
-        $this->calling($mock)->getParsedBody = $requestAttributes;
+        $this->calling($mock)->getQueryParams = $queryStringAttributes;
 
         return $mock;
     }

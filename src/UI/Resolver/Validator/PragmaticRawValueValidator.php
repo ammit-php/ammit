@@ -15,14 +15,16 @@ use Assert\Assertion;
 class PragmaticRawValueValidator extends RawValueValidator
 {
     /**
+     * Domain should be responsible for id format
      * Exceptions are caught in order to be processed later
      * @param mixed $value String ?
      *
      * @return mixed Untouched value
      */
-    public function mustBeUuid($value, string $propertyPath = null, string $exceptionMessage = null)
+    public function mustBeUuid($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
     {
         $this->validationEngine->validateFieldValue(
+            $parentValidator ?: $this,
             function () use ($value, $propertyPath, $exceptionMessage) {
                 Assertion::uuid(
                     $value,

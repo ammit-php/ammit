@@ -7,6 +7,7 @@ use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
 use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestQueryStringValueValidator;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -23,13 +24,16 @@ abstract class AbstractPragmaticCommandResolver
     /** @var UIValidationEngine */
     protected $validationEngine;
 
+     /** @var PragmaticRawValueValidator */
+    protected $rawValueValidator;
+
     /** @var PragmaticRequestAttributeValueValidator */
     protected $attributeValueValidator;
 
-    /** @var PragmaticRawValueValidator */
-    protected $rawValueValidator;
+    /** @var PragmaticRequestQueryStringValueValidator */
+    protected $queryStringValueValidator;
 
-    public function __construct(UIValidationEngine $validationEngine = null, PragmaticRequestAttributeValueValidator $attributeValueValidator = null, PragmaticRawValueValidator $rawValueValidator = null)
+    public function __construct(UIValidationEngine $validationEngine = null, PragmaticRawValueValidator $rawValueValidator = null, PragmaticRequestAttributeValueValidator $attributeValueValidator = null, PragmaticRequestQueryStringValueValidator $queryStringValueValidator = null)
     {
         if (null === $validationEngine) {
             $validationEngine = UIValidationEngine::initialize();
@@ -45,9 +49,16 @@ abstract class AbstractPragmaticCommandResolver
             );
         }
 
+        if (null === $queryStringValueValidator) {
+            $queryStringValueValidator = new PragmaticRequestQueryStringValueValidator(
+                $rawValueValidator
+            );
+        }
+
         $this->validationEngine = $validationEngine;
         $this->rawValueValidator = $rawValueValidator;
         $this->attributeValueValidator = $attributeValueValidator;
+        $this->queryStringValueValidator = $queryStringValueValidator;
     }
 
     /**

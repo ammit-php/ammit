@@ -32,7 +32,7 @@ class RegisterUserCommandResolver extends AbstractPragmaticCommandResolver
      */
     protected function validateThenMapAttributes(ServerRequestInterface $request): array
     {
-        $id = $this->attributeValueValidator->mustBeUuid(
+        $id = $this->queryStringValueValidator->mustBeUuid(
             $request,
             'id'
         );
