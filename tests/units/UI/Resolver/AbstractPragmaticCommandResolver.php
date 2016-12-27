@@ -93,8 +93,8 @@ class AbstractPragmaticCommandResolver extends atoum
             ->object($actual)
                 ->isEqualTo(new RegisterUserCommand('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'azerty', 'azerty', 'azerty'))
             ->mock($requestAttributeValueAsserteMock)
-                ->call('attributeMustBeString')->thrice()
-                ->call('attributeMustBeUuid')->once()
+                ->call('mustBeString')->thrice()
+                ->call('mustBeUuid')->once()
         ;
     }
 
@@ -124,8 +124,8 @@ class AbstractPragmaticCommandResolver extends atoum
             ->object($actual)
                 ->isEqualTo(new RegisterUserCommand('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Stephen', 'Hawking', 'stephen.hawking.me'))
             ->mock($rawValueAsserterMock)
-                    ->call('valueMustBeString')->thrice()
-                    ->call('valueMustBeUuid')->once()
+                    ->call('mustBeString')->thrice()
+                    ->call('mustBeUuid')->once()
         ;
     }
 
@@ -252,8 +252,8 @@ class AbstractPragmaticCommandResolver extends atoum
     {
         $this->mockGenerator->orphanize('__construct');
         $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\PragmaticRequestAttributeValueAsserter();
-        $this->calling($mock)->attributeMustBeString = 'azerty';
-        $this->calling($mock)->attributeMustBeUuid = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
+        $this->calling($mock)->mustBeString = 'azerty';
+        $this->calling($mock)->mustBeUuid = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
 
         return $mock;
     }
@@ -262,8 +262,8 @@ class AbstractPragmaticCommandResolver extends atoum
     {
         $this->mockGenerator->orphanize('__construct');
         $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\PragmaticRawValueAsserter();
-        $this->calling($mock)->valueMustBeString = function ($value) { return $value; };
-        $this->calling($mock)->valueMustBeUuid = function ($value) { return $value; };
+        $this->calling($mock)->mustBeString = function ($value) { return $value; };
+        $this->calling($mock)->mustBeUuid = function ($value) { return $value; };
 
         return $mock;
     }

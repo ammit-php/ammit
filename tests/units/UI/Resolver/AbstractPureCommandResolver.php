@@ -92,7 +92,7 @@ class AbstractPureCommandResolver extends atoum
             ->object($actual)
                 ->isEqualTo(new RegisterUserCommand('azerty', 'azerty', 'azerty', 'azerty'))
             ->mock($requestAttributeValueAsserteMock)
-                    ->call('attributeMustBeString')->exactly(4)
+                    ->call('mustBeString')->exactly(4)
         ;
     }
 
@@ -122,7 +122,7 @@ class AbstractPureCommandResolver extends atoum
             ->object($actual)
                 ->isEqualTo(new RegisterUserCommand('42', 'Stephen', 'Hawking', 'stephen.hawking.me'))
             ->mock($rawValueAsserterMock)
-                    ->call('valueMustBeString')->exactly(4)
+                    ->call('mustBeString')->exactly(4)
         ;
     }
 
@@ -205,7 +205,7 @@ class AbstractPureCommandResolver extends atoum
     {
         $this->mockGenerator->orphanize('__construct');
         $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RequestAttributeValueAsserter();
-        $this->calling($mock)->attributeMustBeString = 'azerty';
+        $this->calling($mock)->mustBeString = 'azerty';
 
         return $mock;
     }
@@ -214,7 +214,7 @@ class AbstractPureCommandResolver extends atoum
     {
         $this->mockGenerator->orphanize('__construct');
         $mock = new \mock\Imedia\Ammit\UI\Resolver\Asserter\RawValueAsserter();
-        $this->calling($mock)->valueMustBeString = function ($value) { return $value; };
+        $this->calling($mock)->mustBeString = function ($value) { return $value; };
 
         return $mock;
     }
