@@ -77,28 +77,33 @@ class RegisterUserCommandResolver extends AbstractPureCommandResolver
     /**
      * @inheritDoc
      */
-    protected function validateThenMapAttributes(RequestAttributeValueValidator $attributeValueValidator, RawValueValidator $rawValueValidator, ServerRequestInterface $request): array
+    protected function validateThenMapAttributes(ServerRequestInterface $request): array
     {
-        $id = $attributeValueValidator->attributeMustBeString(
+        // $id = $_GET['id']
+        $id = $this->queryStringValueValidator->mustBeString(
             $request,
             'id'
         );
 
-        $firstName = $attributeValueValidator->attributeMustBeString(
+        // $firstName = $_POST['firstName']
+        $firstName = $this->attributeValueValidator->mustBeString(
             $request,
             'firstName'
         );
 
-        $lastName = $attributeValueValidator->attributeMustBeString(
+        // $lastName = $_POST['lastName']
+        $lastName = $this->attributeValueValidator->mustBeString(
             $request,
             'lastName'
         );
 
-        $email = $attributeValueValidator->attributeMustBeString(
+        // $email = $_POST['email']
+        $email = $this->attributeValueValidator->mustBeString(
             $request,
             'email'
         );
 
+        // Will be injected directly in RegisterUserCommand::__construct(...$args)
         $commandConstructorValues = [
             $id,
             $firstName,
@@ -146,7 +151,7 @@ With **Ammit** you would use our `AbstractPragmaticCommandhenResolver` (**Pragma
 It will allow you to use more complex validation like `uuid` validation for example:
 
 ```php
-$email = $attributeValueValidator->attributeMustBeUuid(
+$email = $attributeValueValidator->mustBeUuid(
     $request,
     'id'
 );
