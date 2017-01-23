@@ -7,6 +7,8 @@
 
 [DDD] A light, stable and framework agnostic Command resolver library
 
+# Currently Battle Tested (not yet tagged)
+
 A [Command](http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/) is a simple well named [DTO](http://martinfowler.com/eaaCatalog/dataTransferObject.html) reflecting user **intention**. 
 
 Consequently it shall be **immutable**.
@@ -17,8 +19,6 @@ Consequently it shall be **immutable**.
   - *DisableUserCommand*
   - *BookCargoCommand*
   
-# Currently Battle Tested (not yet tagged)
-
 
 #### What the lib does ?
 
