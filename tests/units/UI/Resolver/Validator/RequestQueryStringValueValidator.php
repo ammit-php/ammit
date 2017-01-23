@@ -141,6 +141,15 @@ class RequestQueryStringValueValidator extends atoum
         $this->testInvalidValue($value);
     }
 
+    /**
+     * @dataProvider notFloatDataProvider
+     */
+    public function test_it_gets_value_from_psr7_request_even_if_not_float($propertyPath, $errorMessage, $value, array $expected)
+    {
+        // Given
+        $this->testInvalidValue($value);
+    }
+
     protected function notBooleanDataProvider(): array
     {
         $values = RawValueValidator::createAllScalars();
@@ -161,6 +170,14 @@ class RequestQueryStringValueValidator extends atoum
     {
         $values = RawValueValidator::createAllScalars();
         unset($values['array']);
+
+        return $values;
+    }
+
+    protected function notFloatDataProvider(): array
+    {
+        $values = RawValueValidator::createAllScalars();
+        unset($values['float']);
 
         return $values;
     }

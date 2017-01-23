@@ -124,10 +124,32 @@ class RawValueValidator extends atoum
         );
     }
 
+    /**
+     * @dataProvider notFloatDataProvider
+     */
+    public function test_it_gets_value_even_if_not_float_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
+    {
+        $this->testInvalidValue(
+            $errorMessage,
+            $propertyPath,
+            $value,
+            $expectedNormalizedException,
+            'mustBeFloat'
+        );
+    }
+
     protected function notArrayDataProvider(): array
     {
         $values = $this->createAllScalars();
         unset($values['array']);
+
+        return $values;
+    }
+
+    protected function notFloatDataProvider(): array
+    {
+        $values = $this->createAllScalars();
+        unset($values['float']);
 
         return $values;
     }
