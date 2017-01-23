@@ -142,6 +142,15 @@ class RequestAttributeValueValidator extends atoum
     }
 
     /**
+     * @dataProvider notIntegerDataProvider
+     */
+    public function test_it_gets_value_from_psr7_request_even_if_not_integer($propertyPath, $errorMessage, $value, array $expected)
+    {
+        // Given
+        $this->testInvalidValue($value, $value);
+    }
+
+    /**
      * @dataProvider notArrayDataProvider
      */
     public function test_it_gets_value_from_psr7_request_even_if_not_array($propertyPath, $errorMessage, $value, array $expected)
@@ -178,6 +187,14 @@ class RequestAttributeValueValidator extends atoum
     {
         $values = RawValueValidator::createAllScalars();
         unset($values['float']);
+
+        return $values;
+    }
+
+    protected function notIntegerDataProvider(): array
+    {
+        $values = RawValueValidator::createAllScalars();
+        unset($values['int']);
 
         return $values;
     }
