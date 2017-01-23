@@ -56,6 +56,11 @@ try {
     );
 }
 
+try {
+    $this->userService->registerUser($command);
+} catch(DomainException $e) {
+   // ...
+}
 // ...
 ```
 
@@ -73,6 +78,7 @@ class RegisterUserCommandResolver extends AbstractPureCommandResolver
     {
         $commandConstructorValues = $this->resolveRequestAsArray($request);
 
+        // We are using variadic function here (https://wiki.php.net/rfc/variadics)
         return new RegisterUserCommand(...$commandConstructorValues);
     }
 
@@ -106,6 +112,7 @@ class RegisterUserCommandResolver extends AbstractPureCommandResolver
         );
 
         // Will be injected directly in RegisterUserCommand::__construct(...$args)
+        // as variadic function
         $commandConstructorValues = [
             $id,
             $firstName,
@@ -125,7 +132,7 @@ Use it with Laravel: TBA
 #### What the lib does not ?
 
 - It is not designed to be a Symfony [Form Component](https://symfony.com/doc/current/components/form.html) replacement.
-- It is not designed to create complex validation. It's aim is to validate simple scalar. Yet it still allows "pragmatic" complex UI validation for prototyping/RAD.
+- It is not designed to create complex validation. It's aim is to validate simple scalar. Yet it still allows "[pragmatic](https://github.com/imediafrance/ammit#pragmatic-)" complex UI validation for prototyping/RAD.
 - It is not designed to use PHP reflection. It is only meant to use Command constructor.
 
 #### Why ?
