@@ -66,6 +66,28 @@ class RawValueValidator implements UIValidatorInterface
     }
 
     /**
+     * Exceptions are caught in order to be processed later
+     * @param mixed $value Array ?
+     *
+     * @return mixed Untouched value
+     */
+    public function mustBeArray($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        $this->validationEngine->validateFieldValue(
+            $parentValidator ?: $this,
+            function () use ($value, $propertyPath, $exceptionMessage) {
+                Assertion::isArray(
+                    $value,
+                    $exceptionMessage,
+                    $propertyPath
+                );
+            }
+        );
+
+        return $value;
+    }
+
+    /**
      * @inheritdoc
      */
     public function createUIValidationException(string $message, string $propertyPath = null): UIValidationException

@@ -110,6 +110,28 @@ class RawValueValidator extends atoum
         return $values;
     }
 
+    /**
+     * @dataProvider notArrayDataProvider
+     */
+    public function test_it_gets_value_even_if_not_array_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
+    {
+        $this->testInvalidValue(
+            $errorMessage,
+            $propertyPath,
+            $value,
+            $expectedNormalizedException,
+            'mustBeArray'
+        );
+    }
+
+    protected function notArrayDataProvider(): array
+    {
+        $values = $this->createAllScalars();
+        unset($values['array']);
+
+        return $values;
+    }
+
     private function testInvalidValue(string $errorMessage, string $propertyPath, $value, $expectedNormalizedException, string $methodToTest, UIValidatorInterface $parentValidation = null)
     {
         $expectedNormalizedExceptions = [
