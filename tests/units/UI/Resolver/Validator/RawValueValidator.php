@@ -138,6 +138,20 @@ class RawValueValidator extends atoum
         );
     }
 
+    /**
+     * @dataProvider notIntegerDataProvider
+     */
+    public function test_it_gets_value_even_if_not_integer_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
+    {
+        $this->testInvalidValue(
+            $errorMessage,
+            $propertyPath,
+            $value,
+            $expectedNormalizedException,
+            'mustBeInteger'
+        );
+    }
+
     protected function notArrayDataProvider(): array
     {
         $values = $this->createAllScalars();
@@ -150,6 +164,14 @@ class RawValueValidator extends atoum
     {
         $values = $this->createAllScalars();
         unset($values['float']);
+
+        return $values;
+    }
+
+    protected function notIntegerDataProvider(): array
+    {
+        $values = $this->createAllScalars();
+        unset($values['int']);
 
         return $values;
     }
