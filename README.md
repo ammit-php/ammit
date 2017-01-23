@@ -16,6 +16,8 @@ Consequently it shall be **immutable**.
   - *RegisterUserCommand*
   - *DisableUserCommand*
   - *BookCargoCommand*
+  
+# Currently Battle Tested (not yet tagged)
 
 
 #### What the lib does ?
