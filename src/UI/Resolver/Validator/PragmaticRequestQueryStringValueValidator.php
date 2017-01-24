@@ -49,6 +49,25 @@ class PragmaticRequestQueryStringValueValidator extends RequestQueryStringValueV
      * @throws CommandMappingException If any mapping validation failed
      * @return mixed Untouched value
      */
+    public function mustBeEmailAddress(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
+
+        return $this->rawValueValidator->mustBeEmailAddress(
+            $value,
+            $queryStringKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Domain should be responsible for id format
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
     public function mustHaveLengthBetween(ServerRequestInterface $request, string $queryStringKey, int $min, int $max, string $exceptionMessage = null)
     {
         $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
