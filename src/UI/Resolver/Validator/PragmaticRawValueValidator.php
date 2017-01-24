@@ -36,4 +36,29 @@ class PragmaticRawValueValidator extends RawValueValidator
 
         return $value;
     }
+
+    /**
+     * Domain should be responsible for id format
+     * Exceptions are caught in order to be processed later
+     * @param mixed $value String ?
+     *
+     * @return mixed Untouched value
+     */
+    public function mustHaveLengthBetween($value, int $min, int $max, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        $this->validationEngine->validateFieldValue(
+            $parentValidator ?: $this,
+            function () use ($value, $min, $max, $propertyPath, $exceptionMessage) {
+                Assertion::betweenLength(
+                    $value,
+                    $min,
+                    $max,
+                    $exceptionMessage,
+                    $propertyPath
+                );
+            }
+        );
+
+        return $value;
+    }
 }
