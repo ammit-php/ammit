@@ -41,4 +41,25 @@ class PragmaticRequestQueryStringValueValidator extends RequestQueryStringValueV
             $exceptionMessage
         );
     }
+
+    /**
+     * Domain should be responsible for id format
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustHaveLengthBetween(ServerRequestInterface $request, string $queryStringKey, int $min, int $max, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
+
+        return $this->rawValueValidator->mustHaveLengthBetween(
+            $value,
+            $queryStringKey,
+            $min,
+            $max,
+            $this,
+            $exceptionMessage
+        );
+    }
 }

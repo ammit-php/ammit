@@ -41,4 +41,25 @@ class PragmaticRequestAttributeValueValidator extends RequestAttributeValueValid
             $exceptionMessage
         );
     }
+
+    /**
+     * Domain should be responsible for id format
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustHaveLengthBetween(ServerRequestInterface $request, string $attributeKey, int $min, int $max, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueValidator->mustHaveLengthBetween(
+            $value,
+            $min,
+            $max,
+            $attributeKey,
+            $this,
+            $exceptionMessage
+        );
+    }
 }
