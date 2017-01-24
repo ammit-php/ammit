@@ -49,6 +49,25 @@ class PragmaticRequestAttributeValueValidator extends RequestAttributeValueValid
      * @throws CommandMappingException If any mapping validation failed
      * @return mixed Untouched value
      */
+    public function mustBeEmailAddress(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueValidator->mustBeEmailAddress(
+            $value,
+            $attributeKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Domain should be responsible for id format
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
     public function mustHaveLengthBetween(ServerRequestInterface $request, string $attributeKey, int $min, int $max, string $exceptionMessage = null)
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
