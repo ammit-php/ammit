@@ -7,7 +7,7 @@ use Assert\Assertion;
 use Imedia\Ammit\Domain\MailMxValidation;
 
 /**
- * @deprecated Contains Domain Validation assertions (but class won't be removed in next version)
+ * @internal Contains Domain Validation assertions (but class won't be removed in next version)
  *   Domain Validation should be done in Domain
  *   Should be used for prototyping project knowing you are accumulating technical debt
  *
