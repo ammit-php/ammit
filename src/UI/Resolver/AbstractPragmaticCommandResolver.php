@@ -12,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Helper easing Command Resolver (mapping + UI Validation) implementation
- * @deprecated Contains Domain Validation assertions (but class won't be removed in next version)
+ * @internal Contains Domain Validation assertions (but class won't be removed in next version)
  *   Prefer using AbstractPureCommandResolver
  *   Domain Validation should be done in Domain
  *   Should be used for prototyping project knowing you are accumulating technical debt
