@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Imedia\Ammit\UI\Resolver\Validator;
 
@@ -30,7 +30,7 @@ class RawValueValidator implements UIValidatorInterface
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function () use ($value, $propertyPath, $exceptionMessage) {
+            function() use ($value, $propertyPath, $exceptionMessage) {
                 Assertion::string(
                     $value,
                     $exceptionMessage,
@@ -52,7 +52,7 @@ class RawValueValidator implements UIValidatorInterface
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function () use ($value, $propertyPath, $exceptionMessage) {
+            function() use ($value, $propertyPath, $exceptionMessage) {
                 Assertion::inArray(
                     $value,
                     [true, false, 1, 0, '1', '0', 'true', 'false'],
@@ -75,7 +75,7 @@ class RawValueValidator implements UIValidatorInterface
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function () use ($value, $propertyPath, $exceptionMessage) {
+            function() use ($value, $propertyPath, $exceptionMessage) {
                 Assertion::isArray(
                     $value,
                     $exceptionMessage,
@@ -97,7 +97,7 @@ class RawValueValidator implements UIValidatorInterface
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function () use ($value, $propertyPath, $exceptionMessage) {
+            function() use ($value, $propertyPath, $exceptionMessage) {
                 Assertion::float(
                     $value,
                     $exceptionMessage,
@@ -119,7 +119,7 @@ class RawValueValidator implements UIValidatorInterface
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function () use ($value, $propertyPath, $exceptionMessage) {
+            function() use ($value, $propertyPath, $exceptionMessage) {
                 Assertion::integer(
                     $value,
                     $exceptionMessage,

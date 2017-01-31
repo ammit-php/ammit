@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Imedia\Ammit\UI\Resolver;
 
@@ -24,7 +24,7 @@ abstract class AbstractPragmaticCommandResolver
     /** @var UIValidationEngine */
     protected $validationEngine;
 
-     /** @var PragmaticRawValueValidator */
+    /** @var PragmaticRawValueValidator */
     protected $rawValueValidator;
 
     /** @var PragmaticRequestAttributeValueValidator */

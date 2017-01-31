@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Imedia\Ammit\UI\Resolver\Validator;
 
@@ -26,7 +26,7 @@ class PragmaticRawValueValidator extends RawValueValidator
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function () use ($value, $propertyPath, $exceptionMessage) {
+            function() use ($value, $propertyPath, $exceptionMessage) {
                 Assertion::uuid(
                     $value,
                     $exceptionMessage,
@@ -49,7 +49,7 @@ class PragmaticRawValueValidator extends RawValueValidator
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function () use ($value, $min, $max, $propertyPath, $exceptionMessage) {
+            function() use ($value, $min, $max, $propertyPath, $exceptionMessage) {
                 Assertion::betweenLength(
                     $value,
                     $min,
@@ -75,7 +75,7 @@ class PragmaticRawValueValidator extends RawValueValidator
         $mailMxValidation = new MailMxValidation();
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function () use ($value, $propertyPath, $exceptionMessage, $mailMxValidation) {
+            function() use ($value, $propertyPath, $exceptionMessage, $mailMxValidation) {
                 Assertion::true(
                     $mailMxValidation->isEmailFormatValid($value) && $mailMxValidation->isEmailHostValid($value),
                     $exceptionMessage,
