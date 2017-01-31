@@ -36,10 +36,6 @@ before_script:
 
 
 script:
-    # PHPCS
-    - wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
-    - php phpcs.phar -p --extensions=php --standard=PSR2 --error-severity=1 --warning-severity=0 --exclude=Generic.Files.LineLength ./src
-
     # Atoum - Unit Test
     - bin/atoum -ulr
 
