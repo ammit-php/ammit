@@ -1,1 +1,6 @@
 composer.lock
+
+bin/*
+vendor/*
+
+atoum.coverage.xml
