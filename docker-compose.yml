@@ -1,6 +1,6 @@
 engine:
     container_name: engine.dev.ammit
-    image: php:7.0
+    build: ./docker/engine/
     volumes:
         - ".:/var/www:rw"
     working_dir: "/var/www"
