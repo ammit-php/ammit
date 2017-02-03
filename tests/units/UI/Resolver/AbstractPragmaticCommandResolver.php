@@ -203,12 +203,14 @@ class AbstractPragmaticCommandResolver extends atoum
         // Given
         $expected = [
             'errors' => [
-                'status' => 406,
-                'source' => [
-                    'pointer' => '/data/attributes/'
-                ],
-                'title' => 'Invalid Attribute',
-                'detail' => 'Array does not contain an element with key "firstName"'
+                [
+                    'status' => 406,
+                    'source' => [
+                        'pointer' => '/data/attributes/'
+                    ],
+                    'title' => 'Invalid Attribute',
+                    'detail' => 'Array does not contain an element with key "firstName"'
+                ]
             ]
         ];
 

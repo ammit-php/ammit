@@ -20,12 +20,14 @@ class CommandMappingException extends atoum
 
         $expected = [
             'errors' =>  [
-                'status' => 406,
-                'source' => [
-                    'pointer' => "/data/attributes/$propertyPath"
-                ],
-                'title' => 'Invalid Attribute',
-                'detail' => $message,
+                [
+                    'status' => 406,
+                    'source' => [
+                        'pointer' => "/data/attributes/$propertyPath"
+                    ],
+                    'title' => 'Invalid Attribute',
+                    'detail' => $message,
+                ]
             ]
         ];
 
@@ -53,12 +55,14 @@ class CommandMappingException extends atoum
 
         $expected = [
             'errors' =>  [
-                'status' => 406,
-                'source' => [
-                    'pointer' => "/data/attributes/"
-                ],
-                'title' => 'Invalid Attribute',
-                'detail' => $message,
+                [
+                    'status' => 406,
+                    'source' => [
+                        'pointer' => "/data/attributes/"
+                    ],
+                    'title' => 'Invalid Attribute',
+                    'detail' => $message,
+                ]
             ]
         ];
 

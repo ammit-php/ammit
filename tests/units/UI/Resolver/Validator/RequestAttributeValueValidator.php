@@ -45,10 +45,12 @@ class RequestAttributeValueValidator extends atoum
         // Given
         $expected = [
             'errors' => [
-                'status' => 406,
-                'source' => ['pointer' => '/data/attributes/'],
-                'title' => 'Invalid Attribute',
-                'detail' => 'Array does not contain an element with key "firstName"',
+                [
+                    'status' => 406,
+                    'source' => ['pointer' => '/data/attributes/'],
+                    'title' => 'Invalid Attribute',
+                    'detail' => 'Array does not contain an element with key "firstName"',
+                ]
             ]
         ];
 
@@ -82,11 +84,14 @@ class RequestAttributeValueValidator extends atoum
     public function test_invalid_attribute()
     {
         // Given
-        $expected = [ 'errors' => [
-                'status' => 406,
-                'source' => ['pointer' => '/data/attributes/'],
-                'title' => 'Invalid Attribute',
-                'detail' => 'Array does not contain an element with key "firstName"',
+        $expected = [
+            'errors' => [
+                [
+                    'status' => 406,
+                    'source' => ['pointer' => '/data/attributes/'],
+                    'title' => 'Invalid Attribute',
+                    'detail' => 'Array does not contain an element with key "firstName"',
+                ]
             ]
         ];
 
