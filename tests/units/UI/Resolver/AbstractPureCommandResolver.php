@@ -199,12 +199,14 @@ class AbstractPureCommandResolver extends atoum
     {
         // Given
         $expected = [
-            'status' => 406,
-            'source' => [
-                'pointer' => '/data/attributes/'
-            ],
-            'title' => 'Invalid Attribute',
-            'detail' => 'Array does not contain an element with key "firstName"'
+            'errors' => [
+                'status' => 406,
+                'source' => [
+                    'pointer' => '/data/attributes/'
+                ],
+                'title' => 'Invalid Attribute',
+                'detail' => 'Array does not contain an element with key "firstName"'
+            ]
         ];
 
         $sut = new SUT();

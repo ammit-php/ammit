@@ -44,10 +44,12 @@ class RequestQueryStringValueValidator extends atoum
     {
         // Given
         $expected = [
-            'status' => 406,
-            'source' => ['parameter' => ''],
-            'title' => 'Invalid Query Parameter',
-            'detail' => 'Array does not contain an element with key "firstName"',
+            'errors' => [
+                'status' => 406,
+                'source' => ['parameter' => ''],
+                'title' => 'Invalid Query Parameter',
+                'detail' => 'Array does not contain an element with key "firstName"',
+            ]
         ];
 
         $sut = new SUT(
@@ -81,10 +83,12 @@ class RequestQueryStringValueValidator extends atoum
     {
         // Given
         $expected = [
-            'status' => 406,
-            'source' => ['parameter' => ''],
-            'title' => 'Invalid Query Parameter',
-            'detail' => 'Array does not contain an element with key "firstName"',
+            'errors' => [
+                'status' => 406,
+                'source' => ['parameter' => ''],
+                'title' => 'Invalid Query Parameter',
+                'detail' => 'Array does not contain an element with key "firstName"',
+            ]
         ];
 
         $sut = new SUT(
