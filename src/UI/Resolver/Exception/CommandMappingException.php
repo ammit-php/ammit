@@ -25,6 +25,10 @@ class CommandMappingException extends AbstractNormalizableCommandResolverExcepti
      */
     public function normalize(): array
     {
-        return ['errors' => parent::normalize()];
+        return [
+            'errors' => [
+                parent::normalize()
+            ]
+        ];
     }
 }
