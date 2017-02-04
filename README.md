@@ -131,6 +131,30 @@ Use it with Symfony: http://symfony.com/doc/current/request/psr7.html
 
 Use it with Laravel: TBA
 
+#### Public API
+ 
+##### Pure extending AbstractPureCommandResolver
+
+|             | Raw                          | $_GET                                | $_POST                             |
+|-------------|------------------------------|--------------------------------------|------------------------------------|
+|             | **$this->rawValueValidator** | **$this->queryStringValueValidator** | **$this->attributeValueValidator** |
+| **Boolean** | ->mustBeBoolean(...)         | ->mustBeBoolean(...)                 | ->mustBeBoolean(...)               |
+| **String**  | ->mustBeString(...)          | ->mustBeString(...)                  | ->mustBeString(...)                |
+| **Integer** | ->mustBeInteger(...)         | ->mustBeInteger(...)                 | ->mustBeInteger(...)               |
+| **Float**   | ->mustBeFloat(...)           | ->mustBeFloat(...)                   | ->mustBeFloat(...)                 |
+| **Array**   | ->mustBeArray(...)           | ->mustBeArray(...)                   | ->mustBeArray(...)                 |
+
+##### Pragmatic extending AbstractPragmaticCommandResolver
+
+|            | Raw                          | $_GET                                | $_POST                             |
+|------------|------------------------------|--------------------------------------|------------------------------------|
+|            | **$this->rawValueValidator** | **$this->queryStringValueValidator** | **$this->attributeValueValidator** |
+| Same       | as **Pure**                  | ...                                  | ...                                |
+| **UUID**   | ->mustBeUuid(...)            | ->mustBeUuid(...)                    | ->mustBeUuid(...)                  |
+| **Length** | ->mustHaveLengthBetween(...) | ->mustHaveLengthBetween(...)         | ->mustHaveLengthBetween(...)       |
+| **Email**  | ->mustBeEmailAddress(...)    | ->mustBeEmailAddress(...)            | ->mustBeEmailAddress(...)          |
+
+
 #### What the lib does not ?
 
 - It is not designed to be a Symfony [Form Component](https://symfony.com/doc/current/components/form.html) replacement.
