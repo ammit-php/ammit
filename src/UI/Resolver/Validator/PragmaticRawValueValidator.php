@@ -64,6 +64,29 @@ class PragmaticRawValueValidator extends RawValueValidator
     }
 
     /**
+     * Domain should be responsible for string emptiness
+     * Exceptions are caught in order to be processed later
+     * @param mixed $value String not empty ?
+     *
+     * @return mixed Untouched value
+     */
+    public function mustBeStringNotEmpty($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        $this->validationEngine->validateFieldValue(
+            $parentValidator ?: $this,
+            function() use ($value, $propertyPath, $exceptionMessage) {
+                Assertion::notEmpty(
+                    $value,
+                    $exceptionMessage,
+                    $propertyPath
+                );
+            }
+        );
+
+        return $value;
+    }
+
+    /**
      * Domain should be responsible for id format
      * Exceptions are caught in order to be processed later
      * @param mixed $value Email ?
