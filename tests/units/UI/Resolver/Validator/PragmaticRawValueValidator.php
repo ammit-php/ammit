@@ -1,0 +1,97 @@
+<?php
+declare(strict_types=1);
+
+namespace Tests\Units\Imedia\Ammit\UI\Resolver\Validator;
+
+use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use Imedia\Ammit\UI\Resolver\UIValidationEngine;
+use mageekguy\atoum;
+
+use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator as SUT;
+
+/**
+ * @author Guillaume MOREL <g.morel@imediafrance.fr>
+ */
+class PragmaticRawValueValidator extends atoum
+{
+    public function test_it_gets_value_even_if_string_empty_detected()
+    {
+        // Given
+        $value = '';
+        $propertyPath = 'firstName';
+        $errorMessage = 'Custom Exception message';
+
+        $expectedNormalizedExceptions = [
+            'errors' => [
+                [
+                'status' => 406,
+                'source' => ['parameter' => $propertyPath],
+                'title' => 'Invalid Parameter',
+                'detail' => $errorMessage,
+                ]
+            ]
+        ];
+
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeStringNotEmpty(
+            $value,
+            $propertyPath,
+            null,
+            $errorMessage
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($value);
+
+        try {
+            $uiValidationEngine->guardAgainstAnyUIValidationException();
+        } catch (UIValidationCollectionException $e) {
+            $actual = $e->normalize();
+            $this->array($actual)
+                ->isEqualTo($expectedNormalizedExceptions);
+
+            return;
+        }
+
+        $this->throwError();
+    }
+
+    public function test_it_gets_value_even_if_valid()
+    {
+        // Given
+        $value = 'not empty';
+        $propertyPath = 'firstName';
+        $errorMessage = 'Custom Exception message';
+
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeStringNotEmpty(
+            $value,
+            $propertyPath,
+            null,
+            $errorMessage
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($value);
+
+        $uiValidationEngine->guardAgainstAnyUIValidationException();
+    }
+
+    private function throwError()
+    {
+        throw new \mageekguy\atoum\asserter\exception(
+            $this->variable(),
+            'UIValidationCollectionException not thrown.'
+        );
+    }
+}

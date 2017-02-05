@@ -62,6 +62,25 @@ class PragmaticRequestAttributeValueValidator extends RequestAttributeValueValid
     }
 
     /**
+     * Domain should be responsible for string emptiness
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustBeStringNotEmpty(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueValidator->mustBeStringNotEmpty(
+            $value,
+            $attributeKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
      * Domain should be responsible for id format
      * Exceptions are caught in order to be processed later
      *
