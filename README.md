@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.com/imediafrance/ammit.svg?token=JcSB2GZng3ssVpoUAxup&branch=master)](https://travis-ci.com/imediafrance/ammit)
 [![Code Quality](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
 [![Code Coverage](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
+[![Dependency Status](https://www.versioneye.com/user/projects/58a229448516c700164c1e01/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58a229448516c700164c1e01)
 
 
 [DDD] A light, stable and framework agnostic Command resolver library
