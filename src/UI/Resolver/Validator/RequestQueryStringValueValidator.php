@@ -159,6 +159,24 @@ class RequestQueryStringValueValidator implements UIValidatorInterface
     }
 
     /**
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustBeDateTime(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
+
+        return $this->rawValueValidator->mustBeDateTime(
+            $value,
+            $queryStringKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
      * @inheritdoc
      */
     public function createUIValidationException(string $message, string $propertyPath = null): UIValidationException

@@ -159,6 +159,24 @@ class RequestAttributeValueValidator implements UIValidatorInterface
     }
 
     /**
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustBeDateTime(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueValidator->mustBeDateTime(
+            $value,
+            $attributeKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
      * @inheritdoc
      */
     public function createUIValidationException(string $message, string $propertyPath = null): UIValidationException

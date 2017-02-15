@@ -160,6 +160,32 @@ class RawValueValidator implements UIValidatorInterface
     }
 
     /**
+     * Exceptions are caught in order to be processed later
+     * @param mixed $value Date Y-m-d\TH:i:sP (RFC3339). Ex: 2016-06-01T00:00:00+00:00 ?
+     *
+     * @return mixed Untouched value
+     */
+    public function mustBeDateTime($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        $this->validationEngine->validateFieldValue(
+            $parentValidator ?: $this,
+            function() use ($value, $propertyPath, $exceptionMessage) {
+                $dateValidation = new DateValidation();
+                if (! $dateValidation->isDateTimeValid($value)) {
+                    throw new InvalidArgumentException(
+                        $exceptionMessage ?: sprintf('Datetime "%s" format invalid, must be Y-m-d\TH:i:sP (RFC3339). Ex: 2016-06-01T00:00:00+00:00.', $value),
+                        0,
+                        $propertyPath,
+                        $value
+                    );
+                }
+            }
+        );
+
+        return $value;
+    }
+
+    /**
      * @inheritdoc
      */
     public function createUIValidationException(string $message, string $propertyPath = null): UIValidationException
