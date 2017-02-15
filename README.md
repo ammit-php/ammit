@@ -136,24 +136,26 @@ Use it with Laravel: TBA
  
 ##### Pure extending AbstractPureCommandResolver
 
-|             | Raw                          | $_GET                                | $_POST                             |
-|-------------|------------------------------|--------------------------------------|------------------------------------|
-|             | **$this->rawValueValidator** | **$this->queryStringValueValidator** | **$this->attributeValueValidator** |
-| **Boolean** | ->mustBeBoolean(...)         | ->mustBeBoolean(...)                 | ->mustBeBoolean(...)               |
-| **String**  | ->mustBeString(...)          | ->mustBeString(...)                  | ->mustBeString(...)                |
-| **Integer** | ->mustBeInteger(...)         | ->mustBeInteger(...)                 | ->mustBeInteger(...)               |
-| **Float**   | ->mustBeFloat(...)           | ->mustBeFloat(...)                   | ->mustBeFloat(...)                 |
-| **Array**   | ->mustBeArray(...)           | ->mustBeArray(...)                   | ->mustBeArray(...)                 |
+|              | Raw                          | $_GET                                | $_POST                             |
+|--------------|------------------------------|--------------------------------------|------------------------------------|
+|              | **$this->rawValueValidator**                                                                             |
+| **Boolean**  | ->mustBeBoolean(...)                                                                                     |
+| **String**   | ->mustBeString(...)                                                                                      |
+| **Integer**  | ->mustBeInteger(...)                                                                                     |
+| **Float**    | ->mustBeFloat(...)                                                                                       |
+| **Array**    | ->mustBeArray(...)                                                                                       |
+| **Date**     | ->mustBeDate(...)                                                                                        |
+| **DateTime** | ->mustBeDateTime(...)                                                                                    |
 
 ##### Pragmatic extending AbstractPragmaticCommandResolver
 
 |            | Raw                          | $_GET                                | $_POST                             |
 |------------|------------------------------|--------------------------------------|------------------------------------|
-|            | **$this->rawValueValidator** | **$this->queryStringValueValidator** | **$this->attributeValueValidator** |
-| Same       | as **Pure**                  | ...                                  | ...                                |
-| **UUID**   | ->mustBeUuid(...)            | ->mustBeUuid(...)                    | ->mustBeUuid(...)                  |
-| **Length** | ->mustHaveLengthBetween(...) | ->mustHaveLengthBetween(...)         | ->mustHaveLengthBetween(...)       |
-| **Email**  | ->mustBeEmailAddress(...)    | ->mustBeEmailAddress(...)            | ->mustBeEmailAddress(...)          |
+|            | **$this->rawValueValidator**                                                                             |
+| Same       | as **Pure**                                                                                              |
+| **UUID**   | ->mustBeUuid(...)                                                                                        |
+| **Length** | ->mustHaveLengthBetween(...)                                                                             |
+| **Email**  | ->mustBeEmailAddress(...)                                                                                |
 
 
 #### What the lib does not ?

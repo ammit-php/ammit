@@ -286,6 +286,79 @@ class RawValueValidator extends atoum
         $uiValidationEngine->guardAgainstAnyUIValidationException();
     }
 
+    public function test_it_gets_value_even_if_bad_datetime_detected()
+    {
+        // Given
+        $value = 'bad-date';
+        $propertyPath = 'birthDate';
+        $errorMessage = 'Custom Exception message';
+
+        $expectedNormalizedExceptions = [
+            'errors' => [
+                [
+                'status' => 406,
+                'source' => ['parameter' => $propertyPath],
+                'title' => 'Invalid Parameter',
+                'detail' => $errorMessage,
+                ]
+            ]
+        ];
+
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeDateTime(
+            $value,
+            $propertyPath,
+            null,
+            $errorMessage
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($value);
+
+        try {
+            $uiValidationEngine->guardAgainstAnyUIValidationException();
+        } catch (UIValidationCollectionException $e) {
+            $actual = $e->normalize();
+            $this->array($actual)
+                ->isEqualTo($expectedNormalizedExceptions);
+
+            return;
+        }
+
+        $this->throwError();
+    }
+
+    public function test_it_gets_value_even_if_datetime_valid()
+    {
+        // Given
+        $value = '2017-01-01T00:00:00+00:00';
+        $propertyPath = 'birthDate';
+        $errorMessage = 'Custom Exception message';
+
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeDateTime(
+            $value,
+            $propertyPath,
+            null,
+            $errorMessage
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($value);
+
+        $uiValidationEngine->guardAgainstAnyUIValidationException();
+    }
+
     private function throwError()
     {
         throw new \mageekguy\atoum\asserter\exception(
