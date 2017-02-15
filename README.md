@@ -136,26 +136,81 @@ Use it with Laravel: TBA
  
 ##### Pure extending AbstractPureCommandResolver
 
-|              | Raw                          | $_GET                                | $_POST                             |
-|--------------|------------------------------|--------------------------------------|------------------------------------|
-|              | **$this->rawValueValidator**                                                                             |
-| **Boolean**  | ->mustBeBoolean(...)                                                                                     |
-| **String**   | ->mustBeString(...)                                                                                      |
-| **Integer**  | ->mustBeInteger(...)                                                                                     |
-| **Float**    | ->mustBeFloat(...)                                                                                       |
-| **Array**    | ->mustBeArray(...)                                                                                       |
-| **Date**     | ->mustBeDate(...)                                                                                        |
-| **DateTime** | ->mustBeDateTime(...)                                                                                    |
+<table>
+  <tr>
+    <td></td>
+    <td>Raw</td>
+    <td>$_GET</td>
+    <td>$_POST</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>$this->rawValueValidator</td>
+    <td>$this->queryStringValueValidator</td>
+    <td>$this->attributeValueValidator</td>
+  </tr>
+  <tr>
+    <td>Boolean</td>
+    <td colspan="3">->mustBeBoolean(...)</td>
+  </tr>
+  <tr>
+    <td>String</td>
+    <td colspan="3">->mustBeString(...)</td>
+  </tr>
+  <tr>
+    <td>Integer</td>
+    <td colspan="3">->mustBeInteger(...)</td>
+  </tr>
+  <tr>
+    <td>Float</td>
+    <td colspan="3">->mustBeFloat(...)</td>
+  </tr>
+  <tr>
+    <td>Array</td>
+    <td colspan="3">->mustBeArray(...)</td>
+  </tr>
+  <tr>
+    <td>Date</td>
+    <td colspan="3">->mustBeDate(...)</td>
+  </tr>
+  <tr>
+    <td>DateTime</td>
+    <td colspan="3">->mustBeDateTime(...)</td>
+  </tr>
+</table>
 
 ##### Pragmatic extending AbstractPragmaticCommandResolver
 
-|            | Raw                          | $_GET                                | $_POST                             |
-|------------|------------------------------|--------------------------------------|------------------------------------|
-|            | **$this->rawValueValidator**                                                                             |
-| Same       | as **Pure**                                                                                              |
-| **UUID**   | ->mustBeUuid(...)                                                                                        |
-| **Length** | ->mustHaveLengthBetween(...)                                                                             |
-| **Email**  | ->mustBeEmailAddress(...)                                                                                |
+<table>
+  <tr>
+    <td></td>
+    <td>Raw</td>
+    <td>$_GET</td>
+    <td>$_POST</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>$this->rawValueValidator</td>
+    <td>$this->queryStringValueValidator</td>
+    <td>$this->attributeValueValidator</td>
+  </tr>
+  <tr>
+    <td>Same</td>
+    <td colspan="3">as AbstractPureCommandResolver</td>
+  </tr>
+  <tr>
+    <td>UUID</td>
+    <td colspan="3">->mustBeUuid(...)</td>
+  </tr>
+  <tr>
+    <td>Length</td>
+    <td colspan="3">->mustHaveLengthBetween(...)</td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td colspan="3">->mustBeEmailAddress(...)</td>
+  </tr>
+</table>
 
 
 #### What the lib does not ?
