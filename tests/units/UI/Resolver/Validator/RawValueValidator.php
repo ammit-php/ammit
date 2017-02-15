@@ -213,10 +213,83 @@ class RawValueValidator extends atoum
         $this->throwError();
     }
 
+    public function test_it_gets_value_even_if_bad_date_detected()
+    {
+        // Given
+        $value = 'bad-date';
+        $propertyPath = 'birthDate';
+        $errorMessage = 'Custom Exception message';
+
+        $expectedNormalizedExceptions = [
+            'errors' => [
+                [
+                'status' => 406,
+                'source' => ['parameter' => $propertyPath],
+                'title' => 'Invalid Parameter',
+                'detail' => $errorMessage,
+                ]
+            ]
+        ];
+
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeDate(
+            $value,
+            $propertyPath,
+            null,
+            $errorMessage
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($value);
+
+        try {
+            $uiValidationEngine->guardAgainstAnyUIValidationException();
+        } catch (UIValidationCollectionException $e) {
+            $actual = $e->normalize();
+            $this->array($actual)
+                ->isEqualTo($expectedNormalizedExceptions);
+
+            return;
+        }
+
+        $this->throwError();
+    }
+
+    public function test_it_gets_value_even_if_date_valid()
+    {
+        // Given
+        $value = '2017-01-01';
+        $propertyPath = 'birthDate';
+        $errorMessage = 'Custom Exception message';
+
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeDate(
+            $value,
+            $propertyPath,
+            null,
+            $errorMessage
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($value);
+
+        $uiValidationEngine->guardAgainstAnyUIValidationException();
+    }
+
     private function throwError()
     {
         throw new \mageekguy\atoum\asserter\exception(
-            $this->variable(),
+            $this->variable(true),
             'UIValidationCollectionException not thrown.'
         );
     }

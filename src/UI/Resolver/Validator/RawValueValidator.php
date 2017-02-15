@@ -4,6 +4,8 @@ declare(strict_types = 1);
 namespace Imedia\Ammit\UI\Resolver\Validator;
 
 use Assert\Assertion;
+use Assert\InvalidArgumentException;
+use Imedia\Ammit\Domain\DateValidation;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 
@@ -125,6 +127,32 @@ class RawValueValidator implements UIValidatorInterface
                     $exceptionMessage,
                     $propertyPath
                 );
+            }
+        );
+
+        return $value;
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     * @param mixed $value Date Y-m-d ?
+     *
+     * @return mixed Untouched value
+     */
+    public function mustBeDate($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        $this->validationEngine->validateFieldValue(
+            $parentValidator ?: $this,
+            function() use ($value, $propertyPath, $exceptionMessage) {
+                $dateValidation = new DateValidation();
+                if (! $dateValidation->isDateValid($value)) {
+                    throw new InvalidArgumentException(
+                        $exceptionMessage ?: sprintf('Date "%s" format invalid, must be Y-m-d.', $value),
+                        0,
+                        $propertyPath,
+                        $value
+                    );
+                }
             }
         );
 
