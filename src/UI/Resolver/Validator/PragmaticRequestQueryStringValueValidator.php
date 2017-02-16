@@ -43,25 +43,6 @@ class PragmaticRequestQueryStringValueValidator extends RequestQueryStringValueV
     }
 
     /**
-     * Domain should be responsible for id format
-     * Exceptions are caught in order to be processed later
-     *
-     * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
-     */
-    public function mustBeEmailAddress(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
-    {
-        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
-
-        return $this->rawValueValidator->mustBeEmailAddress(
-            $value,
-            $queryStringKey,
-            $this,
-            $exceptionMessage
-        );
-    }
-
-    /**
      * Domain should be responsible for string emptiness
      * Exceptions are caught in order to be processed later
      *
@@ -96,6 +77,45 @@ class PragmaticRequestQueryStringValueValidator extends RequestQueryStringValueV
             $queryStringKey,
             $min,
             $max,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Domain should be responsible for email format
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustBeEmailAddress(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
+
+        return $this->rawValueValidator->mustBeEmailAddress(
+            $value,
+            $queryStringKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Domain should be responsible for regex validation
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustBeValidAgainstRegex(ServerRequestInterface $request, string $pattern, string $queryStringKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
+
+        return $this->rawValueValidator->mustBeValidAgainstRegex(
+            $value,
+            $pattern,
+            $queryStringKey,
             $this,
             $exceptionMessage
         );

@@ -210,6 +210,10 @@ Use it with Laravel: TBA
     <td>Email</td>
     <td colspan="3">->mustBeEmailAddress(...)</td>
   </tr>
+  <tr>
+    <td>Regex</td>
+    <td colspan="3">->mustBeValidAgainstRegex(...)</td>
+  </tr>
 </table>
 
 
