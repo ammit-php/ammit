@@ -43,25 +43,6 @@ class PragmaticRequestAttributeValueValidator extends RequestAttributeValueValid
     }
 
     /**
-     * Domain should be responsible for id format
-     * Exceptions are caught in order to be processed later
-     *
-     * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
-     */
-    public function mustBeEmailAddress(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
-    {
-        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
-
-        return $this->rawValueValidator->mustBeEmailAddress(
-            $value,
-            $attributeKey,
-            $this,
-            $exceptionMessage
-        );
-    }
-
-    /**
      * Domain should be responsible for string emptiness
      * Exceptions are caught in order to be processed later
      *
@@ -100,4 +81,44 @@ class PragmaticRequestAttributeValueValidator extends RequestAttributeValueValid
             $exceptionMessage
         );
     }
+
+    /**
+     * Domain should be responsible for email format
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustBeEmailAddress(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueValidator->mustBeEmailAddress(
+            $value,
+            $attributeKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Domain should be responsible for regex validation
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustBeValidAgainstRegex(ServerRequestInterface $request, string $pattern, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueValidator->mustBeValidAgainstRegex(
+            $value,
+            $pattern,
+            $attributeKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
 }

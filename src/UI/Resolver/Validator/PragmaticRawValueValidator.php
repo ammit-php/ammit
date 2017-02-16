@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Imedia\Ammit\UI\Resolver\Validator;
 
 use Assert\Assertion;
+use Assert\InvalidArgumentException;
 use Imedia\Ammit\Domain\MailMxValidation;
 
 /**
@@ -87,7 +88,7 @@ class PragmaticRawValueValidator extends RawValueValidator
     }
 
     /**
-     * Domain should be responsible for id format
+     * Domain should be responsible for email format
      * Exceptions are caught in order to be processed later
      * @param mixed $value Email ?
      *
@@ -104,6 +105,35 @@ class PragmaticRawValueValidator extends RawValueValidator
                     $exceptionMessage,
                     $propertyPath
                 );
+            }
+        );
+
+        return $value;
+    }
+
+    /**
+     * Domain should be responsible for regex validation
+     * Exceptions are caught in order to be processed later
+     * @param mixed  $value   Valid against Regex ?
+     * @param string $pattern Regex
+     *
+     * @return mixed Untouched value
+     */
+    public function mustBeValidAgainstRegex($value, string $pattern, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        $this->validationEngine->validateFieldValue(
+            $parentValidator ?: $this,
+            function() use ($value, $pattern, $propertyPath, $exceptionMessage) {
+                if (preg_match($pattern, $value)) {
+
+                } else {
+                    throw new InvalidArgumentException(
+                        $exceptionMessage ?: sprintf('Value "%s" not valid against regex "%s".', $value, $pattern),
+                        0,
+                        $propertyPath,
+                        $value
+                    );
+                }
             }
         );
 
