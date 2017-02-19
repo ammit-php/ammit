@@ -36,14 +36,14 @@ class RawValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      * @param mixed $value Date Y-m-d ?
      *
-     * @return mixed Untouched value
+     * @return \DateTime|false
      */
     public function mustBeDate($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
     {
+        $dateValidation = new DateValidation();
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function() use ($value, $propertyPath, $exceptionMessage) {
-                $dateValidation = new DateValidation();
+            function() use ($value, $propertyPath, $exceptionMessage, $dateValidation) {
                 if (! $dateValidation->isDateValid($value)) {
                     throw new InvalidArgumentException(
                         $exceptionMessage ?: sprintf('Date "%s" format invalid, must be Y-m-d.', $value),
@@ -55,6 +55,11 @@ class RawValueValidator implements UIValidatorInterface
             }
         );
 
+        $date = $dateValidation->createDateFromString($value);
+        if ($date instanceof \DateTime) {
+            return $date;
+        }
+
         return $value;
     }
 
@@ -62,14 +67,15 @@ class RawValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      * @param mixed $value Date Y-m-d\TH:i:sP (RFC3339). Ex: 2016-06-01T00:00:00+00:00 ?
      *
-     * @return mixed Untouched value
+     * @return \DateTime|false
      */
     public function mustBeDateTime($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
     {
+        $dateValidation = new DateValidation();
+
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function() use ($value, $propertyPath, $exceptionMessage) {
-                $dateValidation = new DateValidation();
+            function() use ($value, $propertyPath, $exceptionMessage, $dateValidation) {
                 if (! $dateValidation->isDateTimeValid($value)) {
                     throw new InvalidArgumentException(
                         $exceptionMessage ?: sprintf('Datetime "%s" format invalid, must be Y-m-d\TH:i:sP (RFC3339). Ex: 2016-06-01T00:00:00+00:00.', $value),
@@ -80,6 +86,12 @@ class RawValueValidator implements UIValidatorInterface
                 }
             }
         );
+
+        $date = $dateValidation->createDateTimeFromString($value);
+
+        if ($date instanceof \DateTime) {
+            return $date;
+        }
 
         return $value;
     }

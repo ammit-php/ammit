@@ -18,7 +18,7 @@ class DateValidation
      */
     public function isDateValid(string $dateString): bool
     {
-        $date = \DateTime::createFromFormat(self::FORMAT_SIMPLE, $dateString);
+        $date = $this->createDateFromString($dateString);
         if (false === $date) {
             return false;
         }
@@ -32,7 +32,7 @@ class DateValidation
 
     public function isDateTimeValid(string $dateString): bool
     {
-        $date = \DateTime::createFromFormat(self::FORMAT_RFC3339, $dateString);
+        $date = $this->createDateTimeFromString($dateString);
         if (false === $date) {
             return false;
         }
@@ -42,5 +42,21 @@ class DateValidation
         }
 
         return false;
+    }
+
+    /**
+     * @return \DateTime|false
+     */
+    public function createDateFromString(string $dateString)
+    {
+        return \DateTime::createFromFormat(self::FORMAT_SIMPLE, $dateString);
+    }
+
+    /**
+     * @return \DateTime|false
+     */
+    public function createDateTimeFromString(string $dateString)
+    {
+        return \DateTime::createFromFormat(self::FORMAT_RFC3339, $dateString);
     }
 }
