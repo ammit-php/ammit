@@ -129,6 +129,7 @@ class RawValueValidator extends atoum
     {
         // Given
         $value = '2017-01-01';
+        $expectedDate = \DateTime::createFromFormat('Y-m-d', $value);
         $propertyPath = 'birthDate';
         $errorMessage = 'Custom Exception message';
 
@@ -146,7 +147,7 @@ class RawValueValidator extends atoum
         // Then
         $this
             ->variable($actual)
-            ->isEqualTo($value);
+            ->isEqualTo($expectedDate);
 
         $uiValidationEngine->guardAgainstAnyUIValidationException();
     }
@@ -202,6 +203,7 @@ class RawValueValidator extends atoum
     {
         // Given
         $value = '2017-01-01T00:00:00+00:00';
+        $expectedDateTime = \DateTime::createFromFormat(\DateTime::RFC3339, $value);
         $propertyPath = 'birthDate';
         $errorMessage = 'Custom Exception message';
 
@@ -219,7 +221,7 @@ class RawValueValidator extends atoum
         // Then
         $this
             ->variable($actual)
-            ->isEqualTo($value);
+            ->isEqualTo($expectedDateTime);
 
         $uiValidationEngine->guardAgainstAnyUIValidationException();
     }
