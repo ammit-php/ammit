@@ -97,6 +97,10 @@ class RawValueValidator implements UIValidatorInterface
      */
     public function mustBeFloat($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
     {
+        if (is_numeric($value)) {
+            $value = (float) $value;
+        }
+
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
             function() use ($value, $propertyPath, $exceptionMessage) {
@@ -119,6 +123,10 @@ class RawValueValidator implements UIValidatorInterface
      */
     public function mustBeInteger($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
     {
+        if (is_numeric($value)) {
+            $value = (int) $value;
+        }
+
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
             function() use ($value, $propertyPath, $exceptionMessage) {
