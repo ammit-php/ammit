@@ -89,25 +89,105 @@ class RawValueValidator extends atoum
     }
 
     /**
-     * @dataProvider notBooleanDataProvider
+     * @dataProvider booleanDataProvider
      */
-    public function test_it_gets_value_even_if_not_boolean_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
+    public function test_it_gets_value_even_if_boolean_valid($value, $expected)
     {
-        $this->testInvalidValue(
-            $errorMessage,
-            $propertyPath,
+        // Given
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeBoolean(
             $value,
-            $expectedNormalizedException,
-            'mustBeBoolean'
+            'accept',
+            null,
+            'Custom Exception message'
         );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($expected);
+
+        $uiValidationEngine->guardAgainstAnyUIValidationException();
     }
 
-    protected function notBooleanDataProvider(): array
+    protected function booleanDataProvider(): array
     {
-        $values = $this->createAllScalars();
-        unset($values['boolean']);
+        return [
+            [
+                'value' => true,
+                'expected' => true
+            ],
+            [
+                'value' => false,
+                'expected' => false
+            ],
+            [
+                'value' => 'true',
+                'expected' => true
+            ],
+            [
+                'value' => 'false',
+                'expected' => false
+            ],
+            [
+                'value' => 1,
+                'expected' => true
+            ],
+            [
+                'value' => 0,
+                'expected' => false
+            ],
+        ];
+    }
 
-        return $values;
+    public function test_it_gets_value_even_if_bad_boolean_detected()
+    {
+        // Given
+        $value = 'bad';
+        $propertyPath = 'latitude';
+        $errorMessage = 'Custom Exception message';
+
+        $expectedNormalizedExceptions = [
+            'errors' => [
+                [
+                'status' => 406,
+                'source' => ['parameter' => $propertyPath],
+                'title' => 'Invalid Parameter',
+                'detail' => $errorMessage,
+                ]
+            ]
+        ];
+
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeBoolean(
+            $value,
+            $propertyPath,
+            null,
+            $errorMessage
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo(false);
+
+        try {
+            $uiValidationEngine->guardAgainstAnyUIValidationException();
+        } catch (UIValidationCollectionException $e) {
+            $actual = $e->normalize();
+            $this->array($actual)
+                ->isEqualTo($expectedNormalizedExceptions);
+
+            return;
+        }
+
+        $this->throwError();
     }
 
     /**
@@ -125,53 +205,173 @@ class RawValueValidator extends atoum
     }
 
     /**
-     * @dataProvider notFloatDataProvider
+     * @dataProvider floatDataProvider
      */
-    public function test_it_gets_value_even_if_not_float_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
+    public function test_it_gets_value_even_if_float_valid($value, $expected)
     {
-        $this->testInvalidValue(
-            $errorMessage,
-            $propertyPath,
+        // Given
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeInteger(
             $value,
-            $expectedNormalizedException,
-            'mustBeFloat'
+            'age',
+            null,
+            'Custom Exception message'
         );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($expected);
+
+        $uiValidationEngine->guardAgainstAnyUIValidationException();
+    }
+
+    protected function floatDataProvider(): array
+    {
+        return [
+            ['value' => 42, 'expected' => 42.0],
+            ['value' => '42', 'expected' => 42.0],
+            ['value' => '42.0', 'expected' => 42.0],
+            ['value' => 42.0, 'expected' => 42.0],
+        ];
+    }
+
+    public function test_it_gets_value_even_if_bad_float_detected()
+    {
+        // Given
+        $value = 'bad';
+        $propertyPath = 'latitude';
+        $errorMessage = 'Custom Exception message';
+
+        $expectedNormalizedExceptions = [
+            'errors' => [
+                [
+                'status' => 406,
+                'source' => ['parameter' => $propertyPath],
+                'title' => 'Invalid Parameter',
+                'detail' => $errorMessage,
+                ]
+            ]
+        ];
+
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeFloat(
+            $value,
+            $propertyPath,
+            null,
+            $errorMessage
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo(-1);
+
+        try {
+            $uiValidationEngine->guardAgainstAnyUIValidationException();
+        } catch (UIValidationCollectionException $e) {
+            $actual = $e->normalize();
+            $this->array($actual)
+                ->isEqualTo($expectedNormalizedExceptions);
+
+            return;
+        }
+
+        $this->throwError();
     }
 
     /**
-     * @dataProvider notIntegerDataProvider
+     * @dataProvider integerDataProvider
      */
-    public function test_it_gets_value_even_if_not_integer_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
+    public function test_it_gets_value_even_if_integer_valid($value, $expected)
     {
-        $this->testInvalidValue(
-            $errorMessage,
-            $propertyPath,
+        // Given
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeInteger(
             $value,
-            $expectedNormalizedException,
-            'mustBeInteger'
+            'age',
+            null,
+            'Custom Exception message'
         );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($expected);
+
+        $uiValidationEngine->guardAgainstAnyUIValidationException();
+    }
+
+    protected function integerDataProvider(): array
+    {
+        return [
+            ['value' => 42, 'expected' => 42],
+            ['value' => '42', 'expected' => 42],
+            ['value' => '42.0', 'expected' => 42],
+            ['value' => 42.0, 'expected' => 42],
+        ];
+    }
+
+    public function test_it_gets_value_even_if_bad_integer_detected()
+    {
+        // Given
+        $value = 'bad';
+        $propertyPath = 'age';
+        $errorMessage = 'Custom Exception message';
+
+        $expectedNormalizedExceptions = [
+            'errors' => [
+                [
+                'status' => 406,
+                'source' => ['parameter' => $propertyPath],
+                'title' => 'Invalid Parameter',
+                'detail' => $errorMessage,
+                ]
+            ]
+        ];
+
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeInteger(
+            $value,
+            $propertyPath,
+            null,
+            $errorMessage
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo(-1);
+
+        try {
+            $uiValidationEngine->guardAgainstAnyUIValidationException();
+        } catch (UIValidationCollectionException $e) {
+            $actual = $e->normalize();
+            $this->array($actual)
+                ->isEqualTo($expectedNormalizedExceptions);
+
+            return;
+        }
+
+        $this->throwError();
     }
 
     protected function notArrayDataProvider(): array
     {
         $values = $this->createAllScalars();
         unset($values['array']);
-
-        return $values;
-    }
-
-    protected function notFloatDataProvider(): array
-    {
-        $values = $this->createAllScalars();
-        unset($values['float']);
-
-        return $values;
-    }
-
-    protected function notIntegerDataProvider(): array
-    {
-        $values = $this->createAllScalars();
-        unset($values['int']);
 
         return $values;
     }

@@ -48,9 +48,9 @@ class RawValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      * @param mixed $value Boolean ?
      *
-     * @return mixed Untouched value
+     * @return boolean Value casted into boolean or false
      */
-    public function mustBeBoolean($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    public function mustBeBoolean($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): bool
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
@@ -64,7 +64,12 @@ class RawValueValidator implements UIValidatorInterface
             }
         );
 
-        return $value;
+        // Otherwise "false" would return true
+        if (in_array($value, [true, 'true', '1', 1], true)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -93,9 +98,9 @@ class RawValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      * @param mixed $value Float ?
      *
-     * @return mixed Untouched value
+     * @return float Value casted into float or -1
      */
-    public function mustBeFloat($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    public function mustBeFloat($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): float
     {
         if (is_numeric($value)) {
             $value = (float) $value;
@@ -112,6 +117,10 @@ class RawValueValidator implements UIValidatorInterface
             }
         );
 
+        if (!is_float($value)) {
+            return -1;
+        }
+
         return $value;
     }
 
@@ -119,9 +128,9 @@ class RawValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      * @param mixed $value Integer ?
      *
-     * @return mixed Untouched value
+     * @return int Value casted into int or -1
      */
-    public function mustBeInteger($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    public function mustBeInteger($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): int
     {
         if (is_numeric($value)) {
             $value = (int) $value;
@@ -137,6 +146,10 @@ class RawValueValidator implements UIValidatorInterface
                 );
             }
         );
+
+        if (!is_int($value)) {
+            return -1;
+        }
 
         return $value;
     }
