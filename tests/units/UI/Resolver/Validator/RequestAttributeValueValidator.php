@@ -42,7 +42,7 @@ class RequestAttributeValueValidator extends atoum
 
     protected function validatorMethodDataProvider()
     {
-        return [
+        $data =  [
             ['mustBeBoolean', true, true],
             ['mustBeArray', [], []],
             ['mustBeDate', '2016-01-01', '2016-01-01'],
@@ -51,6 +51,12 @@ class RequestAttributeValueValidator extends atoum
             ['mustBeFloat', 3.14, 3.14],
             ['mustBeDateTime', '2017-01-01T00:00:00+00:00', '2017-01-01T00:00:00+00:00'],
         ];
+
+        if (count($data) != count(RawValueValidator::getSutMethodNames())) {
+            throw new \LogicException('RequestAttributeValueValidator is not implementing all RawValueValidator validators.');
+        }
+
+        return $data;
     }
 
     public function test_it_gets_value_from_psr7_request()
