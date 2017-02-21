@@ -8,12 +8,15 @@ use Assert\InvalidArgumentException;
 use Imedia\Ammit\Domain\DateValidation;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
+use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\IntegerValidatorTrait;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 class RawValueValidator implements UIValidatorInterface
 {
+    use IntegerValidatorTrait;
+
     /** @var UIValidationEngine */
     protected $validationEngine;
 
@@ -118,36 +121,6 @@ class RawValueValidator implements UIValidatorInterface
         );
 
         if (!is_float($value)) {
-            return -1;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Exceptions are caught in order to be processed later
-     * @param mixed $value Integer ?
-     *
-     * @return int Value casted into int or -1
-     */
-    public function mustBeInteger($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): int
-    {
-        if (is_numeric($value)) {
-            $value = (int) $value;
-        }
-
-        $this->validationEngine->validateFieldValue(
-            $parentValidator ?: $this,
-            function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::integer(
-                    $value,
-                    $exceptionMessage,
-                    $propertyPath
-                );
-            }
-        );
-
-        if (!is_int($value)) {
             return -1;
         }
 
