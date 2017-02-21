@@ -8,20 +8,20 @@ use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-trait StringValidatorTrait
+trait ArrayValidatorTrait
 {
     /**
      * Exceptions are caught in order to be processed later
-     * @param mixed $value String ?
+     * @param mixed $value Array ?
      *
-     * @return string Casted to string
+     * @return array Empty array if not array
      */
-    public function mustBeString($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): string
+    public function mustBeArray($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): array
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
             function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::string(
+                Assertion::isArray(
                     $value,
                     $exceptionMessage,
                     $propertyPath
@@ -29,10 +29,10 @@ trait StringValidatorTrait
             }
         );
 
-        if (null ===$value || !is_string($value)) {
-            return '';
+        if (!is_array($value)) {
+            return [];
         }
 
-        return (string) $value;
+        return $value;
     }
 }

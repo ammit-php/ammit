@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Imedia\Ammit\UI\Resolver\Validator;
 
-use Assert\Assertion;
 use Assert\InvalidArgumentException;
 use Imedia\Ammit\Domain\DateValidation;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
@@ -12,6 +11,7 @@ use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\BooleanValidatorTrait
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\FloatValidatorTrait;
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\IntegerValidatorTrait;
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\StringValidatorTrait;
+use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\ArrayValidatorTrait;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
@@ -22,6 +22,7 @@ class RawValueValidator implements UIValidatorInterface
     use IntegerValidatorTrait;
     use FloatValidatorTrait;
     use StringValidatorTrait;
+    use ArrayValidatorTrait;
 
     /** @var UIValidationEngine */
     protected $validationEngine;
@@ -29,28 +30,6 @@ class RawValueValidator implements UIValidatorInterface
     public function __construct(UIValidationEngine $validationEngine)
     {
         $this->validationEngine = $validationEngine;
-    }
-
-    /**
-     * Exceptions are caught in order to be processed later
-     * @param mixed $value Array ?
-     *
-     * @return mixed Untouched value
-     */
-    public function mustBeArray($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
-    {
-        $this->validationEngine->validateFieldValue(
-            $parentValidator ?: $this,
-            function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::isArray(
-                    $value,
-                    $exceptionMessage,
-                    $propertyPath
-                );
-            }
-        );
-
-        return $value;
     }
 
     /**

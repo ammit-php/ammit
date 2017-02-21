@@ -5,7 +5,6 @@ namespace Tests\Units\Imedia\Ammit\UI\Resolver\Validator;
 
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
-use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 use mageekguy\atoum;
 
 use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator as SUT;
@@ -64,65 +63,6 @@ class RawValueValidator extends atoum
                 'expectedNormalizedException' => $expectedNormalizedException
             ],
         ];
-    }
-
-    /**
-     * @dataProvider notArrayDataProvider
-     */
-    public function test_it_gets_value_even_if_not_array_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
-    {
-        $this->testInvalidValue(
-            $errorMessage,
-            $propertyPath,
-            $value,
-            $expectedNormalizedException,
-            'mustBeArray'
-        );
-    }
-
-    protected function notArrayDataProvider(): array
-    {
-        $values = $this->createAllScalars();
-        unset($values['array']);
-
-        return $values;
-    }
-
-    private function testInvalidValue(string $errorMessage, string $propertyPath, $value, $expectedNormalizedException, string $methodToTest, UIValidatorInterface $parentValidation = null)
-    {
-        $expectedNormalizedExceptions = [
-            'errors' => [
-                $expectedNormalizedException
-            ]
-        ];
-
-        $uiValidationEngine = UIValidationEngine::initialize();
-        $sut = new SUT($uiValidationEngine);
-
-        // When
-        $actual = $sut->$methodToTest(
-            $value,
-            $propertyPath,
-            $parentValidation,
-            $errorMessage
-        );
-
-        // Then
-        $this
-            ->variable($actual)
-            ->isEqualTo($value);
-
-        try {
-            $uiValidationEngine->guardAgainstAnyUIValidationException();
-        } catch (UIValidationCollectionException $e) {
-            $actual = $e->normalize();
-            $this->array($actual)
-                ->isEqualTo($expectedNormalizedExceptions);
-
-            return;
-        }
-
-        $this->throwError();
     }
 
     public function test_it_gets_value_even_if_bad_date_detected()
