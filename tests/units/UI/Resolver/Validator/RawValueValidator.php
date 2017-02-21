@@ -67,28 +67,6 @@ class RawValueValidator extends atoum
     }
 
     /**
-     * @dataProvider notStringDataProvider
-     */
-    public function test_it_gets_value_even_if_not_string_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)
-    {
-        $this->testInvalidValue(
-            $errorMessage,
-            $propertyPath,
-            $value,
-            $expectedNormalizedException,
-            'mustBeString'
-        );
-    }
-
-    protected function notStringDataProvider(): array
-    {
-        $values = $this->createAllScalars();
-        unset($values['string']);
-
-        return $values;
-    }
-
-    /**
      * @dataProvider notArrayDataProvider
      */
     public function test_it_gets_value_even_if_not_array_value_detected($propertyPath, $errorMessage, $value, array $expectedNormalizedException)

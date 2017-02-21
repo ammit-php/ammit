@@ -7,15 +7,15 @@ use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use mageekguy\atoum;
 
-use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\Pure\FloatValidatorStub as SUT;
+use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\Pure\StringValidatorStub as SUT;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class FloatValidatorTrait extends atoum
+class StringValidatorTrait extends atoum
 {
     /**
-     * @dataProvider floatDataProvider
+     * @dataProvider goodDataProvider
      */
     public function test_it_gets_value_even_if_valid($value, $expected)
     {
@@ -24,9 +24,9 @@ class FloatValidatorTrait extends atoum
         $sut = new SUT($uiValidationEngine);
 
         // When
-        $actual = $sut->mustBeFloat(
+        $actual = $sut->mustBeString(
             $value,
-            'age',
+            'accept',
             null,
             'Custom Exception message'
         );
@@ -39,20 +39,22 @@ class FloatValidatorTrait extends atoum
         $uiValidationEngine->guardAgainstAnyUIValidationException();
     }
 
-    protected function floatDataProvider(): array
+    protected function goodDataProvider(): array
     {
         return [
-            ['value' => 42, 'expected' => 42.0],
-            ['value' => '42', 'expected' => 42.0],
-            ['value' => '42.0', 'expected' => 42.0],
-            ['value' => 42.0, 'expected' => 42.0],
+            [
+                'value' => 'good',
+                'expected' => 'good'
+            ],
         ];
     }
 
-    public function test_it_gets_value_even_if_invalid()
+    /**
+     * @dataProvider badDataProvider
+     */
+    public function test_it_gets_value_even_if_invalid($value, $expected)
     {
         // Given
-        $value = 'bad';
         $propertyPath = 'latitude';
         $errorMessage = 'Custom Exception message';
 
@@ -71,7 +73,7 @@ class FloatValidatorTrait extends atoum
         $sut = new SUT($uiValidationEngine);
 
         // When
-        $actual = $sut->mustBeFloat(
+        $actual = $sut->mustBeString(
             $value,
             $propertyPath,
             null,
@@ -81,7 +83,7 @@ class FloatValidatorTrait extends atoum
         // Then
         $this
             ->variable($actual)
-            ->isEqualTo(-1);
+            ->isIdenticalTo($expected);
 
         try {
             $uiValidationEngine->guardAgainstAnyUIValidationException();
@@ -94,6 +96,28 @@ class FloatValidatorTrait extends atoum
         }
 
         $this->throwError();
+    }
+
+    protected function badDataProvider(): array
+    {
+        return [
+            [
+                'value' => true,
+                'expected' => '1'
+            ],
+            [
+                'value' => null,
+                'expected' => ''
+            ],
+            [
+                'value' => array(),
+                'expected' => 'Array'
+            ],
+            [
+                'value' => 3.14,
+                'expected' => '3.14'
+            ],
+        ];
     }
 
     private function throwError()

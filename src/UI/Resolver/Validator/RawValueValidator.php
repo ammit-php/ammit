@@ -11,6 +11,7 @@ use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\BooleanValidatorTrait;
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\FloatValidatorTrait;
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\IntegerValidatorTrait;
+use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\StringValidatorTrait;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
@@ -20,6 +21,7 @@ class RawValueValidator implements UIValidatorInterface
     use BooleanValidatorTrait;
     use IntegerValidatorTrait;
     use FloatValidatorTrait;
+    use StringValidatorTrait;
 
     /** @var UIValidationEngine */
     protected $validationEngine;
@@ -27,28 +29,6 @@ class RawValueValidator implements UIValidatorInterface
     public function __construct(UIValidationEngine $validationEngine)
     {
         $this->validationEngine = $validationEngine;
-    }
-
-    /**
-     * Exceptions are caught in order to be processed later
-     * @param mixed $value String ?
-     *
-     * @return mixed Untouched value
-     */
-    public function mustBeString($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
-    {
-        $this->validationEngine->validateFieldValue(
-            $parentValidator ?: $this,
-            function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::string(
-                    $value,
-                    $exceptionMessage,
-                    $propertyPath
-                );
-            }
-        );
-
-        return $value;
     }
 
     /**
