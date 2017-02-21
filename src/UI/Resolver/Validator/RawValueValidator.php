@@ -9,6 +9,7 @@ use Imedia\Ammit\Domain\DateValidation;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\BooleanValidatorTrait;
+use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\FloatValidatorTrait;
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\IntegerValidatorTrait;
 
 /**
@@ -18,6 +19,7 @@ class RawValueValidator implements UIValidatorInterface
 {
     use BooleanValidatorTrait;
     use IntegerValidatorTrait;
+    use FloatValidatorTrait;
 
     /** @var UIValidationEngine */
     protected $validationEngine;
@@ -67,36 +69,6 @@ class RawValueValidator implements UIValidatorInterface
                 );
             }
         );
-
-        return $value;
-    }
-
-    /**
-     * Exceptions are caught in order to be processed later
-     * @param mixed $value Float ?
-     *
-     * @return float Value casted into float or -1
-     */
-    public function mustBeFloat($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): float
-    {
-        if (is_numeric($value)) {
-            $value = (float) $value;
-        }
-
-        $this->validationEngine->validateFieldValue(
-            $parentValidator ?: $this,
-            function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::float(
-                    $value,
-                    $exceptionMessage,
-                    $propertyPath
-                );
-            }
-        );
-
-        if (!is_float($value)) {
-            return -1;
-        }
 
         return $value;
     }
