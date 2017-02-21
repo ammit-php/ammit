@@ -17,7 +17,7 @@ class BooleanValidatorTrait extends atoum
     /**
      * @dataProvider booleanDataProvider
      */
-    public function test_it_gets_value_even_if_boolean_valid($value, $expected)
+    public function test_it_gets_value_even_if_valid($value, $expected)
     {
         // Given
         $uiValidationEngine = UIValidationEngine::initialize();
@@ -69,7 +69,7 @@ class BooleanValidatorTrait extends atoum
         ];
     }
 
-    public function test_it_gets_value_even_if_bad_boolean_detected()
+    public function test_it_gets_value_even_if_invalid()
     {
         // Given
         $value = 'bad';

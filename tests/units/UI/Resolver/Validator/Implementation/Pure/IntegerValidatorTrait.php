@@ -17,7 +17,7 @@ class IntegerValidatorTrait extends atoum
     /**
      * @dataProvider integerDataProvider
      */
-    public function test_it_gets_value_even_if_integer_valid($value, $expected)
+    public function test_it_gets_value_even_if_valid($value, $expected)
     {
         // Given
         $uiValidationEngine = UIValidationEngine::initialize();
@@ -49,7 +49,7 @@ class IntegerValidatorTrait extends atoum
         ];
     }
 
-    public function test_it_gets_value_even_if_bad_integer_detected()
+    public function test_it_gets_value_even_if_invalid()
     {
         // Given
         $value = 'bad';
