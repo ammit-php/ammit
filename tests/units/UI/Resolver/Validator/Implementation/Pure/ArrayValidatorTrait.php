@@ -7,12 +7,12 @@ use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use mageekguy\atoum;
 
-use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\Pure\StringValidatorStub as SUT;
+use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\Pure\ArrayValidatorStub as SUT;
 
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-class StringValidatorTrait extends atoum
+class ArrayValidatorTrait extends atoum
 {
     /**
      * @dataProvider goodDataProvider
@@ -24,9 +24,9 @@ class StringValidatorTrait extends atoum
         $sut = new SUT($uiValidationEngine);
 
         // When
-        $actual = $sut->mustBeString(
+        $actual = $sut->mustBeArray(
             $value,
-            'accept',
+            'roles',
             null,
             'Custom Exception message'
         );
@@ -43,8 +43,12 @@ class StringValidatorTrait extends atoum
     {
         return [
             [
-                'value' => 'good',
-                'expected' => 'good'
+                'value' => [],
+                'expected' => []
+            ],
+            [
+                'value' => ['1'],
+                'expected' => ['1']
             ],
         ];
     }
@@ -55,7 +59,7 @@ class StringValidatorTrait extends atoum
     public function test_it_gets_value_even_if_invalid($value, $expected)
     {
         // Given
-        $propertyPath = 'latitude';
+        $propertyPath = 'roles';
         $errorMessage = 'Custom Exception message';
 
         $expectedNormalizedExceptions = [
@@ -73,7 +77,7 @@ class StringValidatorTrait extends atoum
         $sut = new SUT($uiValidationEngine);
 
         // When
-        $actual = $sut->mustBeString(
+        $actual = $sut->mustBeArray(
             $value,
             $propertyPath,
             null,
@@ -103,19 +107,19 @@ class StringValidatorTrait extends atoum
         return [
             [
                 'value' => true,
-                'expected' => ''
+                'expected' => []
             ],
             [
                 'value' => null,
-                'expected' => ''
+                'expected' => []
             ],
             [
-                'value' => array(),
-                'expected' => ''
+                'value' => 'array()',
+                'expected' => []
             ],
             [
                 'value' => 3.14,
-                'expected' => ''
+                'expected' => []
             ],
         ];
     }
