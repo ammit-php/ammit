@@ -15,7 +15,7 @@ use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\Pure\Inte
 class IntegerValidatorTrait extends atoum
 {
     /**
-     * @dataProvider integerDataProvider
+     * @dataProvider goodDataProvider
      */
     public function test_it_gets_value_even_if_valid($value, $expected)
     {
@@ -39,7 +39,7 @@ class IntegerValidatorTrait extends atoum
         $uiValidationEngine->guardAgainstAnyUIValidationException();
     }
 
-    protected function integerDataProvider(): array
+    protected function goodDataProvider(): array
     {
         return [
             ['value' => 42, 'expected' => 42],

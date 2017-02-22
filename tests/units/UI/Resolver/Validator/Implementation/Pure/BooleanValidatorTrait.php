@@ -15,7 +15,7 @@ use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\Pure\Bool
 class BooleanValidatorTrait extends atoum
 {
     /**
-     * @dataProvider booleanDataProvider
+     * @dataProvider goodDataProvider
      */
     public function test_it_gets_value_even_if_valid($value, $expected)
     {
@@ -39,7 +39,7 @@ class BooleanValidatorTrait extends atoum
         $uiValidationEngine->guardAgainstAnyUIValidationException();
     }
 
-    protected function booleanDataProvider(): array
+    protected function goodDataProvider(): array
     {
         return [
             [

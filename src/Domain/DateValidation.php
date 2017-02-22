@@ -18,6 +18,10 @@ class DateValidation
      */
     public function isDateValid(string $dateString): bool
     {
+        if (!$this->isValidDateAgainstRegex($dateString)) {
+            return false;
+        }
+
         $date = $this->createDateFromString($dateString);
         if (false === $date) {
             return false;
@@ -32,6 +36,10 @@ class DateValidation
 
     public function isDateTimeValid(string $dateString): bool
     {
+        if (!$this->isValidDateTimeAgainstRegex($dateString)) {
+            return false;
+        }
+
         $date = $this->createDateTimeFromString($dateString);
         if (false === $date) {
             return false;
@@ -58,5 +66,23 @@ class DateValidation
     public function createDateTimeFromString(string $dateString)
     {
         return \DateTime::createFromFormat(self::FORMAT_RFC3339, $dateString);
+    }
+
+    private function isValidDateAgainstRegex($string): bool
+    {
+        if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/',$string)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function isValidDateTimeAgainstRegex($string): bool
+    {
+        if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):\d\d:\d\d\+\d\d:\d\d$/',$string)) {
+            return true;
+        }
+
+        return false;
     }
 }
