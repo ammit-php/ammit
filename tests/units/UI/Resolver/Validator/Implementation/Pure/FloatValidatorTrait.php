@@ -15,7 +15,7 @@ use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\Pure\Floa
 class FloatValidatorTrait extends atoum
 {
     /**
-     * @dataProvider floatDataProvider
+     * @dataProvider goodDataProvider
      */
     public function test_it_gets_value_even_if_valid($value, $expected)
     {
@@ -39,7 +39,7 @@ class FloatValidatorTrait extends atoum
         $uiValidationEngine->guardAgainstAnyUIValidationException();
     }
 
-    protected function floatDataProvider(): array
+    protected function goodDataProvider(): array
     {
         return [
             ['value' => 42, 'expected' => 42.0],
