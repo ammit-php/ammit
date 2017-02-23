@@ -8,9 +8,9 @@
 [![Code Quality](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
 [![Code Coverage](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
 [![Dependency Status](https://www.versioneye.com/user/projects/58a229448516c700164c1e01/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58a229448516c700164c1e01)
+[![DDD](https://img.shields.io/badge/DDD-Domain%20Driven%20Design-blue.svg)]()
 
-
-[DDD] A light, stable and framework agnostic Command resolver library
+A light, stable and framework agnostic Command resolver library
 
 # Currently being Battle Tested (not yet tagged)
 
