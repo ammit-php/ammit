@@ -6,6 +6,7 @@ namespace Imedia\Ammit\UI\Resolver\Validator;
 use Assert\Assertion;
 use Assert\InvalidArgumentException;
 use Imedia\Ammit\Domain\MailMxValidation;
+use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\UuidValidatorTrait;
 
 /**
  * @internal Contains Domain Validation assertions (but class won't be removed in next version)
@@ -16,28 +17,7 @@ use Imedia\Ammit\Domain\MailMxValidation;
  */
 class PragmaticRawValueValidator extends RawValueValidator
 {
-    /**
-     * Domain should be responsible for id format
-     * Exceptions are caught in order to be processed later
-     * @param mixed $value String ?
-     *
-     * @return mixed Untouched value
-     */
-    public function mustBeUuid($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
-    {
-        $this->validationEngine->validateFieldValue(
-            $parentValidator ?: $this,
-            function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::uuid(
-                    $value,
-                    $exceptionMessage,
-                    $propertyPath
-                );
-            }
-        );
-
-        return $value;
-    }
+    use UuidValidatorTrait;
 
     /**
      * Domain should be responsible for id format
