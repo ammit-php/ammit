@@ -1,6 +1,7 @@
 <img src="https://cloud.githubusercontent.com/assets/2279794/21160379/ef90f812-c184-11e6-99da-add0658f2baf.png" align="right" width="230px" height="206px" vspace="20" />
 # Ammit 
 
+[![PHP7](https://img.shields.io/badge/PHP-7-blue.svg)]()
 [![v1.0.0 beta](https://img.shields.io/badge/v1.0.0-beta-orange.svg)]()
 [![v2.0.0 never](https://img.shields.io/badge/v2.0.0-never-red.svg)]()
 [![Build Status](https://travis-ci.com/imediafrance/ammit.svg?token=JcSB2GZng3ssVpoUAxup&branch=master)](https://travis-ci.com/imediafrance/ammit)
