@@ -2,17 +2,27 @@
 # Ammit 
 
 [![PHP7](https://img.shields.io/badge/PHP-7-blue.svg)]()
+[![DDD](https://img.shields.io/badge/DDD-Domain%20Driven%20Design-blue.svg)]()
 [![v1.0.0 beta](https://img.shields.io/badge/v1.0.0-beta-orange.svg)]()
 [![v2.0.0 never](https://img.shields.io/badge/v2.0.0-never-red.svg)]()
+[![SemVer](https://img.shields.io/badge/SemVer-X.Y.Z-brightgreen.svg)](http://semver.org/)
 [![Build Status](https://travis-ci.com/imediafrance/ammit.svg?token=JcSB2GZng3ssVpoUAxup&branch=master)](https://travis-ci.com/imediafrance/ammit)
 [![Code Quality](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
 [![Code Coverage](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
 [![Dependency Status](https://www.versioneye.com/user/projects/58a229448516c700164c1e01/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58a229448516c700164c1e01)
-[![DDD](https://img.shields.io/badge/DDD-Domain%20Driven%20Design-blue.svg)]()
 
 A light, stable and framework agnostic Command resolver library
 
-# Currently being Battle Tested (not yet tagged)
+# Currently being Battle Tested (not yet 1.0.0 tagged)
+
+1. [What the lib does](#what-the-lib-does-)
+2. [How to use it ?](#how-to-use-it-)
+3. [What the lib does not ?](#what-the-lib-does-not-)
+4. [Why ?](#why-)
+5. [How does it work ?](#how-does-it-work-)
+6. [Pragmatic ?](#pragmatic-)
+7. [Want to contribute ?](#want-to-contribute-)
+8. [Ammit ?](#ammit-)
 
 A [Command](http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/) is a simple well named [DTO](http://martinfowler.com/eaaCatalog/dataTransferObject.html) reflecting user **intention**. 
 
