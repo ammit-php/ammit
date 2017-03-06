@@ -3,8 +3,6 @@ declare(strict_types = 1);
 
 namespace Imedia\Ammit\Domain;
 
-use Assert\Assertion;
-
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
@@ -19,9 +17,8 @@ class MailMxValidation
 
     public function isEmailFormatValid(string $emailAddress): bool
     {
-        try {
-            Assertion::email($emailAddress);
-        } catch (\Assert\AssertionFailedException $e) {
+        if (! filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+
             return false;
         }
 
