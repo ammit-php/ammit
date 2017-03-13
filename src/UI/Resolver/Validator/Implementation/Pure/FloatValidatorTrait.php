@@ -3,6 +3,7 @@
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure;
 
 use Assert\Assertion;
+use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
 /**
@@ -10,6 +11,9 @@ use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
  */
 trait FloatValidatorTrait
 {
+    /** @var UIValidationEngine */
+    protected $validationEngine;
+
     /**
      * Exceptions are caught in order to be processed later
      * @param mixed $value Float ?
