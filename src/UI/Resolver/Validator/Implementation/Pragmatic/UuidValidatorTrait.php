@@ -3,6 +3,7 @@
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic;
 
 use Assert\Assertion;
+use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
 /**
@@ -10,6 +11,9 @@ use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
  */
 trait UuidValidatorTrait
 {
+    /** @var UIValidationEngine */
+    protected $validationEngine;
+
     /**
      * Domain should be responsible for id format
      * Exceptions are caught in order to be processed later
