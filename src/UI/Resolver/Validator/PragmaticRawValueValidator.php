@@ -6,6 +6,7 @@ namespace Imedia\Ammit\UI\Resolver\Validator;
 use Assert\Assertion;
 use Assert\InvalidArgumentException;
 use Imedia\Ammit\Domain\MailMxValidation;
+use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\InArrayValidatorTrait;
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\UuidValidatorTrait;
 
 /**
@@ -18,6 +19,7 @@ use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\UuidValidatorTra
 class PragmaticRawValueValidator extends RawValueValidator
 {
     use UuidValidatorTrait;
+    use InArrayValidatorTrait;
 
     /**
      * Domain should be responsible for id format
