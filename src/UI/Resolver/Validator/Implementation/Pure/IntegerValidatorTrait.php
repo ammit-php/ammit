@@ -2,7 +2,7 @@
 
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure;
 
-use Assert\Assertion;
+use Assert\InvalidArgumentException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
@@ -29,10 +29,22 @@ trait IntegerValidatorTrait
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
             function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::integer(
-                    $value,
+                if (is_int($value)) {
+                    return;
+                }
+
+                if (null === $exceptionMessage) {
+                    $exceptionMessage = sprintf(
+                        'The value "%s" is not an integer.',
+                        $value
+                    );
+                }
+
+                throw new InvalidArgumentException(
                     $exceptionMessage,
-                    $propertyPath
+                    0,
+                    $propertyPath,
+                    $value
                 );
             }
         );
