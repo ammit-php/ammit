@@ -28,14 +28,33 @@ class PragmaticRequestAttributeValueValidator extends RequestAttributeValueValid
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
      */
-    public function mustBeUuid(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeUuid(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): string
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
         return $this->rawValueValidator->mustBeUuid(
             $value,
+            $attributeKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Domain should be responsible for legit values
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustBeInArray(ServerRequestInterface $request, array $availableValues, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueValidator->mustBeInArray(
+            $value,
+            $availableValues,
             $attributeKey,
             $this,
             $exceptionMessage

@@ -28,14 +28,33 @@ class PragmaticRequestQueryStringValueValidator extends RequestQueryStringValueV
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
      */
-    public function mustBeUuid(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
+    public function mustBeUuid(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null): string
     {
         $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
 
         return $this->rawValueValidator->mustBeUuid(
             $value,
+            $queryStringKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Domain should be responsible for legit values
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return mixed Untouched value
+     */
+    public function mustBeInArray(ServerRequestInterface $request, array $availableValues, string $queryStringKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
+
+        return $this->rawValueValidator->mustBeInArray(
+            $value,
+            $availableValues,
             $queryStringKey,
             $this,
             $exceptionMessage
