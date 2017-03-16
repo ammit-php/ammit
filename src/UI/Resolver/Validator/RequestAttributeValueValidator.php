@@ -54,9 +54,8 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
      */
-    public function mustBeString(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeString(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): string
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
@@ -72,9 +71,8 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
      */
-    public function mustBeBoolean(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeBoolean(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): bool
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
@@ -90,9 +88,8 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
      */
-    public function mustBeArray(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeArray(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): array
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
@@ -108,9 +105,8 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
      */
-    public function mustBeFloat(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeFloat(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): float
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
@@ -126,9 +122,8 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
      */
-    public function mustBeInteger(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeInteger(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): int
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
@@ -144,9 +139,8 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
      */
-    public function mustBeDate(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeDate(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): \DateTime
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
@@ -162,9 +156,8 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
-     * @return mixed Untouched value
      */
-    public function mustBeDateTime(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    public function mustBeDateTime(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): \DateTime
     {
         $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
 
