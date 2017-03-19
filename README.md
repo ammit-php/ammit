@@ -9,7 +9,7 @@
 [![Build Status](https://travis-ci.com/imediafrance/ammit.svg?token=JcSB2GZng3ssVpoUAxup&branch=master)](https://travis-ci.com/imediafrance/ammit)
 [![Code Quality](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
 [![Code Coverage](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
-[![Dependency Status](https://www.versioneye.com/user/projects/58a229448516c700164c1e01/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58a229448516c700164c1e01)
+[![Dependency Status](https://img.shields.io/badge/dependencies-none-green.svg)](https://www.versioneye.com/user/projects/58a229448516c700164c1e01)
 
 A light, stable and framework agnostic Command resolver library
 
@@ -39,7 +39,7 @@ Consequently it shall be **immutable**.
 
 - It provides a helper to easily **extract** scalar data from a PSR-7 HTTP Request (or a CLI input) in order to instantiate an immutable Command.
 - It allows to implement clean Commands (no public field).
-- It is designed to be a simple **UI Validation** framework based on the stable and [dependency free](https://en.wikipedia.org/wiki/Dependency_hell) [beberlei/assert](https://github.com/beberlei/assert) assertion library.
+- It is designed to be a simple **UI Validation** framework dependency free.
 - It is designed to ease segregating UI validation Vs Domain validation concerns
 
 ------------------
@@ -268,7 +268,7 @@ $email = $attributeValueValidator->mustBeUuid(
 );
 ```
 
-A validation is missing. You can still inject your own based on [beberlei/assert](https://github.com/beberlei/assert) assertion library.
+A validation is missing. You can still inject your own.
 
 
 #### Want to contribute ?
