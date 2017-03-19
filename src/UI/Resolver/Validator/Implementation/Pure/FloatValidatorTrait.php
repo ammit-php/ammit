@@ -35,7 +35,7 @@ trait FloatValidatorTrait
 
                 if (null === $exceptionMessage) {
                     $exceptionMessage = sprintf(
-                        'The value "%s" is not a float.',
+                        'Value "%s" is not a float.',
                         $value
                     );
                 }
