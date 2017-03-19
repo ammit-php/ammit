@@ -73,7 +73,7 @@ class BooleanValidatorTrait extends atoum
     {
         // Given
         $value = 'bad';
-        $propertyPath = 'latitude';
+        $propertyPath = 'isOk';
         $errorMessage = 'Custom Exception message';
 
         $expectedNormalizedExceptions = [
