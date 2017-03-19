@@ -35,7 +35,7 @@ trait IntegerValidatorTrait
 
                 if (null === $exceptionMessage) {
                     $exceptionMessage = sprintf(
-                        'The value "%s" is not an integer.',
+                        'Value "%s" is not an integer.',
                         $value
                     );
                 }

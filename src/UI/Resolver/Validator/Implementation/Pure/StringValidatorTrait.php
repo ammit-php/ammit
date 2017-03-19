@@ -31,7 +31,7 @@ trait StringValidatorTrait
 
                 if (null === $exceptionMessage) {
                     $exceptionMessage = sprintf(
-                        'The value "%s" is not a string.',
+                        'Value "%s" is not a string.',
                         $value
                     );
                 }

@@ -25,22 +25,24 @@ trait InArrayValidatorTrait
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
             function() use ($value, $availableValues, $propertyPath, $exceptionMessage) {
-                if (!in_array($value, $availableValues, true)) {
-                    if (null === $exceptionMessage) {
-                        $exceptionMessage = sprintf(
-                            'The value "%s" is not valid. Available values are "%s".',
-                            $value,
-                            implode('", "', $availableValues)
-                        );
-                    }
+                if (in_array($value, $availableValues, true)) {
+                    return;
+                }
 
-                    throw new InvalidArgumentException(
-                        $exceptionMessage,
-                        0,
-                        $propertyPath,
-                        $value
+                if (null === $exceptionMessage) {
+                    $exceptionMessage = sprintf(
+                        'Value "%s" is not valid. Available values are "%s".',
+                        $value,
+                        implode('", "', $availableValues)
                     );
                 }
+
+                throw new InvalidArgumentException(
+                    $exceptionMessage,
+                    0,
+                    $propertyPath,
+                    $value
+                );
             }
         );
 
