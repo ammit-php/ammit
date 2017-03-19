@@ -18,7 +18,6 @@
     },
     "require": {
         "php": ">=7.0",
-        "beberlei/assert": "^2.4",
         "psr/http-message": "^1.0"
     },
     "require-dev": {
