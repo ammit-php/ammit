@@ -2,7 +2,8 @@
 
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure;
 
-use Assert\Assertion;
+use Assert\InvalidArgumentException;
+use Imedia\Ammit\Domain\BooleanValidation;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
@@ -25,11 +26,23 @@ trait BooleanValidatorTrait
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
             function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::inArray(
-                    $value,
-                    [true, false, 1, 0, '1', '0', 'true', 'false'],
+                $booleanValidation = new BooleanValidation();
+                if ($booleanValidation->isBooleanValid($value)) {
+                    return;
+                }
+
+                if (null === $exceptionMessage) {
+                    $exceptionMessage = sprintf(
+                        'Value "%s" is not a boolean.',
+                        $value
+                    );
+                }
+
+                throw new InvalidArgumentException(
                     $exceptionMessage,
-                    $propertyPath
+                    0,
+                    $propertyPath,
+                    $value
                 );
             }
         );
