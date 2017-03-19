@@ -2,7 +2,7 @@
 
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic;
 
-use Assert\InvalidArgumentException;
+use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 use Imedia\Ammit\Domain\UuidValidation;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;

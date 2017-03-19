@@ -3,10 +3,9 @@ declare(strict_types = 1);
 
 namespace Imedia\Ammit\UI\Resolver\Validator;
 
-use Assert\Assertion;
-use Assert\AssertionFailedException;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
+use Imedia\Ammit\UI\Resolver\ValueExtractor;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -33,16 +32,14 @@ class RequestQueryStringValueValidator implements UIValidatorInterface
      */
     public function extractValueFromRequestQueryString(ServerRequestInterface $request, string $queryStringKey)
     {
+        $valueExtractor = new ValueExtractor();
+
         try {
-            $queryParams = $request->getQueryParams();
-
-            Assertion::isArray($queryParams);
-            Assertion::keyExists($queryParams, $queryStringKey);
-
-            $value = $queryParams[$queryStringKey];
-
-            return $value;
-        } catch (AssertionFailedException $exception) {
+            return $valueExtractor->fromArray(
+                $request->getQueryParams(),
+                $queryStringKey
+            );
+        } catch (InvalidArgumentException $exception) {
             throw CommandMappingException::fromParameter(
                 $exception->getMessage(),
                 $exception->getPropertyPath()

@@ -2,7 +2,8 @@
 
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure;
 
-use Assert\InvalidArgumentException;
+use Imedia\Ammit\UI\Resolver\UIValidationEngine;
+use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 use Imedia\Ammit\Domain\DateValidation;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
@@ -11,6 +12,9 @@ use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
  */
 trait DateValidatorTrait
 {
+    /** @var UIValidationEngine */
+    protected $validationEngine;
+
     /**
      * Exceptions are caught in order to be processed later
      * @param mixed $value Date Y-m-d ?

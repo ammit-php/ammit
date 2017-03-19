@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Units\Imedia\Ammit\Stub;
 
-use Assert\InvalidArgumentException;
+use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 
 /**
  * Creating \Closure directly in an Atoum test is a really bad idea

@@ -2,7 +2,7 @@
 
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure;
 
-use Assert\InvalidArgumentException;
+use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 use Imedia\Ammit\Domain\BooleanValidation;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
