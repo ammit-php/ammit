@@ -2,7 +2,7 @@
 
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure;
 
-use Assert\Assertion;
+use Assert\InvalidArgumentException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
@@ -25,10 +25,22 @@ trait ArrayValidatorTrait
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
             function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::isArray(
-                    $value,
+                if (is_array($value)) {
+                    return;
+                }
+
+                if (null === $exceptionMessage) {
+                    $exceptionMessage = sprintf(
+                        'Value "%s" is not an array.',
+                        $value
+                    );
+                }
+
+                throw new InvalidArgumentException(
                     $exceptionMessage,
-                    $propertyPath
+                    0,
+                    $propertyPath,
+                    $value
                 );
             }
         );
