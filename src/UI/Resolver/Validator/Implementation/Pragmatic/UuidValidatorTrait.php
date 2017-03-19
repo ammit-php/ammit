@@ -2,7 +2,8 @@
 
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic;
 
-use Assert\Assertion;
+use Assert\InvalidArgumentException;
+use Imedia\Ammit\Domain\UuidValidation;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
@@ -30,10 +31,23 @@ trait UuidValidatorTrait
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
             function() use ($value, $propertyPath, $exceptionMessage) {
-                Assertion::uuid(
-                    $value,
+                $uuidValidation = new UuidValidation();
+                if ($uuidValidation->isUuidValid($value)) {
+                    return;
+                }
+
+                if (null === $exceptionMessage) {
+                    $exceptionMessage = sprintf(
+                        'Value "%s" is not a valid UUID.',
+                        $value
+                    );
+                }
+
+                throw new InvalidArgumentException(
                     $exceptionMessage,
-                    $propertyPath
+                    0,
+                    $propertyPath,
+                    $value
                 );
             }
         );
