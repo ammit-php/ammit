@@ -3,9 +3,9 @@ declare(strict_types = 1);
 
 namespace Imedia\Ammit\UI\Resolver;
 
-use Assert\AssertionFailedException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
+use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
 /**
@@ -54,7 +54,7 @@ class UIValidationEngine
     {
         try {
             $validationFunction->call($this);
-        } catch (AssertionFailedException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $this->addUIValidationException(
                 $UIValidator,
                 $exception->getMessage(),

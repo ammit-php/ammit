@@ -2,6 +2,7 @@
 
 namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic;
 
+use Imedia\Ammit\Domain\StringValidation;
 use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
@@ -9,31 +10,34 @@ use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 /**
  * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
-trait InArrayValidatorTrait
+trait StringBetweenLengthValidatorTrait
 {
     /** @var UIValidationEngine */
     protected $validationEngine;
 
     /**
+     * Domain should be responsible for id format
      * Exceptions are caught in order to be processed later
-     * @param mixed $value Array ?
+     * @param mixed $value String ?
      *
-     * @return mixed
+     * @return mixed Untouched value
      */
-    public function mustBeInArray($value, array $availableValues, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    public function mustHaveLengthBetween($value, int $min, int $max, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
     {
         $this->validationEngine->validateFieldValue(
             $parentValidator ?: $this,
-            function() use ($value, $availableValues, $propertyPath, $exceptionMessage) {
-                if (in_array($value, $availableValues, true)) {
+            function() use ($value, $min, $max, $propertyPath, $exceptionMessage) {
+                $stringValidation = new StringValidation();
+                if ($stringValidation->isStringBetweenValid($value, $min, $max)) {
                     return;
                 }
 
                 if (null === $exceptionMessage) {
                     $exceptionMessage = sprintf(
-                        'Value "%s" is not valid. Available values are "%s".',
+                        'Value "%s" must have between %d and %d chars.',
                         $value,
-                        implode('", "', $availableValues)
+                        $min,
+                        $max
                     );
                 }
 
@@ -46,6 +50,10 @@ trait InArrayValidatorTrait
             }
         );
 
-        return $value;
+        if (null === $value || !is_string($value)) {
+            return '';
+        }
+
+        return (string) $value;
     }
 }

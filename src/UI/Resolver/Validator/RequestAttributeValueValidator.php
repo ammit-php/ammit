@@ -3,10 +3,9 @@ declare(strict_types = 1);
 
 namespace Imedia\Ammit\UI\Resolver\Validator;
 
-use Assert\Assertion;
-use Assert\AssertionFailedException;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
+use Imedia\Ammit\UI\Resolver\ValueExtractor;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -33,16 +32,14 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      */
     public function extractValueFromRequestAttribute(ServerRequestInterface $request, string $attributeKey)
     {
+        $valueExtractor = new ValueExtractor();
+
         try {
-            $attributes = $request->getParsedBody();
-
-            Assertion::isArray($attributes);
-            Assertion::keyExists($attributes, $attributeKey);
-
-            $value = $attributes[$attributeKey];
-
-            return $value;
-        } catch (AssertionFailedException $exception) {
+            return $valueExtractor->fromArray(
+                $request->getParsedBody(),
+                $attributeKey
+            );
+        } catch (InvalidArgumentException $exception) {
             throw CommandMappingException::fromAttribute(
                 $exception->getMessage(),
                 $exception->getPropertyPath()
