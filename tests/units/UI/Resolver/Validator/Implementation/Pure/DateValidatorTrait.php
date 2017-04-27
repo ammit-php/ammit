@@ -199,6 +199,39 @@ class DateValidatorTrait extends atoum
         ];
     }
 
+    /**
+     * @dataProvider goodDateTimeOrNullProvider
+     */
+    public function test_it_gets_value_even_if_datetime_or_null($value, $expected)
+    {
+        // Given
+        $uiValidationEngine = UIValidationEngine::initialize();
+        $sut = new SUT($uiValidationEngine);
+
+        // When
+        $actual = $sut->mustBeDateTimeOrEmpty(
+            $value,
+            'birthDate',
+            null,
+            'Custom Exception message'
+        );
+
+        // Then
+        $this
+            ->variable($actual)
+            ->isEqualTo($expected);
+
+        $uiValidationEngine->guardAgainstAnyUIValidationException();
+    }
+
+    protected function goodDateTimeOrNullProvider(): array
+    {
+        return [
+            ['value' => '2016-01-01T00:00:00+00:00', 'expected' => \DateTime::createFromFormat(\DateTime::RFC3339, '2016-01-01T00:00:00+00:00')],
+            ['value' => '', 'expected' => null],
+        ];
+    }
+
     private function throwError()
     {
         throw new \mageekguy\atoum\asserter\exception(

@@ -50,6 +50,7 @@ class RequestAttributeValueValidator extends atoum
             ['mustBeString', 'a', 'a'],
             ['mustBeFloat', 3.14, 3.14],
             ['mustBeDateTime', '2017-01-01T00:00:00+00:00', \DateTime::createFromFormat(\DateTime::RFC3339, '2017-01-01T00:00:00+00:00')],
+            ['mustBeDateTimeOrEmpty', '', null],
         ];
 
         if (count($data) != count(RawValueValidator::getSutMethodNames())) {
