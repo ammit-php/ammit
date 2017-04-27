@@ -40,7 +40,7 @@ script:
     - bin/atoum -ulr
 
     # Check if there is a security issue with the required packages.
-    - bin/security-checker security:check composer.lock
+    - bin/security-checker security:check  --end-point=http://security.sensiolabs.org/check_lock composer.lock
 
 after_failure:
     - ls -lah
