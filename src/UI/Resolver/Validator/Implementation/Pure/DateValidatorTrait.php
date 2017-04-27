@@ -52,6 +52,21 @@ trait DateValidatorTrait
 
     /**
      * Exceptions are caught in order to be processed later
+     * @param mixed $value null|DateTime Y-m-d\TH:i:sP (RFC3339). Ex: 2016-06-01T00:00:00+00:00 or null ?
+     *
+     * @return \DateTime|null
+     */
+    public function mustBeDateTimeOrEmpty($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        return $this->mustBeDateTime($value, $propertyPath, $parentValidator, $exceptionMessage);
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
      * @param mixed $value Date Y-m-d\TH:i:sP (RFC3339). Ex: 2016-06-01T00:00:00+00:00 ?
      *
      * @return \DateTime|false
