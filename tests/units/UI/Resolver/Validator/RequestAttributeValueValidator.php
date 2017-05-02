@@ -51,7 +51,7 @@ class RequestAttributeValueValidator extends atoum
             ['mustBeString', 'a', 'a'],
             ['mustBeStringOrEmpty', '', null],
             ['mustBeFloat', 3.14, 3.14],
-            ['mustBeDateTime', '2017-01-01T00:00:00+00:00', \DateTime::createFromFormat(\DateTime::RFC3339, '2017-01-01T00:00:00+00:00')],
+            ['mustBeDateTime', '2017-01-01T00%3A00%3A00%2B00%3A00', \DateTime::createFromFormat(\DateTime::RFC3339, '2017-01-01T00:00:00+00:00')], // url encoded
             ['mustBeDateTimeOrEmpty', '', null],
         ];
 

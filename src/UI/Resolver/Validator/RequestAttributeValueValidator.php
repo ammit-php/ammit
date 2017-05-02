@@ -35,10 +35,16 @@ class RequestAttributeValueValidator implements UIValidatorInterface
         $valueExtractor = new ValueExtractor();
 
         try {
-            return $valueExtractor->fromArray(
+            $value = $valueExtractor->fromArray(
                 $request->getParsedBody(),
                 $attributeKey
             );
+
+            if (is_string($value)) {
+                $value = urldecode($value);
+            }
+
+            return $value;
         } catch (InvalidArgumentException $exception) {
             throw CommandMappingException::fromAttribute(
                 $exception->getMessage(),
