@@ -49,6 +49,7 @@ class RequestAttributeValueValidator extends atoum
             ['mustBeInteger', 1, 1],
             ['mustBeIntegerOrEmpty', '', null],
             ['mustBeString', 'a', 'a'],
+            ['mustBeStringOrEmpty', '', null],
             ['mustBeFloat', 3.14, 3.14],
             ['mustBeDateTime', '2017-01-01T00:00:00+00:00', \DateTime::createFromFormat(\DateTime::RFC3339, '2017-01-01T00:00:00+00:00')],
             ['mustBeDateTimeOrEmpty', '', null],

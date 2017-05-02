@@ -18,6 +18,21 @@ trait StringValidatorTrait
      * Exceptions are caught in order to be processed later
      * @param mixed $value String ?
      *
+     * @return string|null Casted to string or null
+     */
+    public function mustBeStringOrEmpty($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        return $this->mustBeString($value, $propertyPath, $parentValidator, $exceptionMessage);
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     * @param mixed $value String ?
+     *
      * @return string Casted to string
      */
     public function mustBeString($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): string
