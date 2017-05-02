@@ -18,6 +18,21 @@ trait IntegerValidatorTrait
      * Exceptions are caught in order to be processed later
      * @param mixed $value Integer ?
      *
+     * @return int|null Value casted into int or -1 or null
+     */
+    public function mustBeIntegerOrEmpty($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        if ($value === '') {
+            return null;
+        }
+
+        return $this->mustBeInteger($value, $propertyPath, $parentValidator, $exceptionMessage);
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     * @param mixed $value Integer ?
+     *
      * @return int Value casted into int or -1
      */
     public function mustBeInteger($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): int

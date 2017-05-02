@@ -93,9 +93,9 @@ class PragmaticRequestQueryStringValueValidator extends RequestQueryStringValueV
 
         return $this->rawValueValidator->mustHaveLengthBetween(
             $value,
-            $queryStringKey,
             $min,
             $max,
+            $queryStringKey,
             $this,
             $exceptionMessage
         );
@@ -135,6 +135,24 @@ class PragmaticRequestQueryStringValueValidator extends RequestQueryStringValueV
             $value,
             $pattern,
             $queryStringKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
+     * @return int|null
+     */
+    public function mustBeIntegerOrEmpty(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestQueryString($request, $attributeKey);
+
+        return $this->rawValueValidator->mustBeIntegerOrEmpty(
+            $value,
+            $attributeKey,
             $this,
             $exceptionMessage
         );

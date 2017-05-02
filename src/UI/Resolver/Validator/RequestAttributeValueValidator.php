@@ -136,6 +136,24 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
+     * @return int|null
+     */
+    public function mustBeIntegerOrEmpty(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueValidator->mustBeIntegerOrEmpty(
+            $value,
+            $attributeKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
      */
     public function mustBeDate(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): \DateTime
     {

@@ -136,6 +136,24 @@ class RequestQueryStringValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
+     * @return int|null
+     */
+    public function mustBeIntegerOrEmpty(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
+
+        return $this->rawValueValidator->mustBeIntegerOrEmpty(
+            $value,
+            $queryStringKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
      */
     public function mustBeDate(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null): \DateTime
     {
