@@ -41,7 +41,7 @@ class RequestAttributeValueValidator implements UIValidatorInterface
             );
 
             if (is_string($value)) {
-                $value = urldecode($value);
+                $value = rawurldecode($value);
             }
 
             return $value;
