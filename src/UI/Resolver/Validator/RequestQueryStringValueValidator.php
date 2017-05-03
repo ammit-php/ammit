@@ -103,6 +103,24 @@ class RequestQueryStringValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
+     * @return bool|null
+     */
+    public function mustBeBooleanOrEmpty(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestQueryString($request, $queryStringKey);
+
+        return $this->rawValueValidator->mustBeBooleanOrEmpty(
+            $value,
+            $queryStringKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
      */
     public function mustBeArray(ServerRequestInterface $request, string $queryStringKey, string $exceptionMessage = null): array
     {
