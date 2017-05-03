@@ -19,6 +19,21 @@ trait BooleanValidatorTrait
      * Exceptions are caught in order to be processed later
      * @param mixed $value Boolean ?
      *
+     * @return boolean|null Value casted into boolean or null
+     */
+    public function mustBeBooleanOrEmpty($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null)
+    {
+        if ($value === '') {
+            return null;
+        }
+
+        return $this->mustBeBoolean($value, $propertyPath, $parentValidator, $exceptionMessage);
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     * @param mixed $value Boolean ?
+     *
      * @return boolean Value casted into boolean or false
      */
     public function mustBeBoolean($value, string $propertyPath = null, UIValidatorInterface $parentValidator = null, string $exceptionMessage = null): bool

@@ -109,6 +109,24 @@ class RequestAttributeValueValidator implements UIValidatorInterface
      * Exceptions are caught in order to be processed later
      *
      * @throws CommandMappingException If any mapping validation failed
+     * @return bool|null
+     */
+    public function mustBeBooleanOrEmpty(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null)
+    {
+        $value = $this->extractValueFromRequestAttribute($request, $attributeKey);
+
+        return $this->rawValueValidator->mustBeBooleanOrEmpty(
+            $value,
+            $attributeKey,
+            $this,
+            $exceptionMessage
+        );
+    }
+
+    /**
+     * Exceptions are caught in order to be processed later
+     *
+     * @throws CommandMappingException If any mapping validation failed
      */
     public function mustBeArray(ServerRequestInterface $request, string $attributeKey, string $exceptionMessage = null): array
     {

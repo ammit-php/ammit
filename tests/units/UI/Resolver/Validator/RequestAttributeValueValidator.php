@@ -42,8 +42,9 @@ class RequestAttributeValueValidator extends atoum
 
     protected function validatorMethodDataProvider()
     {
-        $data =  [
+        $data = [
             ['mustBeBoolean', true, true],
+            ['mustBeBooleanOrEmpty', '', null],
             ['mustBeArray', [], []],
             ['mustBeDate', '2016-01-01', \DateTime::createFromFormat('Y-m-d', '2016-01-01')->setTime(0, 0, 0)],
             ['mustBeInteger', 1, 1],
