@@ -10,8 +10,6 @@ use Psr\Http\Message\ServerRequestInterface;
  * @internal Contains Domain Validation assertions (but class won't be removed in next version)
  *   Domain Validation should be done in Domain
  *   Should be used for prototyping project knowing you are accumulating technical debt
- *
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 class PragmaticRequestQueryStringValueValidator extends RequestQueryStringValueValidator
 {

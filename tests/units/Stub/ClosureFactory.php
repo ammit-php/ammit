@@ -8,8 +8,6 @@ use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 /**
  * Creating \Closure directly in an Atoum test is a really bad idea
  * @see $this in \Closure
- *
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 class ClosureFactory
 {

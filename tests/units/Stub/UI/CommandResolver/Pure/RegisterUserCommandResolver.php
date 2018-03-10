@@ -9,7 +9,6 @@ use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
 
 /**
  * Resolve a PSR-7 Request into a RegisterUserCommand (Data Transfer Object)
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 class RegisterUserCommandResolver extends AbstractPureCommandResolver
 {

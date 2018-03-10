@@ -6,9 +6,6 @@ namespace Imedia\Ammit\UI\Resolver;
 use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class ValueExtractor
 {
     /**

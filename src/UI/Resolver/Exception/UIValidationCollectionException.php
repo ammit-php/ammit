@@ -5,8 +5,6 @@ namespace Imedia\Ammit\UI\Resolver\Exception;
 
 /**
  * UI Validation Exception Collection
- *
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 class UIValidationCollectionException extends AbstractNormalizableCommandResolverException
 {

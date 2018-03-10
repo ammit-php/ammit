@@ -8,7 +8,6 @@ use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\AbstractV
 
 /**
  * Allow unit testing Trait
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 class IntegerValidatorStub extends AbstractValidatorStub
 {

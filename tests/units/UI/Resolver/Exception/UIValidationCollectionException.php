@@ -6,9 +6,6 @@ namespace Tests\Units\Imedia\Ammit\UI\Resolver\Exception;
 use mageekguy\atoum;
 use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException as SUT;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class UIValidationCollectionException extends atoum
 {
     public function test_it_cant_be_created_empty()

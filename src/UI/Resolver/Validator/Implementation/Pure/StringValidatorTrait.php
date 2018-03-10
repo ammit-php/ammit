@@ -6,9 +6,6 @@ use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 trait StringValidatorTrait
 {
     /** @var UIValidationEngine */

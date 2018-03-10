@@ -12,8 +12,6 @@ use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\UuidValidatorTra
  * @internal Contains Domain Validation assertions (but class won't be removed in next version)
  *   Domain Validation should be done in Domain
  *   Should be used for prototyping project knowing you are accumulating technical debt
- *
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 class PragmaticRawValueValidator extends RawValueValidator
 {

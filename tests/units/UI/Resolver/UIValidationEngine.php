@@ -9,9 +9,6 @@ use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine as SUT;
 use Tests\Units\Imedia\Ammit\Stub\ClosureFactory;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class UIValidationEngine extends atoum
 {
     public function test_it_can_be_initialized()

@@ -9,9 +9,6 @@ use mageekguy\atoum;
 
 use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator as SUT;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class PragmaticRawValueValidator extends atoum
 {
     public function test_it_gets_value_even_if_string_empty_detected()

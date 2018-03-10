@@ -8,9 +8,6 @@ use mageekguy\atoum;
 use Imedia\Ammit\UI\Resolver\Validator\RequestQueryStringValueValidator as SUT;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class RequestQueryStringValueValidator extends atoum
 {
     /**

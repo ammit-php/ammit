@@ -5,9 +5,6 @@ namespace Imedia\Ammit\UI\Resolver\Exception;
 
 use Imedia\Ammit\UI\Resolver\NormalizableInterface;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 abstract class AbstractNormalizableCommandResolverException extends \InvalidArgumentException implements NormalizableInterface
 {
     const SOURCE_RAW = null;

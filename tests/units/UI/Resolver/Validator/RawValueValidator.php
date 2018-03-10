@@ -8,9 +8,6 @@ use mageekguy\atoum;
 
 use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator as SUT;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class RawValueValidator extends atoum
 {
     public static function getSutMethodNames(): array

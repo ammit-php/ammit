@@ -7,9 +7,6 @@ use Imedia\Ammit\Domain\BooleanValidation;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 trait BooleanValidatorTrait
 {
     /** @var UIValidationEngine */

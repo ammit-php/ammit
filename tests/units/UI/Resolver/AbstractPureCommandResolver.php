@@ -12,9 +12,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
 use Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pure\RegisterUserCommandResolver as SUT;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class AbstractPureCommandResolver extends atoum
 {
     public function test_it_can_be_constructed_without_injection()

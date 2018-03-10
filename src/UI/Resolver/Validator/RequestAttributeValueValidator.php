@@ -8,9 +8,6 @@ use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
 use Imedia\Ammit\UI\Resolver\ValueExtractor;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class RequestAttributeValueValidator implements UIValidatorInterface
 {
     /** @var RawValueValidator */

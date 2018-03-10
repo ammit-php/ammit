@@ -3,9 +3,6 @@ declare(strict_types = 1);
 
 namespace Imedia\Ammit\Domain;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class DateValidation
 {
     const FORMAT_SIMPLE = 'Y-m-d';
