@@ -6,7 +6,7 @@
 [![v1.0.0 beta](https://img.shields.io/badge/v1.0.0-beta-orange.svg)]()
 [![v2.0.0 never](https://img.shields.io/badge/v2.0.0-never-red.svg)]()
 [![SemVer](https://img.shields.io/badge/SemVer-X.Y.Z-brightgreen.svg)](http://semver.org/)
-[![Build Status](https://travis-ci.com/ammit-php/ammit.svg?token=JcSB2GZng3ssVpoUAxup&branch=master)](https://travis-ci.com/ammit-php/ammit)
+[![Build Status](https://travis-ci.org/ammit-php/ammit.svg?token=JcSB2GZng3ssVpoUAxup&branch=master)](https://travis-ci.org/ammit-php/ammit)
 [![Code Quality](https://scrutinizer-ci.com/g/ammit-php/ammit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ammit-php/ammit)
 [![Code Coverage](https://scrutinizer-ci.com/g/ammit-php/ammit/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ammit-php/ammit)
 [![Dependency Status](https://img.shields.io/badge/dependencies-none-green.svg)](https://www.versioneye.com/user/projects/58a229448516c700164c1e01)
