@@ -7,9 +7,6 @@ use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 abstract class AbstractValidatorStub implements UIValidatorInterface
 {
     /** @var UIValidationEngine */

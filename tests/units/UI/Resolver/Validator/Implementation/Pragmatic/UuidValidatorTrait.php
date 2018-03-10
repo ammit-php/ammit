@@ -9,9 +9,6 @@ use mageekguy\atoum;
 
 use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\Pragmatic\UuidValidatorStub as SUT;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class UuidValidatorTrait extends atoum
 {
     /**

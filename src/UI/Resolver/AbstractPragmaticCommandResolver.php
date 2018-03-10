@@ -16,8 +16,6 @@ use Psr\Http\Message\ServerRequestInterface;
  *   Prefer using AbstractPureCommandResolver
  *   Domain Validation should be done in Domain
  *   Should be used for prototyping project knowing you are accumulating technical debt
- *
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 abstract class AbstractPragmaticCommandResolver
 {

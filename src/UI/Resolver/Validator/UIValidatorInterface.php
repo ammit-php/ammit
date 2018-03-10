@@ -13,8 +13,6 @@ use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
  * Example:
  *  - scalar type hinting (bool, int array, etc..)
  *  - DateTime string format so Domain directly takes care of \DateTime object with the right timezone
- *
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 interface UIValidatorInterface
 {

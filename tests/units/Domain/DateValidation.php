@@ -6,9 +6,6 @@ namespace Tests\Units\Imedia\Ammit\Domain;
 use mageekguy\atoum;
 use Imedia\Ammit\Domain\DateValidation as SUT;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class DateValidation extends atoum
 {
     /**

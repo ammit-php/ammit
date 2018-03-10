@@ -7,9 +7,6 @@ use Imedia\Ammit\Domain\UuidValidation;
 use Imedia\Ammit\UI\Resolver\UIValidationEngine;
 use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 trait UuidValidatorTrait
 {
     /** @var UIValidationEngine */

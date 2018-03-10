@@ -6,9 +6,6 @@ namespace Tests\Units\Imedia\Ammit\UI\Resolver\Exception;
 use mageekguy\atoum;
 use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException as SUT;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class CommandMappingException extends atoum
 {
     public function test_it_can_be_normalized_with_property_path()

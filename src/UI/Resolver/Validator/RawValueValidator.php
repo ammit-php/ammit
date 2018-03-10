@@ -12,9 +12,6 @@ use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\IntegerValidatorTrait
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\StringValidatorTrait;
 use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\ArrayValidatorTrait;
 
-/**
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
- */
 class RawValueValidator implements UIValidatorInterface
 {
     use BooleanValidatorTrait;

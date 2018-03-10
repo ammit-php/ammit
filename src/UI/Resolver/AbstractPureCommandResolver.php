@@ -12,8 +12,6 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Helper easing Command Resolver (mapping + UI Validation) implementation
- *
- * @author Guillaume MOREL <g.morel@imediafrance.fr>
  */
 abstract class AbstractPureCommandResolver
 {
