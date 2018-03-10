@@ -1,12 +1,12 @@
 <?php
 declare(strict_types = 1);
 
-namespace Imedia\Ammit\UI\Resolver\Validator;
+namespace AmmitPhp\Ammit\UI\Resolver\Validator;
 
-use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\StringBetweenLengthValidatorTrait;
-use Imedia\Ammit\Domain\MailMxValidation;
-use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\InArrayValidatorTrait;
-use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\UuidValidatorTrait;
+use AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\StringBetweenLengthValidatorTrait;
+use AmmitPhp\Ammit\Domain\MailMxValidation;
+use AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\InArrayValidatorTrait;
+use AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pragmatic\UuidValidatorTrait;
 
 /**
  * @internal Contains Domain Validation assertions (but class won't be removed in next version)

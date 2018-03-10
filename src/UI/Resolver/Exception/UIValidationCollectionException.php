@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Imedia\Ammit\UI\Resolver\Exception;
+namespace AmmitPhp\Ammit\UI\Resolver\Exception;
 
 /**
  * UI Validation Exception Collection

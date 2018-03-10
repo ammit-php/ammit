@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Imedia\Ammit\Domain;
+namespace AmmitPhp\Ammit\Domain;
 
 class DateValidation
 {

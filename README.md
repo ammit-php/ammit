@@ -6,9 +6,9 @@
 [![v1.0.0 beta](https://img.shields.io/badge/v1.0.0-beta-orange.svg)]()
 [![v2.0.0 never](https://img.shields.io/badge/v2.0.0-never-red.svg)]()
 [![SemVer](https://img.shields.io/badge/SemVer-X.Y.Z-brightgreen.svg)](http://semver.org/)
-[![Build Status](https://travis-ci.com/imediafrance/ammit.svg?token=JcSB2GZng3ssVpoUAxup&branch=master)](https://travis-ci.com/imediafrance/ammit)
-[![Code Quality](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
-[![Code Coverage](https://scrutinizer-ci.com/g/imediafrance/ammit/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/imediafrance/ammit)
+[![Build Status](https://travis-ci.com/ammit-php/ammit.svg?token=JcSB2GZng3ssVpoUAxup&branch=master)](https://travis-ci.com/ammit-php/ammit)
+[![Code Quality](https://scrutinizer-ci.com/g/ammit-php/ammit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ammit-php/ammit)
+[![Code Coverage](https://scrutinizer-ci.com/g/ammit-php/ammit/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ammit-php/ammit)
 [![Dependency Status](https://img.shields.io/badge/dependencies-none-green.svg)](https://www.versioneye.com/user/projects/58a229448516c700164c1e01)
 
 A light, stable and framework agnostic Command resolver library
@@ -50,7 +50,7 @@ Consequently it shall be **immutable**.
 
 #### How to use it ?
 
-`composer require imediafrance/ammit`
+`composer require ammit-php/ammit`
 
 Example: 
 
@@ -146,6 +146,7 @@ Use it with Symfony: http://symfony.com/doc/current/request/psr7.html
 
 Use it with Laravel: TBA
 
+
 #### Public API
  
 ##### Pure extending AbstractPureCommandResolver
@@ -234,7 +235,7 @@ Use it with Laravel: TBA
 #### What the lib does not ?
 
 - It is not designed to be a Symfony [Form Component](https://symfony.com/doc/current/components/form.html) replacement.
-- It is not designed to create complex validation. It's aim is to validate simple scalar. Yet it still allows "[pragmatic](https://github.com/imediafrance/ammit#pragmatic-)" complex UI validation for prototyping/RAD.
+- It is not designed to create complex validation. It's aim is to validate simple scalar. Yet it still allows "[pragmatic](https://github.com/ammit-php/ammit#pragmatic-)" complex UI validation for prototyping/RAD.
 - It is not designed to use PHP reflection. It is only meant to use Command constructor.
 
 #### Why ?

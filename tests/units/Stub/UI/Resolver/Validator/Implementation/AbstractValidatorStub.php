@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation;
+namespace Tests\Units\AmmitPhp\Ammit\Stub\UI\Resolver\Validator\Implementation;
 
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
-use Imedia\Ammit\UI\Resolver\UIValidationEngine;
-use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationException;
+use AmmitPhp\Ammit\UI\Resolver\UIValidationEngine;
+use AmmitPhp\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
 abstract class AbstractValidatorStub implements UIValidatorInterface
 {

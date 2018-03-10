@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\UI\Resolver\Validator;
+namespace Tests\Units\AmmitPhp\Ammit\UI\Resolver\Validator;
 
-use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
+use AmmitPhp\Ammit\UI\Resolver\Exception\CommandMappingException;
 use mageekguy\atoum;
-use Imedia\Ammit\UI\Resolver\Validator\RequestQueryStringValueValidator as SUT;
+use AmmitPhp\Ammit\UI\Resolver\Validator\RequestQueryStringValueValidator as SUT;
 use Psr\Http\Message\ServerRequestInterface;
 
 class RequestQueryStringValueValidator extends atoum
@@ -128,12 +128,12 @@ class RequestQueryStringValueValidator extends atoum
         throw new \mageekguy\atoum\asserter\exception($this->variable(), 'CommandMappingException not thrown.');
     }
 
-    private function mockRawValueValidator(): \Imedia\Ammit\UI\Resolver\Validator\RawValueValidator
+    private function mockRawValueValidator(): \AmmitPhp\Ammit\UI\Resolver\Validator\RawValueValidator
     {
         $this->mockGenerator->orphanize('__construct');
-        $mockUiValidationEngineMock = new \mock\Imedia\Ammit\UI\Resolver\UIValidationEngine();
+        $mockUiValidationEngineMock = new \mock\AmmitPhp\Ammit\UI\Resolver\UIValidationEngine();
 
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\RawValueValidator($mockUiValidationEngineMock);
+        $mock = new \mock\AmmitPhp\Ammit\UI\Resolver\Validator\RawValueValidator($mockUiValidationEngineMock);
 
         return $mock;
     }

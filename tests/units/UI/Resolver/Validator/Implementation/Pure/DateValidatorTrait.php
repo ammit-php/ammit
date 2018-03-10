@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure;
+namespace Tests\Units\AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pure;
 
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
-use Imedia\Ammit\UI\Resolver\UIValidationEngine;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use AmmitPhp\Ammit\UI\Resolver\UIValidationEngine;
 use mageekguy\atoum;
 
-use Tests\Units\Imedia\Ammit\Stub\UI\Resolver\Validator\Implementation\Pure\DateValidatorStub as SUT;
+use Tests\Units\AmmitPhp\Ammit\Stub\UI\Resolver\Validator\Implementation\Pure\DateValidatorStub as SUT;
 
 class DateValidatorTrait extends atoum
 {

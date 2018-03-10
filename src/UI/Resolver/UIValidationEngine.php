@@ -1,12 +1,12 @@
 <?php
 declare(strict_types = 1);
 
-namespace Imedia\Ammit\UI\Resolver;
+namespace AmmitPhp\Ammit\UI\Resolver;
 
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
-use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
-use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationException;
+use AmmitPhp\Ammit\UI\Resolver\Validator\InvalidArgumentException;
+use AmmitPhp\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
 class UIValidationEngine
 {

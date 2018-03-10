@@ -1,13 +1,13 @@
 <?php
 declare(strict_types = 1);
 
-namespace Imedia\Ammit\UI\Resolver;
+namespace AmmitPhp\Ammit\UI\Resolver;
 
-use Imedia\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator;
-use Imedia\Ammit\UI\Resolver\Validator\RawValueValidator;
-use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
-use Imedia\Ammit\UI\Resolver\Validator\RequestQueryStringValueValidator;
+use AmmitPhp\Ammit\UI\Resolver\Validator\RequestAttributeValueValidator;
+use AmmitPhp\Ammit\UI\Resolver\Validator\RawValueValidator;
+use AmmitPhp\Ammit\UI\Resolver\Exception\CommandMappingException;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use AmmitPhp\Ammit\UI\Resolver\Validator\RequestQueryStringValueValidator;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**

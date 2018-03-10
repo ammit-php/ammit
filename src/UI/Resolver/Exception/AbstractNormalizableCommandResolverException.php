@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Imedia\Ammit\UI\Resolver\Exception;
+namespace AmmitPhp\Ammit\UI\Resolver\Exception;
 
-use Imedia\Ammit\UI\Resolver\NormalizableInterface;
+use AmmitPhp\Ammit\UI\Resolver\NormalizableInterface;
 
 abstract class AbstractNormalizableCommandResolverException extends \InvalidArgumentException implements NormalizableInterface
 {

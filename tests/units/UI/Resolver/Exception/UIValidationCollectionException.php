@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\UI\Resolver\Exception;
+namespace Tests\Units\AmmitPhp\Ammit\UI\Resolver\Exception;
 
 use mageekguy\atoum;
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException as SUT;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationCollectionException as SUT;
 
 class UIValidationCollectionException extends atoum
 {
@@ -71,10 +71,10 @@ class UIValidationCollectionException extends atoum
         ];
     }
 
-    private function mockUIValidationException(array $normalized): \Imedia\Ammit\UI\Resolver\Exception\UIValidationException
+    private function mockUIValidationException(array $normalized): \AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationException
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Exception\UIValidationException();
+        $mock = new \mock\AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationException();
         $this->calling($mock)->normalize = $normalized;
 
         return $mock;

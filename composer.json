@@ -1,16 +1,16 @@
 {
-    "name": "imediafrance/ammit",
+    "name": "ammit-php/ammit",
     "license": "MIT",
     "type": "project",
     "description": "[DDD] Stable framework agnostic Command resolver ",
     "autoload": {
         "psr-4": {
-            "Imedia\\Ammit\\": "src/"
+            "AmmitPhp\\Ammit\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Units\\Imedia\\Ammit\\": "tests/units/"
+            "Tests\\Units\\AmmitPhp\\Ammit\\": "tests/units/"
         }
     },
     "config": {

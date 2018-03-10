@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\UI\Resolver\Exception;
+namespace Tests\Units\AmmitPhp\Ammit\UI\Resolver\Exception;
 
 use mageekguy\atoum;
-use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException as SUT;
+use AmmitPhp\Ammit\UI\Resolver\Exception\CommandMappingException as SUT;
 
 class CommandMappingException extends atoum
 {

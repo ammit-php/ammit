@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Imedia\Ammit\UI\Resolver;
+namespace AmmitPhp\Ammit\UI\Resolver;
 
 /**
  * Allow to transform this Object into a ready to be serialized Array

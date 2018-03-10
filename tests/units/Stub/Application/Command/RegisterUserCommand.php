@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\Stub\Application\Command;
+namespace Tests\Units\AmmitPhp\Ammit\Stub\Application\Command;
 
 /**
  * This Command is not a Symfony CLI Command but a Command Pattern

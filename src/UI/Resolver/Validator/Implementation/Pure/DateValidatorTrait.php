@@ -1,11 +1,11 @@
 <?php
 
-namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure;
+namespace AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pure;
 
-use Imedia\Ammit\UI\Resolver\UIValidationEngine;
-use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
-use Imedia\Ammit\Domain\DateValidation;
-use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
+use AmmitPhp\Ammit\UI\Resolver\UIValidationEngine;
+use AmmitPhp\Ammit\UI\Resolver\Validator\InvalidArgumentException;
+use AmmitPhp\Ammit\Domain\DateValidation;
+use AmmitPhp\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
 trait DateValidatorTrait
 {
