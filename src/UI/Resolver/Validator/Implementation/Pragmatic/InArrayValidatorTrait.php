@@ -1,10 +1,10 @@
 <?php
 
-namespace Imedia\Ammit\UI\Resolver\Validator\Implementation\Pragmatic;
+namespace AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pragmatic;
 
-use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
-use Imedia\Ammit\UI\Resolver\UIValidationEngine;
-use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
+use AmmitPhp\Ammit\UI\Resolver\Validator\InvalidArgumentException;
+use AmmitPhp\Ammit\UI\Resolver\UIValidationEngine;
+use AmmitPhp\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 
 trait InArrayValidatorTrait
 {

@@ -2,8 +2,8 @@
 declare(strict_types = 1);
 
 
-namespace Imedia\Ammit\UI\Resolver;
-use Imedia\Ammit\UI\Resolver\Validator\InvalidArgumentException;
+namespace AmmitPhp\Ammit\UI\Resolver;
+use AmmitPhp\Ammit\UI\Resolver\Validator\InvalidArgumentException;
 
 
 class ValueExtractor

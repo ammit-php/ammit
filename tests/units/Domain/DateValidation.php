@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\Domain;
+namespace Tests\Units\AmmitPhp\Ammit\Domain;
 
 use mageekguy\atoum;
-use Imedia\Ammit\Domain\DateValidation as SUT;
+use AmmitPhp\Ammit\Domain\DateValidation as SUT;
 
 class DateValidation extends atoum
 {

@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\UI\Resolver;
+namespace Tests\Units\AmmitPhp\Ammit\UI\Resolver;
 
-use Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface;
+use AmmitPhp\Ammit\UI\Resolver\Validator\UIValidatorInterface;
 use mageekguy\atoum;
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
-use Imedia\Ammit\UI\Resolver\UIValidationEngine as SUT;
-use Tests\Units\Imedia\Ammit\Stub\ClosureFactory;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use AmmitPhp\Ammit\UI\Resolver\UIValidationEngine as SUT;
+use Tests\Units\AmmitPhp\Ammit\Stub\ClosureFactory;
 
 class UIValidationEngine extends atoum
 {
@@ -97,11 +97,11 @@ class UIValidationEngine extends atoum
     private function mockUIValidator(): UIValidatorInterface
     {
         $this->mockGenerator->orphanize('__construct');
-        $mockUIValidationException = new \mock\Imedia\Ammit\UI\Resolver\Exception\UIValidationException();
+        $mockUIValidationException = new \mock\AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationException();
         $this->calling($mockUIValidationException)->normalize = ['azerty'];
 
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\UIValidatorInterface();
+        $mock = new \mock\AmmitPhp\Ammit\UI\Resolver\Validator\UIValidatorInterface();
         $this->calling($mock)->createUIValidationException = $mockUIValidationException;
 
         return $mock;

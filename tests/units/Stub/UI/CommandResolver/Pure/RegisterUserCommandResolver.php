@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pure;
+namespace Tests\Units\AmmitPhp\Ammit\Stub\UI\CommandResolver\Pure;
 
-use Imedia\Ammit\UI\Resolver\AbstractPureCommandResolver;
+use AmmitPhp\Ammit\UI\Resolver\AbstractPureCommandResolver;
 use Psr\Http\Message\ServerRequestInterface;
-use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
+use Tests\Units\AmmitPhp\Ammit\Stub\Application\Command\RegisterUserCommand;
 
 /**
  * Resolve a PSR-7 Request into a RegisterUserCommand (Data Transfer Object)

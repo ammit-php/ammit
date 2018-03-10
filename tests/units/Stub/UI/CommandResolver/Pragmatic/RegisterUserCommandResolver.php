@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pragmatic;
+namespace Tests\Units\AmmitPhp\Ammit\Stub\UI\CommandResolver\Pragmatic;
 
-use Imedia\Ammit\UI\Resolver\AbstractPragmaticCommandResolver;
-use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
-use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
+use AmmitPhp\Ammit\UI\Resolver\AbstractPragmaticCommandResolver;
+use AmmitPhp\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
+use AmmitPhp\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
 use Psr\Http\Message\ServerRequestInterface;
-use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
+use Tests\Units\AmmitPhp\Ammit\Stub\Application\Command\RegisterUserCommand;
 
 /**
  * Resolve a PSR-7 Request into a RegisterUserCommand (Data Transfer Object)

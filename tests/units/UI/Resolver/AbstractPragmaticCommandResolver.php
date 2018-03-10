@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\UI\Resolver;
+namespace Tests\Units\AmmitPhp\Ammit\UI\Resolver;
 
-use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
-use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
-use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
-use Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestQueryStringValueValidator;
+use AmmitPhp\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator;
+use AmmitPhp\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator;
+use AmmitPhp\Ammit\UI\Resolver\Exception\CommandMappingException;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use AmmitPhp\Ammit\UI\Resolver\Validator\PragmaticRequestQueryStringValueValidator;
 use mageekguy\atoum;
 use Psr\Http\Message\ServerRequestInterface;
-use Tests\Units\Imedia\Ammit\Stub\Application\Command\RegisterUserCommand;
-use Tests\Units\Imedia\Ammit\Stub\UI\CommandResolver\Pragmatic\RegisterUserCommandResolver as SUT;
+use Tests\Units\AmmitPhp\Ammit\Stub\Application\Command\RegisterUserCommand;
+use Tests\Units\AmmitPhp\Ammit\Stub\UI\CommandResolver\Pragmatic\RegisterUserCommandResolver as SUT;
 
 class AbstractPragmaticCommandResolver extends atoum
 {
@@ -299,9 +299,9 @@ class AbstractPragmaticCommandResolver extends atoum
         return $mock;
     }
 
-    private function mockUIValidationEngine(): \Imedia\Ammit\UI\Resolver\UIValidationEngine
+    private function mockUIValidationEngine(): \AmmitPhp\Ammit\UI\Resolver\UIValidationEngine
     {
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\UIValidationEngine();
+        $mock = new \mock\AmmitPhp\Ammit\UI\Resolver\UIValidationEngine();
         $this->calling($mock)->validateFieldValue = null;
         $this->calling($mock)->guardAgainstAnyUIValidationException = null;
 
@@ -311,7 +311,7 @@ class AbstractPragmaticCommandResolver extends atoum
     private function mockRequestAttributeValueValidator(): PragmaticRequestAttributeValueValidator
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator();
+        $mock = new \mock\AmmitPhp\Ammit\UI\Resolver\Validator\PragmaticRequestAttributeValueValidator();
         $this->calling($mock)->mustBeString =  'azerty';
         $this->calling($mock)->mustBeUuid =  'azerty';
         $this->calling($mock)->createUIValidationException =  'Prefix';
@@ -322,7 +322,7 @@ class AbstractPragmaticCommandResolver extends atoum
     private function mockRequestQueryStringValueValidator(): PragmaticRequestQueryStringValueValidator
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\PragmaticRequestQueryStringValueValidator();
+        $mock = new \mock\AmmitPhp\Ammit\UI\Resolver\Validator\PragmaticRequestQueryStringValueValidator();
         $this->calling($mock)->mustBeString =  'azerty';
         $this->calling($mock)->mustBeUuid =  'azerty';
         $this->calling($mock)->createUIValidationException =  'Prefix';
@@ -333,7 +333,7 @@ class AbstractPragmaticCommandResolver extends atoum
     private function mockRawValueValidator(): PragmaticRawValueValidator
     {
         $this->mockGenerator->orphanize('__construct');
-        $mock = new \mock\Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator();
+        $mock = new \mock\AmmitPhp\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator();
         $this->calling($mock)->mustBeString = function ($value) { return $value; };
         $this->calling($mock)->mustBeUuid = function ($value) { return $value; };
 

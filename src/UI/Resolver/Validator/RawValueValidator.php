@@ -1,16 +1,16 @@
 <?php
 declare(strict_types = 1);
 
-namespace Imedia\Ammit\UI\Resolver\Validator;
+namespace AmmitPhp\Ammit\UI\Resolver\Validator;
 
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
-use Imedia\Ammit\UI\Resolver\UIValidationEngine;
-use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\BooleanValidatorTrait;
-use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\DateValidatorTrait;
-use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\FloatValidatorTrait;
-use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\IntegerValidatorTrait;
-use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\StringValidatorTrait;
-use Imedia\Ammit\UI\Resolver\Validator\Implementation\Pure\ArrayValidatorTrait;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationException;
+use AmmitPhp\Ammit\UI\Resolver\UIValidationEngine;
+use AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pure\BooleanValidatorTrait;
+use AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pure\DateValidatorTrait;
+use AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pure\FloatValidatorTrait;
+use AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pure\IntegerValidatorTrait;
+use AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pure\StringValidatorTrait;
+use AmmitPhp\Ammit\UI\Resolver\Validator\Implementation\Pure\ArrayValidatorTrait;
 
 class RawValueValidator implements UIValidatorInterface
 {

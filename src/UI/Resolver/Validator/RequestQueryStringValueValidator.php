@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
 
-namespace Imedia\Ammit\UI\Resolver\Validator;
+namespace AmmitPhp\Ammit\UI\Resolver\Validator;
 
-use Imedia\Ammit\UI\Resolver\Exception\CommandMappingException;
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationException;
-use Imedia\Ammit\UI\Resolver\ValueExtractor;
+use AmmitPhp\Ammit\UI\Resolver\Exception\CommandMappingException;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationException;
+use AmmitPhp\Ammit\UI\Resolver\ValueExtractor;
 use Psr\Http\Message\ServerRequestInterface;
 
 class RequestQueryStringValueValidator implements UIValidatorInterface

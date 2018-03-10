@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Units\Imedia\Ammit\UI\Resolver\Validator;
+namespace Tests\Units\AmmitPhp\Ammit\UI\Resolver\Validator;
 
-use Imedia\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
-use Imedia\Ammit\UI\Resolver\UIValidationEngine;
+use AmmitPhp\Ammit\UI\Resolver\Exception\UIValidationCollectionException;
+use AmmitPhp\Ammit\UI\Resolver\UIValidationEngine;
 use mageekguy\atoum;
 
-use Imedia\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator as SUT;
+use AmmitPhp\Ammit\UI\Resolver\Validator\PragmaticRawValueValidator as SUT;
 
 class PragmaticRawValueValidator extends atoum
 {
