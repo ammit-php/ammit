@@ -5,3 +5,5 @@ bin/*
 vendor/*
 
 atoum.coverage.xml
+
+.idea/
